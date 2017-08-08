@@ -2,7 +2,7 @@
 <nav class="nav">
     <transition name="nav" appear appear-class="nav-appear">
         <ul>
-            <router-link v-for="{to, text, name}, i in this.links"
+            <router-link v-for="({to, text, name}, i) in this.links"
                 class="nav-link"
                 :style="{animationDelay: `${i*0.3 + 2}s`}"
                 tag="li"
@@ -38,6 +38,7 @@ export default {
         }
     },
     mounted() {
+        this.setPointerStyle()
         window.addEventListener('resize', this.setPointerStyle);
     },
     beforeDestroy() {

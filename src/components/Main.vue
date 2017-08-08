@@ -1,12 +1,12 @@
 <template>
     <section class="page-main">
         <h1 class="heading">
-            <span v-for="{ l, style } in heading" key="l" :style="style">{{ l }}</span>
+            <span v-for="{ l, style } in heading" :key="l" :style="style">{{ l }}</span>
         </h1>
         <p class="desc">
             <b>{{ adj }}</b> frontend developer</p>
         <div class="social">
-            <a v-for="{href, svg}, i in links" :href="href" rel="noopener" target="_blank" class="link">
+            <a v-for="({href, svg}, i) in links" :key="i" :href="href" rel="noopener" target="_blank" class="link">
                 <component :is="svg" />
             </a>
         </div>
