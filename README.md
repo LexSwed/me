@@ -1,21 +1,13 @@
-# lexswed
+![Logo of the project](./static/img/icons/apple-touch-icon-180x180.png)
 
-> About Lex Swed
+# Name of the project
+This page is built using latest technologies for studying purposes. As result - page about me with all actual information.
 
-## Build Setup
+### Built With
+VueJS 2.x, CSS custom rules, vue-router, scss
 
-``` bash
-# install dependencies
-npm install
+## Style guide
+There will be some style guide. But later...
 
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Licensing
+MIT
