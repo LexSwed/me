@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import throttle from "lodash/throttle"
+import debounce from "lodash/debounce"
 import AboutWho from "./AboutWho"
 import AboutExp from "./AboutExp"
 import AboutEdu from "./AboutEdu"
@@ -37,10 +37,10 @@ export default {
 		'about-edu': AboutEdu
 	},
 	methods: {
-		changePerspective(e) {
+		changePerspective: debounce(function(e) {
 			this.x = e.clientX / 8;
 			this.y = e.clientY / 4;
-		}
+		}, 50)
 	}
 }
 </script>
@@ -80,6 +80,7 @@ export default {
 		z-index: 100;
 		padding: 20px 0;
 		margin-left: 20px;
+		contain: style;
 		backface-visibility: hidden;
 		transition: perspective-origin 0.2s linear;
 		&:hover {
