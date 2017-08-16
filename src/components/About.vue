@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import debounce from "lodash/debounce"
 import AboutWho from "./AboutWho"
 import AboutExp from "./AboutExp"
 import AboutEdu from "./AboutEdu"
@@ -37,10 +36,10 @@ export default {
 		'about-edu': AboutEdu
 	},
 	methods: {
-		changePerspective: debounce(function(e) {
+		changePerspective(e) {
 			this.x = e.clientX / 8;
 			this.y = e.clientY / 4;
-		}, 50)
+		}
 	}
 }
 </script>
@@ -48,7 +47,7 @@ export default {
 <style lang="scss">
 .about {
 	color: var(--text-color);
-    min-height: 600px;
+	min-height: 600px;
 	padding: 0 20px;
 	&-enter {
 		opacity: 0;
@@ -120,8 +119,11 @@ export default {
 		}
 	}
 	&-info {
-		position: absolute; top: 15%; left: 50%;
-		width: auto; display: inline-block;
+		position: absolute;
+		top: 15%;
+		left: 50%;
+		width: auto;
+		display: inline-block;
 		transform: translateX(-15px);
 		transition: transform 1.6s ease-out, opacity 0.4s;
 		p {
@@ -130,12 +132,13 @@ export default {
 		}
 	}
 }
+
 .about-block {
-    padding: 20px 20px 10px;
-    background-color: var(--main);
-    border-radius: var(--b-r);
-    box-shadow: var(--block-shadow);
-    margin-bottom: 20px;
+	padding: 20px 20px 10px;
+	background-color: var(--main);
+	border-radius: var(--b-r);
+	box-shadow: var(--block-shadow);
+	margin-bottom: 20px;
 }
 
 @media screen and (max-width: 600px) {
@@ -153,10 +156,12 @@ export default {
 			}
 		}
 		.about-info {
-			top: 0; left: 0;
+			top: 0;
+			left: 0;
 			padding: 0.5rem;
-			transform: translate3d(0,0,0);
-			h5, p {
+			transform: translate3d(0, 0, 0);
+			h5,
+			p {
 				white-space: normal;
 			}
 		}
