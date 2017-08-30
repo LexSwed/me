@@ -2,7 +2,7 @@
 	<section class="about">
 		<div class="about-main" @mousemove="changePerspective" @mouseleave="() => {this.x = 50; this.y = 50}" :style="{perspectiveOrigin: `${x}% ${y}%`}">
 			<div class="about-img">
-				<img src="../assets/1.jpg" />
+				<img src="../assets/1.jpg" rel="preload" />
 			</div>
 			<div class="about-info">
 				<h2>Oleksandr Shvechykov</h2>
