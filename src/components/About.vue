@@ -50,7 +50,7 @@ export default {
 		},
 		mobileChangePerspective(e) {
 			const { beta: x, gamma: y } = e;
-			this.x = x; this.y = y;
+			this.x = x * 100; this.y = y * 100;
 		}
 	}
 }
@@ -161,9 +161,9 @@ export default {
 			pointer-events: none;
 			margin: 0;
 		}
-		/* 
+
 		.about-img {
-			transform: translate3d(0, -10px, 0);
+			transform: translate3d(0, -10px, -20px);
 			img {
 				filter: var(--about-img-filter);
 			}
@@ -172,12 +172,12 @@ export default {
 			top: 0;
 			left: 0;
 			padding: 0.5rem;
-			transform: translate3d(0, 0, 0);
+			transform: translate3d(0, 0, 10px);
 			h5,
 			p {
 				white-space: normal;
 			}
-		} */
+		}
 	}
 }
 </style>
