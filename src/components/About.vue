@@ -1,6 +1,6 @@
 <template>
 	<section class="about">
-		<div class="about-main" @deviceorientation="mobileChangePerspective" @mousemove="changePerspective" @mouseleave="() => {this.x = 50; this.y = 50}" :style="{perspectiveOrigin: `${x}% ${y}%`}">
+		<div class="about-main" @mousemove="changePerspective" @mouseleave="() => {this.x = 50; this.y = 50}" :style="{perspectiveOrigin: `${x}% ${y}%`}">
 			<div class="about-img">
 				<img src="../assets/1.jpg" rel="preload" />
 			</div>
@@ -36,6 +36,12 @@ export default {
 		'about-who': AboutWho,
 		'about-exp': AboutExp,
 		'about-edu': AboutEdu
+	},
+	mounted() {
+		window.addEventListener('deviceorientation', this.mobileChangePerspective);
+	},
+	beforeDestroy() {
+		window.removeEventListener('deviceorientation', this.mobileChangePerspective)
 	},
 	methods: {
 		changePerspective(e) {
@@ -155,6 +161,7 @@ export default {
 			pointer-events: none;
 			margin: 0;
 		}
+		/* 
 		.about-img {
 			transform: translate3d(0, -10px, 0);
 			img {
@@ -170,7 +177,7 @@ export default {
 			p {
 				white-space: normal;
 			}
-		}
+		} */
 	}
 }
 </style>
