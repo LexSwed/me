@@ -8,8 +8,6 @@
 				<h2>Oleksandr Shvechykov</h2>
 				<h5>Front-end Developer, Web UI/UX Designer</h5>
 				<p>@lexswed</p>
-				<p>{{ this.x }}</p>
-				<p>{{ this.y }}</p>
 			</div>
 		</div>
 		<about-who />
@@ -50,7 +48,7 @@ export default {
 		},
 		mobileChangePerspective(e) {
 			const { gamma: x, beta: y } = e;
-			this.x = -x * 5; this.y = y * 8 - 470;
+			this.x = x * 4; this.y = y * 8 - 470;
 		}
 	}
 }
