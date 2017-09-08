@@ -50,7 +50,7 @@ export default {
 		},
 		mobileChangePerspective(e) {
 			const { beta: x, gamma: y } = e;
-			this.x = x * 100; this.y = y * 100;
+			this.x = x * 10; this.y = y * 10;
 		}
 	}
 }
