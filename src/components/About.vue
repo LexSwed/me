@@ -49,8 +49,8 @@ export default {
 			this.y = e.clientY / 4;
 		},
 		mobileChangePerspective(e) {
-			const { beta: y, gamma: x } = e;
-			this.x = -x * 3; this.y = y * 3;
+			const { alpha: y, gamma: x } = e;
+			this.x = -x * 4; this.y = y * 4;
 		}
 	}
 }
