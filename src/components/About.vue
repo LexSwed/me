@@ -163,12 +163,14 @@ export default {
 		}
 
 		.about-img {
-			transform: translate3d(0, -10px, -20px);
+			transform: translate3d(8px, 0px, -16px);
 			&:hover {
 				transition: none;
 			}
 			img {
+				width: 100%;
 				filter: var(--about-img-filter);
+				clip-path: none;
 				&:hover {
 					transition: none;
 				}
@@ -178,9 +180,15 @@ export default {
 			top: 0;
 			left: 0;
 			padding: 0.5rem;
-			transform: translate3d(0, 0, 10px);
+			transform: translate3d(0, 0, 5px);
 			&:hover {
 				transition: none;
+			}
+			h2 {
+				font-size: 3.5rem;
+			}
+			h5 {
+				font-size: 2.2rem;
 			}
 			h5,
 			p {
