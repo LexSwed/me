@@ -50,7 +50,7 @@ export default {
 		},
 		mobileChangePerspective(e) {
 			const { beta: y, gamma: x } = e;
-			this.x = -x * 3 - 400; this.y = y * 3;
+			this.x = -x * 3 + 380; this.y = y * 3;
 		}
 	}
 }
@@ -164,8 +164,14 @@ export default {
 
 		.about-img {
 			transform: translate3d(0, -10px, -20px);
+			&:hover {
+				transition: none;
+			}
 			img {
 				filter: var(--about-img-filter);
+				&:hover {
+					transition: none;
+				}
 			}
 		}
 		.about-info {
@@ -173,6 +179,9 @@ export default {
 			left: 0;
 			padding: 0.5rem;
 			transform: translate3d(0, 0, 10px);
+			&:hover {
+				transition: none;
+			}
 			h5,
 			p {
 				white-space: normal;
