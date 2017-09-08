@@ -1,6 +1,6 @@
 <template>
 	<section class="about">
-		<div class="about-main" @mousemove="changePerspective" @mouseleave="() => {this.x = 50; this.y = 50}" :style="{perspectiveOrigin: `${x}% ${y}%`}">
+		<div class="about-main" @deviceorientation="mobileChangePerspective" @mousemove="changePerspective" @mouseleave="() => {this.x = 50; this.y = 50}" :style="{perspectiveOrigin: `${x}% ${y}%`}">
 			<div class="about-img">
 				<img src="../assets/1.jpg" rel="preload" />
 			</div>
@@ -8,6 +8,8 @@
 				<h2>Oleksandr Shvechykov</h2>
 				<h5>Front-end Developer, Web UI/UX Designer</h5>
 				<p>@lexswed</p>
+				<p>{{ this.x }}</p>
+				<p>{{ this.y }}</p>
 			</div>
 		</div>
 		<about-who />
@@ -39,6 +41,10 @@ export default {
 		changePerspective(e) {
 			this.x = e.clientX / 8;
 			this.y = e.clientY / 4;
+		},
+		mobileChangePerspective(e) {
+			const { beta: x, gamma: y } = e;
+			this.x = x; this.y = y;
 		}
 	}
 }
