@@ -7,7 +7,7 @@
 			<div class="about-info">
 				<h2>Oleksandr Shvechykov</h2>
 				<h5>Front-end Developer, Web UI/UX Designer</h5>
-				<p>@lexswed gamma: {{ this.x }} beta: {{ this.y }} </p>
+				<p>@lexswed</p>
 			</div>
 		</div>
 		<about-who />
@@ -48,8 +48,10 @@ export default {
 		},
 		mobileChangePerspective(e) {
 			let { gamma: x, beta: y } = e;
-			x = x * 4;
-			this.x = x > 150 ? 150 : x < -150 ? -150 : x; this.y = y * 6 - 190;
+			x = x * 4 + 50;
+			y = y * 7 - 340;
+			this.x = x > 150 ? 150 : x < -150 ? -150 : x;
+			this.y = y > 150 ? 150 : y < -150 ? -150 : y;
 		}
 	}
 }
@@ -155,6 +157,7 @@ export default {
 @media screen and (max-width: 600px) {
 	.about {
 		padding: 0 1rem;
+		perspective: 2000px;
 		.about-main {
 			padding: 0;
 			pointer-events: none;
@@ -163,7 +166,7 @@ export default {
 
 		.about-img {
 			height: auto;
-			transform: translate3d(10px, 0, -20px);
+			transform: translate3d(0, -10px, -30px);
 			&:hover {
 				transition: none;
 			}
@@ -180,7 +183,7 @@ export default {
 			top: 0;
 			left: 0;
 			padding: 0.5rem;
-			transform: translate3d(0, 0, -10px);
+			transform: translate3d(0, 0, -5px);
 			&:hover {
 				transition: none;
 			}
