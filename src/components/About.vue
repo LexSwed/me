@@ -166,6 +166,7 @@ export default {
 
 		.about-img {
 			height: auto;
+			transition: all 1s;
 			transform: translate3d(0, -10px, -30px);
 			&:hover {
 				transition: none;
@@ -183,6 +184,7 @@ export default {
 			top: 0;
 			left: 0;
 			padding: 0.5rem;
+			transition: all 1s;
 			transform: translate3d(0, 0, -5px);
 			&:hover {
 				transition: none;
