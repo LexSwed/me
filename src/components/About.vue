@@ -167,7 +167,7 @@ export default {
 		.about-img {
 			height: auto;
 			transition: all 1s;
-			transform: translate3d(0, -10px, -30px);
+			transform: translate3d(0, -10px, -40px);
 			&:hover {
 				transition: none;
 			}
@@ -185,7 +185,7 @@ export default {
 			left: 0;
 			padding: 0.5rem;
 			transition: all 1s;
-			transform: translate3d(0, 0, -5px);
+			transform: translate3d(0, 0, 10px);
 			&:hover {
 				transition: none;
 			}

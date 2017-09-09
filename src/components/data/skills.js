@@ -1,41 +1,47 @@
 let techs = [
     {
-        title: 'npm',
-        url: 'https://www.npmjs.com/'
+        title: "npm",
+        url: "https://www.npmjs.com/"
     },
     {
-        title: 'Pug',
-        url: 'https://pugjs.org'
+        title: "Pug",
+        url: "https://pugjs.org"
     },
     {
-        title: 'SCSS',
-        url: 'http://sass-lang.com/'
+        title: "SCSS",
+        url: "http://sass-lang.com/"
     },
     {
-        title: 'Gulp',
-        url: 'http://gulpjs.com/'
+        title: "Gulp",
+        url: "http://gulpjs.com/"
     },
     {
-        title: 'jQuery',
+        title: "jQuery",
         url: '"https://jquery.com/'
     },
     {
-        title: 'Bootstrap',
-        url: 'http://getbootstrap.com/'
+        title: "Bootstrap",
+        url: "http://getbootstrap.com/"
     },
     {
-        title: 'Materialize CSS',
-        url: 'http://materializecss.com/'
+        title: "Materialize CSS",
+        url: "http://materializecss.com/"
     }
-].map(({ title, url }) => `<a href="${url}" target="_blank" rel="noopener">${title}</a>`).join(', ')
+]
+    .map(
+        ({ title, url }) =>
+            `<a href="${url}" target="_blank" rel="noopener">${title}</a>`
+    )
+    .join(", ");
 export const whoDescription = [
     {
         title: "Web designer",
-        short: "Responsible for creating awesome web pages based on drawn design templates",
-        content: `I wrote a lot of HTML, CSS and jQuery for web sites, the latest of which were designed by myself.
+        short:
+            "Responsible for creating awesome web pages based on drawn design templates",
+        content: `I wrote a lot of HTML, CSS and jQuery for web sites, some of which were designed by myself.
                 While creating design for a new feature, I always keep in mind all the sides:
-                how I will implement it, how user will iteract with it and how this will look like.
-                To implement all the ideas I had and to know what I can do, I used different technologies, includes ${techs}`,
+                how it could be implemented it, how user will iteract with it and general impression.
+                To implement all ideas I have, I've been using different technologies, includes ${techs}`,
         img: "web-design"
     },
     {
