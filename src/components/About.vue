@@ -49,7 +49,7 @@ export default {
 		mobileChangePerspective(e) {
 			let { gamma: x, beta: y } = e;
 			x = x * 4;
-			this.x = x > 150 ? 150 : x < -150 ? -150 : x; this.y = y * 6 - 350;
+			this.x = x > 150 ? 150 : x < -150 ? -150 : x; this.y = y * 6 - 190;
 		}
 	}
 }
@@ -163,7 +163,7 @@ export default {
 
 		.about-img {
 			height: auto;
-			transform: none;
+			transform: translate3d(10px, 0, -20px);
 			&:hover {
 				transition: none;
 			}
