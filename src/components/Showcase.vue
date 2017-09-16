@@ -1,16 +1,18 @@
 <template>
-<section class="showcase">
-    <div class="card-empty">
-        <video autoplay loop>
-            <source :src="hz" type="video/webm">
-        </video>
-        <h2>Nothing to show yet</h2>
-        <div class="card-promise">But you can still check my <a href="https://github.com/LexSwed" target="_blank">GitHub account
-        </a> to see some old code or even <a href="https://github.com/LexSwed/Me/blob/master/src/components/Showcase.vue" target="_blank">this page</a>.
+    <section class="showcase">
+        <div class="card-empty">
+            <video autoplay loop>
+                <source :src="hz" type="video/webm">
+            </video>
+            <h2>Nothing to show yet</h2>
+            <div class="card-promise">But you can still check my
+                <a href="https://github.com/LexSwed" target="_blank">GitHub account
+                </a> to see some old code or even
+                <a href="https://github.com/LexSwed/Me/blob/master/src/components/Showcase.vue" target="_blank">this page</a>.
+            </div>
         </div>
-    </div>
-    <component :is="tumbleweed" class="tumbleweed" />
-</section>
+        <component :is="tumbleweed" class="tumbleweed" />
+    </section>
 </template>
 
 <script>
@@ -43,9 +45,11 @@ export default {
     }
     h2 {
         position: absolute;
-        top: 2rem; left: 3rem;
+        top: 2rem;
+        left: 3rem;
     }
 }
+
 .card-promise {
     width: 80%;
     padding: 20px;
@@ -53,18 +57,22 @@ export default {
     border-radius: var(--b-r);
     transform: translateY(2rem);
     background-color: var(--main);
-    position: absolute; bottom: 0; left: 10%;
+    position: absolute;
+    bottom: 0;
+    left: 10%;
     a {
         color: var(--text-color);
     }
 }
+
 .tumbleweed {
     width: 100px;
     height: 100px;
-    position: fixed;
+    position: absolute;
     will-change: bottom, left, transform;
     animation: jumping 1.5s infinite, rolling 8s linear infinite, rotating reverse 1s linear infinite;
 }
+
 .showcase {
     &-enter {
         transform: translateY(100px);
@@ -73,13 +81,14 @@ export default {
             transform: translateY(300px);
         }
     }
-	&-enter-active {
-		transition: transform 1s ease, opacity 0.4s;
+    &-enter-active {
+        transition: transform 1s ease, opacity 0.4s;
         .card-promise {
             transition: transform 1s;
         }
-	}
+    }
 }
+
 @media screen and (max-width: 600px) {
     .card-empty {
         width: 98%;
@@ -92,35 +101,36 @@ export default {
         bottom: auto;
     }
 }
+
 @keyframes jumping {
     0% {
-        bottom: -100px;
+        bottom: -60px;
         animation-timing-function: ease-in;
     }
     25% {
-        bottom: -120px;
+        bottom: -80px;
         animation-timing-function: ease-out;
     }
     50% {
-        bottom: -110px;
+        bottom: -70px;
         animation-timing-function: ease-in;
     }
     75% {
-        bottom: -130px;
+        bottom: -90px;
         animation-timing-function: ease-out;
     }
     100% {
-        bottom: -100px;
+        bottom: -60px;
         animation-timing-function: ease-in;
     }
 }
 
 @keyframes rolling {
     0% {
-        left: calc(100% + 500px);
+        left: calc(100% + 100px);
     }
     100% {
-        left: -500px;
+        left: -100px;
     }
 }
 
@@ -132,5 +142,4 @@ export default {
         transform: rotate(360deg);
     }
 }
-
 </style>
