@@ -47,11 +47,13 @@ export default {
 			this.y = e.clientY / 4;
 		},
 		mobileChangePerspective(e) {
-			let { gamma: x, beta: y } = e;
-			x = x * 4 + 50;
-			y = y * 7 - 340;
-			this.x = x > 150 ? 150 : x < -150 ? -150 : x;
-			this.y = y > 150 ? 150 : y < -150 ? -150 : y;
+			if (window.matchMedia('(max-device-width: 500px)').matches) {
+				let { gamma: x, beta: y } = e;
+				x = x * 4 + 50;
+				y = y * 7 - 340;
+				this.x = x > 150 ? 150 : x < -150 ? -150 : x;
+				this.y = y > 150 ? 150 : y < -150 ? -150 : y;
+			}
 		}
 	}
 }
