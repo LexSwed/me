@@ -90,28 +90,31 @@ export default {
         height: 50px;
         margin: 0 5px;
         padding: 5px;
-        transition: backdrop-filter 0.5s, background-color 0.3s, opacity 0.3s;
-        opacity: 0.8;
-        backdrop-filter: blur(4px);
+        transition: backdrop-filter 0.5s, background-color 0.3s;
         &:hover {
-            opacity: 1;
             background-color: var(--nav-link-hover-bg, transparent);
+            a {
+                opacity: 1;
+            }
         }
         a {
             display: block;
             width: 100%;
             height: 100%;
-            transition: color 0.3s;
+            transition: color 0.3s, opacity 0.3s;
+            opacity: 0.8;
             color: var(--text-color);
             text-align: center;
             text-decoration: none;
+            font-weight: 500;
             font-size: 18px;
             line-height: 38px;
             padding: 0 10px;
+            backface-visibility: hidden;
         }
         &.router-link-exact-active {
-            opacity: 1;
             a {
+                opacity: 1;
                 color: var(--accent);
             }
         }
@@ -155,6 +158,7 @@ export default {
         bottom: 0;
         width: 100%;
         background-color: var(--bg);
+        backdrop-filter: blur(4px);
         .pointer {
             bottom: auto;
             top: 0;

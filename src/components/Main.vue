@@ -4,7 +4,7 @@
             <span v-for="({ l, style }, i) in heading" :key="i" :style="style">{{ l }}</span>
         </h1>
         <p class="desc">
-            <b>{{ adj }}</b> frontend developer</p>
+            <b>{{ adj }}</b> software engineer</p>
         <div class="social">
             <a v-for="({href, svg}, i) in $options.links" :key="i" :href="href" rel="noopener" target="_blank" class="link">
                 <component :is="svg" />
@@ -105,73 +105,8 @@ export default {
         position: relative;
     }
 }
-
-.main-enter-active {
-    transition: opacity 0.8s;
-    .heading,
-    .social,
-    .desc {
-        transition: transform 1s, opacity 0.6s;
-    }
-}
-.main-enter {
-    .heading {
-        transform: translateY(-30px);
-    }
-    .desc {
-        opacity: 0;
-    }
-    .social {
-        transform: translateY(40px);
-    }
-}
-
-.about-leave-active,
-.showcase-leave-active,
-.main-leave-active {
-    transition: transform 0.5s, opacity 0.5s;
-    .heading,
-    .social,
-    .card-empty,
-    .card-promise {
-        transition: transform 0.4s;
-    }
-    &.about {
-        transition: opacity 0.8s;
-    }
-    .about-main,
-    .about-main ~ * {
-        transition: opacity 0.6s, transform 1s;
-    }
-}
-
-.showcase-leave-to,
-.about-leave-to,
-.main-leave-to {
-    opacity: 0;
-    .heading {
-        transform: translateY(-30px);
-    }
-    .social {
-        transform: translateY(40px);
-    }
-    .card-empty {
-        transform: translateY(-100px);
-    }
-    .card-promise {
-        transform: translateY(200px);
-    }
-    .about-main {
-        opacity: 0;
-        transform: translate3d(0, -350px, -100px);
-        & ~ * {
-            opacity: 0;
-            transform: translateY(150px);
-        }
-    }
-}
 .heading {
-    font-size: 7rem;
+    font-size: 80px;
     margin: 10% 4rem 0 0;
     text-align: right;
     transition: color 0.4s;
@@ -179,16 +114,15 @@ export default {
     font-family: "Dosis", sans-serif;
     > span {
         opacity: 0;
-        animation: fadeIn 3s forwards;
+        animation: fade 3s forwards;
     }
 }
 
 .desc {
-    font-size: 3rem;
+    font-size: 30px;
     text-align: right;
     padding: 0;
-    margin: 0 4rem 0 0;
-    margin-top: 1rem;
+    margin: 10px 40px 0 0;
     color: var(--text-color);
 }
 
@@ -220,12 +154,45 @@ export default {
     transition: fill 0.4s;
 }
 
-@keyframes fadeIn {
-    from {
+.main-enter-active {
+    transition: opacity 0.8s;
+    .heading,
+    .desc {
+        transition: transform 0.8s, opacity 0.6s;
+    }
+    .social {
+        transition: transform 1s, opacity 0.5s;
+    }
+}
+.main-enter {
+    .heading {
+        transform: translateY(-20px);
+    }
+    .desc {
         opacity: 0;
     }
-    to {
-        opacity: 1;
+    .social {
+        transform: translateY(40px);
+    }
+}
+
+.showcase-leave-active,
+.main-leave-active {
+    transition: transform 0.5s, opacity 0.5s;
+    .heading,
+    .social {
+        transition: transform 0.4s;
+    }
+}
+
+.showcase-leave-to,
+.main-leave-to {
+    opacity: 0;
+    .heading {
+        transform: translateY(-20px);
+    }
+    .social {
+        transform: translateY(40px);
     }
 }
 
@@ -235,10 +202,10 @@ export default {
         margin-right: 5px;
     }
     .heading {
-        font-size: 5rem;
+        font-size: 40px;
     }
     .desc {
-        font-size: 2.4rem;
+        font-size: 24px;
     }
 }
 

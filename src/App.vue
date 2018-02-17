@@ -1,8 +1,8 @@
 <template>
-    <main id="app" :style="{backgroundColor: `var(--${routeName})`}">
+    <main id="app" :style="`background-color: var(--${routeName})`">
         <navbar />
         <div class='main'>
-            <transition mode="out-in" :name="routeName">
+            <transition mode="out-in" :duration="1000" :name="routeName">
                 <router-view></router-view>
             </transition>
         </div>
@@ -13,9 +13,39 @@
 import Navbar from "@/components/Navbar.vue";
 
 export default {
+    data() {
+        return {
+            main: "white",
+            about: "white",
+            showcase: "white"
+        };
+    },
+    mounted() {
+        const docStyle = window.getComputedStyle(this.$el, null);
+        this.main = docStyle.getPropertyValue("--main-accent");
+        this.about = docStyle.getPropertyValue("--about-accent");
+        this.showcase = docStyle.getPropertyValue("--showcase-accent");
+        this.updateColor(this.routeName);
+    },
+    methods: {
+        updateColor(routeName) {
+            const color = this[routeName];
+            document
+                .querySelector("meta[name=theme-color]")
+                .setAttribute("content", color);
+            document.documentElement.style.setProperty("--accent", color);
+        }
+    },
     computed: {
         routeName() {
             return this.$route.name;
+        }
+    },
+    watch: {
+        $route({ name }) {
+            setTimeout(() => {
+                this.updateColor(name);
+            }, 325);
         }
     },
     components: {
@@ -27,7 +57,6 @@ export default {
 <style lang="scss">
 html,
 body {
-    font-size: 10px;
     font-family: "Quicksand", sans-serif;
 }
 
@@ -37,14 +66,17 @@ body {
 }
 
 :root {
-    --main: rgb(12, 12, 12);
-    --about: #420f21;
+    --main: #18191c;
+    --main-accent: #f5bc60;
+    --about: #050505;
+    --about-accent: #23cf5f;
     --showcase: #23263d;
+    --showcase-accent: #e91e63;
     --light: #fffcff;
-    --text-color: #fffcff;
+    --text-color: var(--light);
     --block-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     --b-r: 5px;
-    --accent: #eaba6b;
+    --accent: var(--main-accent);
     --dark: rgb(12, 12, 12);
     --warning: #cf5c36;
 }
@@ -59,19 +91,6 @@ h4 {
     margin: 10px 0;
 }
 
-h2 {
-    font-size: 4.2rem;
-}
-
-h3 {
-    font-size: 2.8rem;
-}
-
-h4 {
-    margin: 0;
-    font-size: 1.8rem;
-}
-
 #app {
     height: 100vh;
     width: 100vw;
@@ -79,16 +98,20 @@ h4 {
     overflow-y: auto;
     overflow-y: overlay;
     transition: background-color 0.3s 0.2s;
-    background-color: var(--main);
+    background-color: #18191c;
     position: relative;
     &::-webkit-scrollbar {
         display: none;
+    }
+    *::selection {
+        background: transparent;
+        color: var(--accent);
     }
 }
 
 .main {
     position: relative;
-    top: 15%;
+    top: 15vh;
     max-width: 900px;
     width: 100%;
     margin-left: auto;
@@ -103,32 +126,7 @@ h4 {
     }
 }
 
-@keyframes show-main {
-    0% {
-        border-radius: 0px;
-        background-color: var(--main);
-        transform: scale(0.99);
-        opacity: 0;
-    }
-    20% {
-        opacity: 1;
-    }
-    60% {
-        transform: scale(1.01);
-        border-radius: 16px;
-    }
-    80% {
-        background-color: var(--main);
-    }
-    100% {
-        transform: scale(1);
-        border-radius: 4px;
-        background-color: var(--main-1);
-        opacity: 1;
-    }
-}
-
-@keyframes hello-after {
+@keyframes fade {
     from {
         opacity: 0;
     }
@@ -136,22 +134,9 @@ h4 {
         opacity: 1;
     }
 }
-
-@keyframes hello {
-    from {
-        background-color: var(--dark);
-    }
-    to {
-        background-color: var(--dark-1);
-    }
-}
-
 @media screen and (max-width: 600px) {
-    html {
-        font-size: 8px;
-    }
     .main {
-        top: 12%;
+        top: 12vh;
         padding-bottom: 50px;
     }
 }
