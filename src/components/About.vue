@@ -10,7 +10,7 @@
         <div class="s-card">
             <header>What you can ask me for:</header>
             <ul class="skills-grid">
-                <li v-for="(s,i) in $options.skills" :key="s.name" :style="`transition-delay: ${i * 0.15}s`">
+                <li v-for="s in $options.skills" :key="s.name">
                     <div class="s-name">{{ s.name }}</div>
                     <div class="s-short">{{s.short}}</div>
                 </li>
@@ -101,8 +101,9 @@ export default {
         justify-content: space-between;
         overflow: hidden;
         box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
-        transition: transform 0.4s, opacity 0.2s;
+        transition: transform 0.4s, opacity 0.2s, border-color 0.1s;
         background: rgba(255, 255, 255, 0.1);
+        border: 1px solid transparent;
         &:before {
             content: "";
             position: absolute;
@@ -115,8 +116,9 @@ export default {
             opacity: 0.2;
         }
         &:hover {
+            border-color: var(--about-accent);
             &:before {
-                opacity: 1;
+                opacity: 0.5;
             }
             .s-name {
                 opacity: 0;
@@ -164,6 +166,11 @@ export default {
         transition: border-color 0.7s;
         p {
             transition: opacity 0.3s, filter 0.7s 0.2s;
+        }
+    }
+    @for $i from 1 through 8 {
+        .skills-grid > li:nth-child(#{$i}) {
+            transition-delay: #{$i * 0.06}s;
         }
     }
 }

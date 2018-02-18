@@ -2,7 +2,7 @@
     <main id="app" :style="`background-color: var(--${routeName})`">
         <navbar />
         <div class='main'>
-            <transition mode="out-in" :duration="1000" :name="routeName">
+            <transition mode="out-in" :name="routeName">
                 <router-view></router-view>
             </transition>
         </div>
