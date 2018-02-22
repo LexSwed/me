@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import f from "@/assets/svg/f.svg";
-import t from "@/assets/svg/t.svg";
-import git from "@/assets/svg/git.svg";
-import linkedin from "@/assets/svg/linkedin.svg";
+import f from "@/assets/social/f.svg";
+import t from "@/assets/social/t.svg";
+import git from "@/assets/social/git.svg";
+import linkedin from "@/assets/social/linkedin.svg";
 
 export default {
     adjs: [
@@ -79,12 +79,6 @@ export default {
             );
         }
     },
-    /* components: {
-        f,
-        t,
-        git,
-        linkedin
-    }, */
     beforeDestroy() {
         clearInterval(this.interval);
     }

@@ -37,17 +37,18 @@ export default {
         },
         {
             name: "Elixir",
-            short: "Used with phoenix for university course. Like it."
+            short:
+                "We built some simple API for our university project, using it with Phoenix for quick setup of routers, controllers and model. I like it."
         },
         {
             name: "React",
             short:
-                "Good experience in rewriting project from jQuery to React. I always keep an eye on latest news."
+                "One of the main tools. I have a good experience rewriting a project from jQuery to React. I always keep an eye on latest news."
         },
         {
             name: "Vue.js",
             short:
-                "Main tool for creating front end applications. Used it a lot for the project that were given to me."
+                "Main tool for creating front end applications. Good experience in implementing a project from zero to deployment."
         },
         {
             name: "F#",
@@ -56,7 +57,8 @@ export default {
         },
         {
             name: "R",
-            short: "I have used it a lot for the Data Mining course."
+            short:
+                "I have used it a lot for the Data Mining course (not because I love it, just because we had a lot of homeworks)."
         }
     ],
     data() {
@@ -94,6 +96,7 @@ export default {
     list-style: none;
     padding: 0;
     margin: 0;
+    overflow: auto;
     li {
         height: 100px;
         display: flex;
@@ -104,6 +107,7 @@ export default {
         transition: transform 0.4s, opacity 0.2s, border-color 0.1s;
         background: rgba(255, 255, 255, 0.1);
         border: 1px solid transparent;
+        min-width: 210px;
         &:before {
             content: "";
             position: absolute;
