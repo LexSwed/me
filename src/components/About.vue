@@ -5,7 +5,7 @@
                 Blessed saints! I am so glad <span class="about-accent">you</span> are here!<br>
                 My real name is <span class="about-accent">Oleksandr Shvechykov</span>.
                 I am from <span  class="about-accent">Ukraine</span> but currently I study in <span class="about-accent">Tartu</span>.
-                I love front end a lot, but I was taught <span class="about-accent">much more</span>.
+                I love front end a lot, but I was taught a bit <span class="about-accent">more</span>.
             </p>
         </header>
         <div class="s-card">
@@ -41,7 +41,7 @@ export default {
     {
       name: "Elixir",
       short:
-        "We built some simple API for our university project, using it with Phoenix for quick setup of routers, controllers and model. I like it."
+        "We built some simple API for our university project, using it with Phoenix for quick setup of routers, controllers and model. Pretty nifty."
     },
     {
       name: "React",
