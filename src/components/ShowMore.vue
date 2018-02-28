@@ -2,36 +2,38 @@
 	<section class="show-more">
         <header>
             <p>
-                {{ wowWord }}! I am so glad <span class="show-more-accent">you</span> are here!<br>
-                My real name is <span class="show-more-accent">Oleksandr Shvechykov</span>.
-                I am from <span class="show-more-accent">Ukraine</span> but currently I study in <span class="show-more-accent">Tartu</span>.
-                I love front end a lot, but I was taught a bit <span class="show-more-accent">more</span>.
+                {{ wowWord }}! I am so glad <span class="accent-color">you</span> are here!<br>
+                My real name is <span class="accent-color">Oleksandr Shvechykov</span>.
+                I am from <span class="accent-color">Ukraine</span> but currently I study in <span class="accent-color">Tartu</span>.
+                I love front end a lot, but I was taught a bit <span class="accent-color">more</span>.
             </p>
         </header>
-        <div class="s-card">
-            <header>What you can ask me for:</header>
-            <ul class="skills">
-                <li v-for="s in $options.skills" :key="s.name">
-                    <div class="s-name">{{ s.name }}</div>
-                    <div class="s-short">{{s.short}}</div>
-                </li>
-            </ul>
-        </div>
-        <div class="s-card">
-            <header>Education:</header>
-            <ul class="edu">
-                <li>
-                    <div>Applied Math <span title="Dates when I knew this speciality">(2012-2016)</span></div>
-                    <a href="https://snu.edu.ua/en/" target="_blank">Volodymyr Dahl East Ukrainian National University</a>
-                </li>
-                <li>
-                    <div>Software Engineering <span title="Dates when I knew this speciality">(2017-2019)</span></div>
-                    <a href="https://www.ut.ee/en" target="_blank">University of Tartu</a>
-                </li>
-            </ul>
-        </div>
-        <div class="s-card">
-            <header>Showcase:</header>
+        <div>
+            <div class="s-card">
+                <header>What you can ask me for:</header>
+                <ul class="skills">
+                    <li v-for="s in $options.skills" :key="s.name">
+                        <div class="s-name">{{ s.name }}</div>
+                        <div class="s-short">{{s.short}}</div>
+                    </li>
+                </ul>
+            </div>
+            <div class="s-card">
+                <header>Education:</header>
+                <ul class="edu">
+                    <li>
+                        <div>Applied Math <span title="Dates when I knew this speciality">(2012-2016)</span></div>
+                        <a href="https://snu.edu.ua/en/" target="_blank">Volodymyr Dahl East Ukrainian National University</a>
+                    </li>
+                    <li>
+                        <div>Software Engineering <span title="Dates when I knew this speciality">(2017-2019)</span></div>
+                        <a href="https://www.ut.ee/en" target="_blank">University of Tartu</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="s-card">
+                <header>Showcase:</header>
+            </div>
         </div>
 	</section>
 </template>
@@ -148,7 +150,7 @@ export default {
             opacity: 0.2;
         }
         &:hover {
-            border-color: var(--show-more-accent);
+            border-color: var(--accent-color);
             &:before {
                 opacity: 0.5;
             }
@@ -205,30 +207,37 @@ export default {
             filter: grayscale(1);
         }
     }
-    .skills-grid > li {
+    .s-card {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    .skills > li {
         opacity: 0;
         transform: translate3d(-20px, 50px, 0) scale(0.9);
     }
 }
 .show-more-leave-active,
 .show-more-enter-active {
-    transition: background-color 0.7s, opacity 0.3s;
+    transition: all 1s, opacity 0.3s;
     > header {
-        transition: border-color 0.7s;
         p {
             transition: opacity 0.3s, filter 0.7s 0.2s;
         }
     }
+    .s-card {
+        transition: opacity 0.4s, transform 0.8s;
+    }
+    @for $i from 1 through 3 {
+        .s-card:nth-child(#{$i}) {
+            transition-delay: #{$i * 0.3}s;
+        }
+    }
     @for $i from 1 through 8 {
-        .skills-grid > li:nth-child(#{$i}) {
+        .skills > li:nth-child(#{$i}) {
             transition-delay: #{$i * 0.06}s;
         }
     }
 }
 @media screen and (max-width: 600px) {
-    .about {
-        padding: 0 1rem;
-        perspective: 2000px;
-    }
 }
 </style>

@@ -119,8 +119,8 @@ a {
     }
 }
 
-.show-more-accent {
-    color: var(--about-accent);
+.accent-color {
+    color: var(--accent);
 }
 
 .main {
