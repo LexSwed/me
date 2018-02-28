@@ -1,5 +1,5 @@
 <template>
-    <section class="page-main">
+    <section class="welcome">
         <h1 class="heading">
             <span v-for="({ l, style }, i) in heading" :key="i" :style="style">{{ l }}</span>
         </h1>
@@ -86,7 +86,7 @@ export default {
 </script>
 
 <style lang="scss">
-.page-main {
+.welcome {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -148,7 +148,7 @@ export default {
     transition: fill 0.4s;
 }
 
-.main-enter-active {
+.welcome-enter-active {
     transition: opacity 0.8s;
     .heading,
     .desc {
@@ -158,7 +158,7 @@ export default {
         transition: transform 1s, opacity 0.5s;
     }
 }
-.main-enter {
+.welcome-enter {
     .heading {
         transform: translateY(-20px);
     }
@@ -170,8 +170,7 @@ export default {
     }
 }
 
-.showcase-leave-active,
-.main-leave-active {
+.welcome-leave-active {
     transition: transform 0.5s, opacity 0.5s;
     .heading,
     .social {
@@ -179,8 +178,7 @@ export default {
     }
 }
 
-.showcase-leave-to,
-.main-leave-to {
+.welcome-leave-to {
     opacity: 0;
     .heading {
         transform: translateY(-20px);
@@ -204,7 +202,7 @@ export default {
 }
 
 @media screen and (max-width: 600px) {
-    .page-main {
+    .welcome {
         min-height: 400px;
     }
     .container {
