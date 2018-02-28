@@ -150,7 +150,7 @@ export default {
             opacity: 0.2;
         }
         &:hover {
-            border-color: var(--accent-color);
+            border-color: var(--accent);
             &:before {
                 opacity: 0.5;
             }
