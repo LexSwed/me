@@ -7,6 +7,7 @@
                 <show-more v-else/>
             </transition>
         </div>
+        <background :showMore="showMore" />
     </main>
 </template>
 
@@ -14,6 +15,7 @@
 import Welcome from "@/components/Welcome.vue";
 import ShowMore from "@/components/ShowMore.vue";
 import Navbar from "@/components/Navbar.vue";
+import Background from "@/components/Background.vue";
 
 export default {
     data() {
@@ -55,7 +57,8 @@ export default {
     components: {
         Navbar,
         Welcome,
-        ShowMore
+        ShowMore,
+        Background
     }
 };
 </script>

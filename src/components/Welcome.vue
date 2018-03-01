@@ -6,7 +6,13 @@
         <p class="desc">
             <b>{{ adj }}</b> software engineer</p>
         <div class="social">
-            <a v-for="({href, svg}, i) in $options.links" :key="i" :href="href" rel="noopener" target="_blank" class="link">
+            <a
+                v-for="({href, svg, delay}, i) in $options.links"
+                :key="i"
+                :href="href"
+                rel="noopener" target="_blank"
+                class="link"
+                :style="`transition-delay: ${delay}s;`">
                 <component :is="svg" />
             </a>
         </div>
@@ -53,8 +59,11 @@ export default {
         };
     },
     props: ["scroll", "scrollHeight"],
-    mounted() {
-        this.interval = setInterval(this.setRandomNumber, 2600);
+    beforeMount() {
+        this.$options.links = this.$options.links.map(el => ({
+            ...el,
+            delay: Math.random() + 0.04
+        }));
     },
     computed: {
         adj() {
@@ -70,6 +79,9 @@ export default {
                 });
                 return res;
             }, []);
+        },
+        path() {
+            return window.location.pathname;
         }
     },
     methods: {
@@ -154,7 +166,7 @@ export default {
     .desc {
         transition: transform 0.8s, opacity 0.6s;
     }
-    .social {
+    .social > a {
         transition: transform 1s, opacity 0.5s;
     }
 }
@@ -165,7 +177,7 @@ export default {
     .desc {
         opacity: 0;
     }
-    .social {
+    .social > a {
         transform: translateY(40px);
     }
 }
@@ -173,8 +185,8 @@ export default {
 .welcome-leave-active {
     transition: transform 0.5s, opacity 0.5s;
     .heading,
-    .social {
-        transition: transform 0.4s;
+    .social > a {
+        transition: transform 0.3s;
     }
 }
 
@@ -183,7 +195,7 @@ export default {
     .heading {
         transform: translateY(-20px);
     }
-    .social {
+    .social > a {
         transform: translateY(40px);
     }
 }
