@@ -47,7 +47,7 @@ export default {
     backface-visibility: hidden;
     transform-origin: center;
     text-align: center;
-    line-height: 40px;
+    line-height: 36px;
     color: var(--accent);
     font-size: 20px;
     span {
