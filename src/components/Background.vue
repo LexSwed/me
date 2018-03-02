@@ -14,10 +14,9 @@ export default {
         };
     },
     mounted() {
+        this.ctx = this.$el.getContext("2d");
         this.updateColor();
         this.updateSize();
-        this.ctx = this.$el.getContext("2d");
-        this.ctx.fillStyle = "green";
         window.addEventListener("resize", this.updateSize);
     },
     beforeDestroy() {
@@ -28,12 +27,19 @@ export default {
             this.color = window
                 .getComputedStyle(window.document.body, null)
                 .getPropertyValue("--accent");
-            console.log(this.color);
         },
         updateSize() {
             const { scrollWidth, scrollHeight } = window.document.body;
             this.width = scrollWidth;
             this.height = scrollHeight;
+            this.ctx.fillStyle = "white";
+            this.ctx.fillRect(0, 0, scrollWidth, scrollHeight);
+        },
+        drawCircle() {
+            this.ctx.fillStyle = "green";
+            this.ctx.beginPath();
+            this.ctx.arc(0, this.height - 50, 50, 0, 2 * Math.PI);
+            this.ctx.stroke();
         }
     },
     watch: {
@@ -57,6 +63,6 @@ canvas {
     width: 100vw;
     height: 100vh;
     top: 0;
-    background-color: transparent;
+    z-index: -1;
 }
 </style>

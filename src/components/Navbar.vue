@@ -2,13 +2,13 @@
   
 <nav class="nav">
     <transition name="nav" appear appear-class="nav-circle-appear">
-        <div class="nav-circle" @click="$emit('update:showMore', !showMore)">
+        <div class="nav-inner" @click="$emit('update:showMore', !showMore)">
             <transition name="scale" mode="out-in">
                 <svg v-if="showMore" height="24" width="24">
-                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="var(--accent)" />
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
                     <path d="M0 0h24v24H0z" fill="none"/>
                 </svg>
-                <span v-else>?</span>
+                <span v-else>More</span>
             </transition>
         </div>
     </transition>
@@ -37,34 +37,37 @@ export default {
     display: flex;
     justify-content: center;
 }
-.nav-circle {
-    border: 2px solid var(--accent);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+.nav-inner {
     cursor: pointer;
-    transition: all 0.4s, border-color 1.8s;
+    padding: 8px 20px;
     backface-visibility: hidden;
     transform-origin: center;
-    text-align: center;
-    line-height: 36px;
     color: var(--accent);
     font-size: 20px;
+    transition: all 0.3s;
     span {
         display: inline-block;
     }
     svg {
-        margin: 6px;
+        fill: var(--accent);
+    }
+    > span,
+    > svg {
+        transition: 0.4s;
     }
     &:hover {
-        box-shadow: 0 0 2px var(--accent), 0 0 3px var(--text-color),
-            0 0 2px var(--accent) inset;
+        span {
+            color: var(--show-more-accent);
+        }
+        svg {
+            fill: var(--welcome-accent);
+        }
     }
     &:active {
         transform: scale(0.9);
     }
     &-appear {
-        transform: scale(0.2);
+        transform: scale(0.7);
         opacity: 0;
     }
 }
@@ -82,16 +85,11 @@ export default {
 
 @media screen and (max-width: 600px) {
     .nav {
-        --bg: var(--nav-bg, var(--main));
+        --bg-color: var(--nav-bg, var(--main));
         top: auto;
         bottom: 0;
         width: 100%;
-        background-color: var(--bg);
-        backdrop-filter: blur(4px);
-        .pointer {
-            bottom: auto;
-            top: 0;
-        }
+        background-color: var(--bg-color);
     }
 }
 </style>

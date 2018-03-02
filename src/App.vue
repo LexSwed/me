@@ -1,5 +1,5 @@
 <template>
-    <main id="app" :style="`background-color: var(--${currentView})`">
+    <main id="app">
         <navbar :showMore.sync="showMore" />
         <div class='main'>
             <transition mode="out-in" :name="currentView">
@@ -20,26 +20,26 @@ import Background from "@/components/Background.vue";
 export default {
     data() {
         return {
-            welcomeColor: "white",
-            showMoreColor: "white",
             showMore: false
         };
     },
     mounted() {
-        const docStyle = window.getComputedStyle(this.$el, null);
-        this.welcomeColor = docStyle.getPropertyValue("--welcome-accent");
-        this.showMoreColor = docStyle.getPropertyValue("--show-more-accent");
         this.updateColor();
     },
     methods: {
         updateColor() {
+            const docStyle = window.getComputedStyle(this.$el, null);
             const color = this.showMore
-                ? this.showMoreColor
-                : this.welcomeColor;
+                ? docStyle.getPropertyValue("--show-more-accent")
+                : docStyle.getPropertyValue("--welcome-accent");
+            const bg = this.showMore
+                ? docStyle.getPropertyValue("--show-more")
+                : docStyle.getPropertyValue("--welcome");
             document
                 .querySelector("meta[name=theme-color]")
                 .setAttribute("content", color);
             document.documentElement.style.setProperty("--accent", color);
+            document.documentElement.style.setProperty("--bg", bg);
         }
     },
     computed: {
@@ -81,6 +81,7 @@ body {
     --show-more-accent: #23cf5f;
     --showcase: #23263d;
     --showcase-accent: #e91e63;
+    --bg: var(--welcome);
     --light: #fffcff;
     --text-color: var(--light);
     --block-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
@@ -112,6 +113,7 @@ a {
     overflow-y: overlay;
     transition: background-color 0.3s 0.2s;
     background-color: #18191c;
+    background-color: var(--bg);
     position: relative;
     &::-webkit-scrollbar {
         display: none;

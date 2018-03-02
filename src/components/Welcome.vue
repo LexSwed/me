@@ -62,7 +62,7 @@ export default {
     beforeMount() {
         this.$options.links = this.$options.links.map(el => ({
             ...el,
-            delay: Math.random() + 0.04
+            delay: Math.random() * 0.5
         }));
     },
     computed: {
