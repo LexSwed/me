@@ -206,16 +206,19 @@ export default {
         margin-right: 5px;
     }
     .heading {
-        font-size: 40px;
+        font-size: 70px;
     }
     .desc {
         font-size: 24px;
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 500px) {
     .welcome {
         min-height: 400px;
+    }
+    .heading {
+        font-size: 50px;
     }
     .container {
         padding-right: 10px;
