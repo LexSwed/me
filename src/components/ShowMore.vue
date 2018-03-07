@@ -33,61 +33,49 @@
             </div>
             <div class="s-card">
                 <header>Showcase:</header>
+                <ul class="cases">
+                    <li v-for="(c, i) in $options.cases" :key="i" @mousemove="radialGradient" @mouseout="cancelGradient">
+                        <div>{{ c.name }}</div>
+                        <small>All dependecies: {{ c.deps }}</small>
+                    </li>
+                </ul>
             </div>
         </div>
 	</section>
 </template>
 
 <script>
+import { skills, cases } from "../data.js";
+
 export default {
-    skills: [
-        {
-            name: "HTML / CSS",
-            short:
-                "Confident in layout creation and styling. Use HTML, CSS (SCSS actually) a lot on daily basis."
-        },
-        {
-            name: "Node.js",
-            short: "Have a not long experience in creating API using Node.js."
-        },
-        {
-            name: "React",
-            short:
-                "One of the main tools. I have a good experience rewriting a project from jQuery to React. Do whatever He says to do."
-        },
-        {
-            name: "Vue.js",
-            short:
-                "Main tool for creating front end applications. Good experience in implementing a project from zero to deployment."
-        },
-        {
-            name: "Java",
-            short:
-                "I wrote some Java for some university courses. Don't ask me to write Java, it is here only for an even number."
-        },
-        {
-            name: "Elixir",
-            short:
-                "We built some simple API for our university project, using it with Phoenix for quick setup of routers, controllers and model. Pretty nifty."
-        },
-        {
-            name: "F#",
-            short:
-                "I have learnt some basics for the `Advanced programming` course. Love it the most from all FP languages I tried."
-        },
-        {
-            name: "R",
-            short:
-                "I have used it a lot for the Data Mining course (not because I love it, just because we had a lot of homeworks)."
-        }
+    skills,
+    cases,
+    words: [
+        "Blessed saints",
+        "Budha wearing gravity shoes",
+        "Typed JavaScript",
+        "Holly Abramov's glassess",
+        "Colorful neckties of Saakashvili"
     ],
-    words: ["Blessed saints", "Budha wearing gravity shoes"],
     data() {
         const i = Math.floor(Math.random() * this.$options.words.length);
         return {
             active: 0,
             wowWord: this.$options.words[i]
         };
+    },
+    methods: {
+        radialGradient(e) {
+            const radGrad = window
+                .getComputedStyle(e.currentTarget, null)
+                .getPropertyValue("--rad-grad");
+            const newRad = e.layerX / e.currentTarget.offsetWidth * 100;
+            e.currentTarget.style.setProperty("--rad-grad", newRad + "%");
+            e.currentTarget.style.setProperty("--opacity", 1);
+        },
+        cancelGradient(e) {
+            e.currentTarget.style.setProperty("--opacity", 0);
+        }
     }
 };
 </script>
@@ -184,6 +172,44 @@ export default {
         }
     }
 }
+.cases {
+    list-style: none;
+    padding: 0;
+    li {
+        --rad-grad: 50%;
+        --opacity: 0;
+        position: relative;
+        padding: 14px;
+        background-color: rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+        transition: border-color 0.2s;
+        border: 1px solid transparent;
+        div {
+            position: relative;
+        }
+        &:hover {
+            border-color: var(--accent);
+        }
+        &:before {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            content: "";
+            pointer-events: none;
+            transition: opacity 0.2s;
+            opacity: 0;
+            opacity: var(--opacity);
+            background: radial-gradient(
+                circle at var(--rad-grad),
+                rgba(255, 255, 255, 0.1) 10%,
+                rgba(255, 255, 255, 0.05) 30%,
+                transparent 50%
+            );
+        }
+    }
+}
 .s-name {
     font-size: 18px;
     padding: 41px 20px;
@@ -211,7 +237,8 @@ export default {
         opacity: 0;
         transform: translateY(10px);
     }
-    .skills > li {
+    .skills > li,
+    .cases > li {
         opacity: 0;
         transform: translate3d(-20px, 50px, 0) scale(0.9);
     }
