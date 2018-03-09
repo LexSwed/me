@@ -12,7 +12,7 @@
 
 <script>
 import Welcome from "@/components/Welcome.vue";
-import ShowMore from "@/components/ShowMore.vue";
+import ShowMore from "@/components/ShowMore/index.vue";
 import Navbar from "@/components/Navbar.vue";
 // import Background from "@/components/Background.vue";
 
@@ -137,12 +137,6 @@ a {
     transition: filter 1s;
     border-radius: var(--b-r);
     z-index: 10;
-    > section {
-        position: relative;
-    }
-    * {
-        perspective: 300px;
-    }
 }
 
 .fade-enter-active,
