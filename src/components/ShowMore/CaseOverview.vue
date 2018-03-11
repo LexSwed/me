@@ -10,7 +10,10 @@
             <transition :name="transitionName" mode="out-in" :duration="500">
                 <div class="flex flex-center flex-column case-video" :key="current">
                     <h1>{{currentCase.text}}</h1>
-                    <video :src="currentCase.src" autoplay loop type="video/webm" frameborder="0" muted />
+                    <video autoplay loop frameborder="0" muted>
+                        <source :src="currentCase.webm" type="video/webm">
+                        <source :src="currentCase.mp4" type="video/mp4">
+                    </video>
                 </div>
             </transition>
             <button class="esc-btn" @click="close">ESC</button>
@@ -71,7 +74,7 @@ export default {
             const diff = this.touchStart - e.changedTouches[0].screenX;
             if (diff > 100) {
                 this.changeCurrent(1);
-            } else if (diff < 100) {
+            } else if (diff < -100) {
                 this.changeCurrent(-1);
             }
             this.touchStart = 0;
@@ -190,8 +193,9 @@ export default {
         bottom: 12px;
     }
     .case-overview .arrows {
-        top: 100%;
-        transform: translateY(-100%);
+        top: auto;
+        bottom: 0;
+        transform: none;
     }
 }
 </style>

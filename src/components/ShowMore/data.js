@@ -1,7 +1,14 @@
-import CanvasVideo from "@/assets/video/Canvas.webm";
-import ComponentsVideo from "@/assets/video/Components.webm";
-import ComponentsVideo2 from "@/assets/video/Components2.webm";
-import SWVideo from "@/assets/video/SW.webm";
+import CanvasVideoWebm from "@/assets/video/Canvas.webm";
+import CanvasVideoMp4 from "../../assets/video/Canvas.mp4";
+
+import ComponentsVideoWebm from "@/assets/video/Components.webm";
+import ComponentsVideoMp4 from "@/assets/video/Components.mp4";
+
+import ComponentsVideo2Webm from "@/assets/video/Components2.webm";
+import ComponentsVideo2Mp4 from "@/assets/video/Components2.mp4";
+
+import SWVideoWebm from "@/assets/video/SW.webm";
+import SWVideoMp4 from "@/assets/video/SW.webm";
 
 export const techs = [
     {
@@ -53,20 +60,24 @@ export const cases = [
             {
                 text:
                     "Canvas drawings, animations and performant calculations with pure javascript",
-                src: CanvasVideo
+                webm: CanvasVideoWebm,
+                mp4: CanvasVideoMp4
             },
             {
                 text:
                     "A solid set of reusable and highly customizable components",
-                src: ComponentsVideo
+                webm: ComponentsVideoWebm,
+                mp4: ComponentsVideoMp4
             },
             {
                 text: "Fully featured Vuex usage",
-                src: ComponentsVideo2
+                webm: ComponentsVideo2Webm,
+                mp4: ComponentsVideo2Mp4
             },
             {
                 text: "Service Workers for heavy computations",
-                src: SWVideo
+                webm: SWVideoWebm,
+                mp4: SWVideoMp4
             }
         ]
     }
