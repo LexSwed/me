@@ -199,6 +199,14 @@ export default {
     .case-overview .esc-btn {
         bottom: 12px;
     }
+    .case-video {
+        h1 {
+            font-size: 3vh;
+        }
+        video {
+            max-height: 65vh;
+        }
+    }
     .case-overview .arrows {
         top: auto;
         bottom: 0;
