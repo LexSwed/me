@@ -66,6 +66,8 @@ export default {
 html,
 body {
     font-family: "Quicksand", sans-serif;
+    width: 100%;
+    height: 100%;
 }
 
 body {
@@ -105,8 +107,8 @@ a {
 }
 
 #app {
-    height: 100vh;
-    width: 100vw;
+    width: 100%;
+    height: 100%;
     max-height: 100%;
     overflow-y: auto;
     overflow-y: overlay;
