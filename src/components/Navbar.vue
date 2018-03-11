@@ -81,16 +81,4 @@ export default {
         transform: scale(1);
     }
 }
-
-@media screen and (max-width: 600px) {
-    .nav {
-        --bg-color: var(--nav-bg, var(--main));
-        top: auto;
-        bottom: 0;
-        width: 100%;
-        background-color: var(--bg-color);
-        position: fixed;
-        z-index: 20;
-    }
-}
 </style>
