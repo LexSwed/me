@@ -8,7 +8,7 @@ module.exports = {
     dev: {
         // Paths
         assetsSubDirectory: "",
-        assetsPublicPath: "/",
+        assetsPublicPath: "",
         proxyTable: {},
 
         // Various Dev Server settings

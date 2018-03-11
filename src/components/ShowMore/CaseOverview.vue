@@ -83,7 +83,8 @@ export default {
             if (diffY > 200) {
                 this.close();
             }
-            this.touchStart = 0;
+            this.touchStartX = 0;
+            this.touchStartY = 0;
         }
     },
     beforeDestroy() {
