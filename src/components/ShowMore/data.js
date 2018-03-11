@@ -1,5 +1,5 @@
 import CanvasVideoWebm from "@/assets/video/Canvas.webm";
-import CanvasVideoMp4 from "../../assets/video/Canvas.mp4";
+import CanvasVideoMp4 from "@/assets/video/Canvas.mp4";
 
 import ComponentsVideoWebm from "@/assets/video/Components.webm";
 import ComponentsVideoMp4 from "@/assets/video/Components.mp4";

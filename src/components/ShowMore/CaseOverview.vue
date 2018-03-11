@@ -11,8 +11,8 @@
                 <div class="flex flex-center flex-column case-video" :key="current">
                     <h1>{{currentCase.text}}</h1>
                     <video autoplay loop frameborder="0" muted>
-                        <source :src="currentCase.webm" type="video/webm">
-                        <source :src="currentCase.mp4" type="video/mp4">
+                        <source :src="'/' + currentCase.webm" type="video/webm">
+                        <source :src="'/' + currentCase.mp4" type="video/mp4">
                     </video>
                 </div>
             </transition>
