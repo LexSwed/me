@@ -204,6 +204,7 @@ export default {
             font-size: 3vh;
         }
         video {
+            max-width: 100vw;
             max-height: 65vh;
         }
     }
