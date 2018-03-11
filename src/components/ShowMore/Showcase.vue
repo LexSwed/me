@@ -7,21 +7,14 @@
                 <small>All dependecies: {{ c.deps }}</small>
             </li>
         </ul>
-        <case-overview v-if="selectedCase" :selectedCase.sync="selectedCase" />
     </article>
 </template>
 
 <script>
 import { cases } from "./data.js";
-import CaseOverview from "./CaseOverview";
 
 export default {
     cases,
-    data() {
-        return {
-            selectedCase: null
-        };
-    },
     methods: {
         radialGradient(e) {
             const radGrad = window
@@ -35,11 +28,8 @@ export default {
             e.currentTarget.style.setProperty("--opacity", 0);
         },
         selectCase(selectedCase) {
-            this.selectedCase = selectedCase.videos;
+            this.$emit("selectCase", selectedCase.videos);
         }
-    },
-    components: {
-        CaseOverview
     }
 };
 </script>

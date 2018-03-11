@@ -4,8 +4,9 @@
         <section>
             <techs />
             <education />
-            <showcase />
+            <showcase @selectCase="selectCase" />
         </section>
+        <case-overview v-if="selectedCase" :selectedCase.sync="selectedCase" />
 	</div>
 </template>
 
@@ -14,13 +15,25 @@ import WelcomingHeader from "./Header";
 import Techs from "./Techs";
 import Education from "./Education";
 import Showcase from "./Showcase";
+import CaseOverview from "./CaseOverview";
 
 export default {
+    data() {
+        return {
+            selectedCase: null
+        };
+    },
+    methods: {
+        selectCase(videos) {
+            this.selectedCase = videos;
+        }
+    },
     components: {
         WelcomingHeader,
         Techs,
         Education,
-        Showcase
+        Showcase,
+        CaseOverview
     }
 };
 </script>

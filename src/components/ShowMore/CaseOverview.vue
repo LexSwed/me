@@ -33,7 +33,8 @@ export default {
         return {
             current: 0,
             transitionName: "case-left",
-            touchStart: 0
+            touchStartX: 0,
+            touchStartY: 0
         };
     },
     mounted() {
@@ -68,14 +69,19 @@ export default {
             }
         },
         onTouchStart(e) {
-            this.touchStart = e.changedTouches[0].screenX;
+            this.touchStartX = e.changedTouches[0].screenX;
+            this.touchStartY = e.changedTouches[0].screenY;
         },
         onTouchEnd(e) {
-            const diff = this.touchStart - e.changedTouches[0].screenX;
-            if (diff > 100) {
+            const diffX = this.touchStartX - e.changedTouches[0].screenX;
+            if (diffX > 100) {
                 this.changeCurrent(1);
-            } else if (diff < -100) {
+            } else if (diffX < -100) {
                 this.changeCurrent(-1);
+            }
+            const diffY = this.touchStartY - e.changedTouches[0].screenY;
+            if (diffY > 200) {
+                this.close();
             }
             this.touchStart = 0;
         }
@@ -96,8 +102,8 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background-color: var(--show-more);
     overflow: hidden;
     z-index: 100;
