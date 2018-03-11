@@ -1,5 +1,5 @@
 <template>
-    <header>
+    <header class="show-more-header">
         <p>
             {{ wowWord }}! I am so glad <span class="accent-color">you</span> are here!<br>
         </p>
@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style lang="scss">
-.show-more > header {
+.show-more-header {
     width: 100%;
     position: relative;
     padding: 0 60px;
@@ -39,6 +39,11 @@ export default {
         font-size: 24px;
         padding: 0;
         margin: 0;
+    }
+}
+@media screen and (max-width: 600px) {
+    .show-more-header {
+        padding: 5px 10px;
     }
 }
 </style>

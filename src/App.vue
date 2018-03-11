@@ -136,7 +136,17 @@ a {
     margin-right: auto;
     transition: filter 1s;
     border-radius: var(--b-r);
-    z-index: 10;
+}
+
+.flex {
+    display: flex;
+}
+.flex-center {
+    justify-content: center;
+    align-items: center;
+}
+.flex-column {
+    flex-direction: column;
 }
 
 .fade-enter-active,

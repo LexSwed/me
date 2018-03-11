@@ -30,10 +30,9 @@ export default {
 .nav {
     background-color: var(--nav-bg, transparent);
     width: 100%;
-    position: fixed;
+    position: absolute;
     left: 0;
     top: 20px;
-    z-index: 100;
     display: flex;
     justify-content: center;
 }
@@ -90,6 +89,8 @@ export default {
         bottom: 0;
         width: 100%;
         background-color: var(--bg-color);
+        position: fixed;
+        z-index: 20;
     }
 }
 </style>

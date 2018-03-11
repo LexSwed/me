@@ -2,18 +2,26 @@
     <article class="s-card">
         <header>Showcase:</header>
         <ul class="cases">
-            <li v-for="(c, i) in $options.cases" :key="i" @mousemove="radialGradient" @mouseout="cancelGradient">
+            <li v-for="(c, i) in $options.cases" :key="i" @mousemove="radialGradient" @mouseout="cancelGradient" @click="selectCase(c)">
                 <div>{{ c.name }}</div>
                 <small>All dependecies: {{ c.deps }}</small>
             </li>
         </ul>
+        <case-overview v-if="selectedCase" :selectedCase.sync="selectedCase" />
     </article>
 </template>
 
 <script>
 import { cases } from "./data.js";
+import CaseOverview from "./CaseOverview";
+
 export default {
     cases,
+    data() {
+        return {
+            selectedCase: null
+        };
+    },
     methods: {
         radialGradient(e) {
             const radGrad = window
@@ -25,7 +33,13 @@ export default {
         },
         cancelGradient(e) {
             e.currentTarget.style.setProperty("--opacity", 0);
+        },
+        selectCase(selectedCase) {
+            this.selectedCase = selectedCase.videos;
         }
+    },
+    components: {
+        CaseOverview
     }
 };
 </script>

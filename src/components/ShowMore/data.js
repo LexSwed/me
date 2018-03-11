@@ -1,3 +1,8 @@
+import CanvasVideo from "@/assets/video/Canvas.webm";
+import ComponentsVideo from "@/assets/video/Components.webm";
+import ComponentsVideo2 from "@/assets/video/Components2.webm";
+import SWVideo from "@/assets/video/SW.webm";
+
 export const techs = [
     {
         name: "HTML / CSS",
@@ -11,22 +16,22 @@ export const techs = [
     {
         name: "React",
         short:
-            "One of the main tools. I have a good experience rewriting a project from jQuery to React. Do whatever He says to do."
+            "One of the main tools. I have a good experience rewriting a project from jQuery to React."
     },
     {
         name: "Vue.js",
         short:
-            "Main tool for creating front end applications. Good experience in implementing a project from zero to deployment."
+            "Main tool for creating front end applications. Had a great experience of creating an enterprise app from 0."
     },
     {
         name: "Java",
         short:
-            "I wrote some Java for some university courses. Don't ask me to write Java, it is here only for an even number."
+            "I wrote some Java for some university courses. Don't ask me to write Java, it is here only for even parity."
     },
     {
         name: "Elixir",
         short:
-            "We built some simple API for our university project, using it with Phoenix for quick setup of routers, controllers and model. Pretty nifty."
+            "We built some simple API for our university project using Phoenix framework. Pretty nifty."
     },
     {
         name: "F#",
@@ -48,20 +53,20 @@ export const cases = [
             {
                 text:
                     "Canvas drawings, animations and performant calculations with pure javascript",
-                src: "/static/video/Canvas.webm"
+                src: CanvasVideo
             },
             {
                 text:
                     "A solid set of reusable and highly customizable components",
-                src: "/static/video/Components.webm"
+                src: ComponentsVideo
             },
             {
                 text: "Fully featured Vuex usage",
-                src: "/static/video/Components2.webm"
+                src: ComponentsVideo2
             },
             {
                 text: "Service Workers for heavy computations",
-                src: "/static/video/SW.webm"
+                src: SWVideo
             }
         ]
     }

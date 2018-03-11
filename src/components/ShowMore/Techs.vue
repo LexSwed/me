@@ -23,6 +23,7 @@ export default {
     display: flex;
     flex-flow: row wrap;
     li {
+        position: relative;
         height: 100px;
         width: calc(25% - 8px);
         margin: 4px;
@@ -34,7 +35,7 @@ export default {
         transition: transform 0.4s, opacity 0.2s, border-color 0.1s;
         background: rgba(255, 255, 255, 0.1);
         border: 1px solid transparent;
-        min-width: 210px;
+        min-width: 170px;
         &:before {
             content: "";
             position: absolute;

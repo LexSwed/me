@@ -72,9 +72,9 @@ export default {
     .s-card {
         transition: opacity 0.4s, transform 0.8s;
     }
-    @for $i from 1 through 4 {
+    @for $i from 1 through 5 {
         .s-card:nth-child(#{$i}) {
-            transition-delay: #{$i * 0.3 + 0.2}s;
+            transition-delay: #{$i * 0.3 + 0.1}s;
         }
     }
     @for $i from 1 through 8 {
@@ -82,7 +82,5 @@ export default {
             transition-delay: #{$i * 0.07 + 0.5}s;
         }
     }
-}
-@media screen and (max-width: 600px) {
 }
 </style>
