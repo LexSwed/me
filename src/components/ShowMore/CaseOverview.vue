@@ -200,8 +200,11 @@ export default {
         bottom: 12px;
     }
     .case-video {
+        width: 100%;
         h1 {
             font-size: 3vh;
+            padding-left: 10px;
+            padding-right: 10px;
         }
         video {
             max-width: 100vw;
