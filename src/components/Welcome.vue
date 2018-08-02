@@ -7,13 +7,13 @@
             <b>{{ adj }}</b> software engineer</p>
         <div class="social">
             <a
-                v-for="({href, svg, delay}, i) in $options.links"
-                :key="i"
-                :href="href"
-                rel="noopener" target="_blank"
-                class="link"
-                :style="`transition-delay: ${delay}s;`">
-                <component :is="svg" />
+				v-for="({href, svg, delay}, i) in $options.links"
+				:key="i"
+				:href="href"
+				rel="noopener" target="_blank"
+				class="link"
+				:style="`transition-delay: ${delay}s;`">
+				<component :is="svg" />
             </a>
         </div>
     </section>
@@ -49,18 +49,16 @@ export default {
 			href: 'https://dev.to/lexswed',
 			svg: dev
 		}
-	],
+	].map(el => ({
+		...el,
+		delay: Math.random() * 0.5
+	})),
 	data() {
 		return {
 			randomNumber: 0
 		};
 	},
-	props: ['scroll', 'scrollHeight'],
 	beforeMount() {
-		this.$options.links = this.$options.links.map(el => ({
-			...el,
-			delay: Math.random() * 0.5
-		}));
 		this.interval = setInterval(this.setRandomNumber, 2000);
 	},
 	computed: {
@@ -68,15 +66,14 @@ export default {
 			return this.$options.adjs[this.randomNumber];
 		},
 		heading() {
-			return 'alexander swed'.split('').reduce((res, el, i) => {
-				let animationDelay = `${Math.random() * 2}s`;
-				let animationDuration = `${Math.random() * 3}s`;
-				res.push({
-					l: el,
+			return 'alexander swed'.split('').map(l => {
+				const animationDelay = `${Math.random() * 2}s`;
+				const animationDuration = `${Math.random() * 3}s`;
+				return {
+					l,
 					style: { animationDelay, animationDuration }
-				});
-				return res;
-			}, []);
+				};
+			});
 		},
 		path() {
 			return window.location.pathname;
