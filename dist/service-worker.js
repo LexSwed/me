@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.280675037d147fc3cfa18f835e14a4f7.js"
+  "/precache-manifest.dbf09889add4ed16766df781d6737d09.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "lexswed.github.io"});
