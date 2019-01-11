@@ -13,5 +13,12 @@ module.exports = {
         ]
       }
     }
-  }
+  },
+
+  baseUrl: "/docs",
+  outputDir: "docs",
+  assetsDir: undefined,
+  runtimeCompiler: undefined,
+  productionSourceMap: undefined,
+  parallel: undefined
 };
