@@ -28,22 +28,22 @@ export const techs = [
   {
     name: "Java",
     short:
-      "I wrote some Java for some university courses. Don't ask me to write Java, it is here only for even parity 😅"
+      "I wrote some Java for some university courses. Don't ask me to write Java, it is here only for even parity."
   },
   {
     name: "Elixir",
     short:
-      "We built some simple API for our university project using Phoenix framework. Pretty nifty, like it 👍"
+      "We built some simple API for our university project using Phoenix framework. Pretty nifty, like it."
   },
   {
     name: "F#",
     short:
-      "I've learnt some basics for the `Advanced programming` course. Love it the most from all the functional languages I tried ❤️"
+      "I've learnt some basics for the `Advanced programming` course. Love it the most from all the functional languages I tried."
   },
   {
     name: "R",
     short:
-      "I have used it a lot for the Data Mining course (not because I love it, just because we had a lot of homeworks) 🙃"
+      "I have used it a lot for the Data Mining course (not because I love it, just because we had a lot of homeworks)."
   },
   {
     name: "TypeScript",
@@ -52,12 +52,12 @@ export const techs = [
   {
     name: "Flutter/Dart",
     short:
-      "Exploring Flutter. Feel pretty confident with Dart after reading whole documentation and code style guide. Flutter is awesome, OOP approach is 💩"
+      "Exploring Flutter. Feel pretty confident with Dart after reading whole documentation and code style guide. Flutter is awesome, OOP approach is shitty."
   },
   {
     name: "GraphQL",
     short:
-      "Migrated one project with REST API to GraphQL, built simple one from scratch. Used Apollo on the server and on the client (with react-apollo and vue-apollo) 😍"
+      "Migrated one project with REST API to GraphQL, built simple one from scratch. Used Apollo on the server and on the client (with react-apollo and vue-apollo)."
   },
   {
     name: "Docker",
