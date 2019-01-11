@@ -103,7 +103,7 @@ a {
   &::-webkit-scrollbar {
     display: none;
   }
-  *::selection {
+  & ::selection {
     background: transparent;
     color: var(--accent);
   }
