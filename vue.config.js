@@ -14,6 +14,7 @@ module.exports = {
       }
     }
   },
+  publicPath: "/dist",
   indexPath: "../index.html",
   runtimeCompiler: undefined,
   productionSourceMap: undefined,
