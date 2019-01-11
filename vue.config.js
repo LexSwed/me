@@ -14,11 +14,8 @@ module.exports = {
       }
     }
   },
-
-  baseUrl: "/docs",
-  outputDir: "docs",
-  assetsDir: undefined,
+  indexPath: "../index.html",
   runtimeCompiler: undefined,
   productionSourceMap: undefined,
-  parallel: undefined
+  parallel: true
 };
