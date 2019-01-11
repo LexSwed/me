@@ -1,12 +1,12 @@
 <template>
   <article class="s-card">
-    <header>Education:</header>
+    <h3>Education:</h3>
     <ul>
       <li>
-        <div class="edu-item__title">
+        <h1 class="edu-item__title">
           Applied Math
           <span title="Dates when I knew this speciality">(2012-2016)</span>
-        </div>
+        </h1>
         <a
           href="https://snu.edu.ua/en/"
           target="_blank"
@@ -14,10 +14,10 @@
         >Volodymyr Dahl East Ukrainian National University</a>
       </li>
       <li>
-        <div class="edu-item__title">
+        <h1 class="edu-item__title">
           Software Engineering
           <span>(2017-2019)</span>
-        </div>
+        </h1>
         <a href="https://www.ut.ee/en" class="edu-item__link" target="_blank">University of Tartu</a>
       </li>
     </ul>
@@ -27,6 +27,7 @@
 <style lang="postcss">
 .edu-item__title {
   font-size: 24px;
+  margin-bottom: 0;
 }
 .edu-item__link {
   color: var(--accent);

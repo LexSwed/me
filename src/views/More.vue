@@ -52,11 +52,6 @@ export default {
     opacity: 0;
     transform: translateY(10px);
   }
-  & .techs > li,
-  & .cases > li {
-    opacity: 0;
-    transform: translate3d(-20px, 50px, 0) scale(0.9);
-  }
 }
 .show-more-leave-active,
 .show-more-enter-active {

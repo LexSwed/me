@@ -16,7 +16,7 @@
         class="link"
         :style="`transition-delay: ${delay}s;`"
       >
-        <component :is="svg" />
+        <component :is="svg"/>
       </a>
     </div>
   </section>
@@ -71,7 +71,7 @@ export default {
   align-items: center;
   flex-flow: column nowrap;
   min-height: 500px;
-  background-color: transparent;
+  margin-bottom: 40px;
   & > * {
     display: block;
     width: 100%;
@@ -85,6 +85,7 @@ export default {
   transition: color 0.4s;
   color: var(--accent);
   font-family: "Dosis", sans-serif;
+  letter-spacing: 1px;
   & > span {
     opacity: 0;
     animation: fade 3s forwards;
@@ -103,8 +104,7 @@ export default {
   display: flex;
   justify-content: center;
   flex-flow: row nowrap;
-  position: absolute;
-  bottom: 0;
+  margin-top: auto;
 }
 
 .link {

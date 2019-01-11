@@ -1,7 +1,7 @@
 <template>
   <article class="s-card">
-    <header>What you can ask me for:</header>
-    <ul class="techs">
+    <h3>What you can ask me for:</h3>
+    <transition-group tag="ul" name="tech" class="techs" appear @afterEnter="afterEnter">
       <li
         v-for="(s, i) in $options.techs"
         :key="s.name"
@@ -11,7 +11,7 @@
         <div class="s-name">{{ s.name }}</div>
         <div class="s-short">{{ s.short }}</div>
       </li>
-    </ul>
+    </transition-group>
   </article>
 </template>
 
@@ -19,7 +19,12 @@
 import { techs } from "../utils/data.js";
 
 export default {
-  techs
+  techs,
+  methods: {
+    afterEnter(el) {
+      el.removeAttribute("style");
+    }
+  }
 };
 </script>
 
@@ -30,7 +35,7 @@ export default {
 }
 .tech {
   position: relative;
-  height: 100px;
+  height: 120px;
   width: calc(25% - 8px);
   margin: 4px;
   display: flex;
@@ -38,7 +43,7 @@ export default {
   justify-content: space-between;
   overflow: hidden;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
-  transition: transform 0.4s, opacity 0.2s, border-color 0.1s;
+  transition: border-color 0.1s;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid transparent;
   min-width: 170px;
@@ -54,6 +59,7 @@ export default {
     opacity: 0.2;
   }
   &:hover {
+    transition-delay: 0s;
     border-color: var(--accent);
     &:before {
       opacity: 0.5;
@@ -73,7 +79,7 @@ export default {
 }
 .s-name {
   font-size: 18px;
-  padding: 41px 20px;
+  padding: 50px 20px;
   text-align: center;
   line-height: 18px;
   transition: opacity 0.3s, transform 0.3s;
@@ -83,5 +89,14 @@ export default {
   opacity: 0;
   font-size: 14px;
   transition: opacity 0.3s, transform 0.3s;
+}
+.tech-enter-active,
+.tech-leave-active {
+  transition: transform 0.4s, opacity 0.2s, border-color 0.1s;
+}
+.tech-enter,
+.tech-leave-to {
+  opacity: 0;
+  transform: translate3d(-20px, 50px, 0) scale(0.9);
 }
 </style>
