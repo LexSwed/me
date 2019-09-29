@@ -7,18 +7,18 @@
           Applied Math
           <span title="Dates when I knew this speciality">(2012-2016)</span>
         </h1>
-        <a
-          href="https://snu.edu.ua/en/"
-          target="_blank"
-          class="edu-item__link"
-        >Volodymyr Dahl East Ukrainian National University</a>
+        <a href="https://snu.edu.ua/en/" target="_blank" class="edu-item__link"
+          >Volodymyr Dahl East Ukrainian National University</a
+        >
       </li>
       <li>
         <h1 class="edu-item__title">
           Software Engineering
           <span>(2017-2019)</span>
         </h1>
-        <a href="https://www.ut.ee/en" class="edu-item__link" target="_blank">University of Tartu</a>
+        <a href="https://www.ut.ee/en" class="edu-item__link" target="_blank"
+          >University of Tartu</a
+        >
       </li>
     </ul>
   </article>

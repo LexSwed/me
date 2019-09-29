@@ -1,9 +1,9 @@
 <template>
   <div class="show-more">
-    <welcoming-header/>
+    <welcoming-header />
     <section>
-      <techs/>
-      <education style="transition-delay: 0.4s;"/>
+      <techs />
+      <education style="transition-delay: 0.4s;" />
     </section>
   </div>
 </template>
