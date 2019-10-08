@@ -7,7 +7,7 @@
 		</tech-list>
 		<tech-list :list="$options.using">
 			<template>
-				What I use but not <span class="accent-color">that</span> profeccient in:
+				What I use but not <span class="accent-color">that</span> proficient in:
 			</template>
 		</tech-list>
 	</div>
