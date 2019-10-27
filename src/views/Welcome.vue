@@ -19,26 +19,30 @@
 				<component :is="svg" />
 			</a>
 		</div>
+		<articles />
 	</section>
 </template>
 
 <script>
+import Articles from '../components/Articles';
 import { adjs, links } from '../utils/data.js';
 
 export default {
-	adjs,
 	links,
 	data() {
 		return {
-			randomNumber: 0
+			number: 0
 		};
 	},
 	beforeMount() {
-		this.interval = setInterval(this.setRandomNumber, 2000);
+		this.interval = setInterval(this.setNumber, 2500);
+	},
+	beforeDestroy() {
+		clearInterval(this.interval);
 	},
 	computed: {
 		adj() {
-			return this.$options.adjs[this.randomNumber];
+			return adjs[this.number];
 		},
 		heading() {
 			return 'alexander swed'.split('').map(l => {
@@ -49,18 +53,15 @@ export default {
 					style: { animationDelay, animationDuration }
 				};
 			});
-		},
-		path() {
-			return window.location.pathname;
 		}
 	},
 	methods: {
-		setRandomNumber() {
-			this.randomNumber = Math.floor(Math.random() * this.$options.adjs.length);
+		setNumber() {
+			this.number = (this.number + 1) % adjs.length;
 		}
 	},
-	beforeDestroy() {
-		clearInterval(this.interval);
+	components: {
+		Articles
 	}
 };
 </script>
@@ -94,7 +95,7 @@ export default {
 }
 
 .desc {
-	font-size: 30px;
+	font-size: 26px;
 	text-align: right;
 	padding: 0;
 	margin: 10px 40px 0 0;
@@ -105,7 +106,7 @@ export default {
 	display: flex;
 	justify-content: center;
 	flex-flow: row nowrap;
-	margin-top: auto;
+	margin-top: 220px;
 }
 
 .link {

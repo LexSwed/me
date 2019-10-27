@@ -7,8 +7,8 @@
 		<p>
 			My real name is
 			<span class="accent-color">Oleksandr Shvechykov</span>. I am from <span class="accent-color">Ukraine</span> but
-			currently I live in Tallinn, <span class="accent-color">Estonia</span>. I am a Software Engineer who cares about
-			the end-user experience and so ❤️UI Engineering.
+			currently I live in <span class="accent-color">Estonia</span>. I am a Software Engineer who cares about the
+			end-user experience and so ❤️UI Engineering.
 		</p>
 	</header>
 </template>

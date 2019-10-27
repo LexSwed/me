@@ -2,12 +2,12 @@
 	<div>
 		<tech-list :list="$options.daily">
 			<template>
-				What I know and use <span class="accent-color">daily</span>:
+				I know and use <span class="accent-color">daily</span>:
 			</template>
 		</tech-list>
 		<tech-list :list="$options.using">
 			<template>
-				What I use but not <span class="accent-color">that</span> proficient in:
+				I use but not <span class="accent-color">that</span> proficient in:
 			</template>
 		</tech-list>
 	</div>

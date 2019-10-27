@@ -28,13 +28,18 @@ export const daily = [
 		short: 'Main programming language for writing services.'
 	},
 	{
-		name: 'Optimizing for scale',
-		short: 'Configured, upgraded webpack setups for many different projects. So worked on a tool to unify the setup.'
-	},
-	{
 		name: 'CSS-in-JS',
 		short:
-			'Not a big fan of it as I never had issues with css-modules, but tried with my component library and feels ok.'
+			'Not a big fan of it as I never had issues with css-modules, but developed a component library using styled-components'
+	},
+	{
+		name: 'Optimizing for scale',
+		short:
+			'Configured, upgraded webpack setups for many different projects. Worked on a tool to unify the setup for many different services.'
+	},
+	{
+		name: 'With UX in mind',
+		short: `Not a designer per se, but constantly question things I developed from a user perspective. Constantly read resources on this topic.`
 	}
 ];
 
@@ -58,7 +63,19 @@ export const using = [
 	}
 ];
 
-export const adjs = ['Eager', 'Passionate', 'Clever', 'Keen', 'Smart', 'Enthusiastic'];
+export const adjs = [
+	'Eager',
+	'Passionate',
+	'Keen',
+	'Enthusiastic',
+	'Thought',
+	'Experienced',
+	'Self-driven',
+	'Motivated',
+	'Team-first',
+	'Maintainability oriented',
+	'Performance focused'
+];
 
 export const links = [
 	{
