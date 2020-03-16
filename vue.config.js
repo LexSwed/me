@@ -2,20 +2,20 @@ module.exports = {
   css: {
     loaderOptions: {
       postcss: {
-        ident: "postcss",
+        ident: 'postcss',
         plugins: () => [
-          require("postcss-preset-env")({
+          require('postcss-preset-env')({
             stage: 3,
             features: {
-              "nesting-rules": true
+              'nesting-rules': true
             }
           })
         ]
       }
     }
   },
-  publicPath: "/dist",
-  indexPath: "../index.html",
+  publicPath: '/dist',
+  indexPath: '../index.html',
   runtimeCompiler: undefined,
   productionSourceMap: undefined,
   parallel: true
