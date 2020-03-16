@@ -1,1 +1,20 @@
-{"name":"Alexander Swed","short_name":"Lex Swed","theme_color":"#EBEFEE","icons":[{"src":"img/icons/android-chrome-192x192.png","sizes":"192x192","type":"image/png"},{"src":"img/icons/android-chrome-512x512.png","sizes":"512x512","type":"image/png"}],"start_url":"/","display":"standalone","background_color":"#EBEFEE"}
+{
+  "name": "Alexander Swed",
+  "short_name": "Lex Swed",
+  "icons": [
+    {
+      "src": "img/icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#EBEFEE",
+  "theme_color": "#EBEFEE"
+}
