@@ -14,5 +14,8 @@
   },
   "browserslist": [
     "> 5%"
-  ]
+  ],
+  "devDependencies": {
+    "push-dir": "^0.4.1"
+  }
 }
