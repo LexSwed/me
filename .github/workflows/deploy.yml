@@ -27,5 +27,5 @@ jobs:
           CI: true
 
       - name: Release
-        if: ${{ github.ref == 'refs/tags/main' }}
+        if: ${{ github.ref == 'refs/heads/main' }}
         run: yarn deploy
