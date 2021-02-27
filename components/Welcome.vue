@@ -14,7 +14,6 @@
         :key="i"
         :href="href"
         rel="noopener"
-        target="_blank"
         class="link"
         :style="`transition-delay: ${delay}s;`"
       >
@@ -29,19 +28,7 @@
 import Articles from './lib/Articles';
 import icons from './social';
 
-const adjs = [
-  'Eager',
-  'Passionate',
-  'Keen',
-  'Enthusiastic',
-  'Thought',
-  'Experienced',
-  'Self-driven',
-  'Motivated',
-  'Team-first',
-  'Maintainability oriented',
-  'Performance focused'
-];
+const adjs = ['Eager', 'Passionate', 'Keen', 'Enthusiastic'];
 
 const links = [
   {
