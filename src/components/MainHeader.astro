@@ -1,0 +1,23 @@
+<header class="py-[10vh] flex flex-col gap-4">
+  <!-- <h1 class="text-6xl font-bold">Alesander Vechi</h1> -->
+  <h1 class="heading">Oleksandr Sh.</h1>
+  <div class="subheadline">
+    <span class="text-accent">User Experience</span> Engineer
+  </div>
+</header>
+
+<style>
+  .heading {
+    font-size: clamp(2.3rem, 10vw, 4rem);
+    font-weight: 600;
+    line-height: 1.1;
+  }
+  .subheadline {
+    font-size: clamp(1.3rem, 5vw, 2.5rem);
+    font-weight: 500;
+    line-height: 1.1;
+    & > span {
+      text-shadow: 0 0 1px theme("colors.on-background/0.2");
+    }
+  }
+</style>

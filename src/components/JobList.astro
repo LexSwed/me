@@ -1,0 +1,104 @@
+---
+interface Job {
+  title: string;
+  company: string;
+  href: `https://${string}`;
+}
+const jobs: Job[] = [
+  {
+    company: "Skyscanner",
+    href: "https://www.skyscanner.net",
+    title: "Senior Software Engineer",
+  },
+  {
+    company: "Typeform",
+    title: "Senior Frontend Engineer",
+    href: "https://www.typeform.com",
+  },
+  {
+    company: "Pipedrive",
+    title: "Frontend Engineer",
+    href: "https://www.pipedrive.com",
+  },
+];
+---
+
+<section class="flex flex-col">
+  <header class="text-3xl font-medium">Contributions</header>
+  <ul class="list flex flex-row gap-4 overflow-auto flex-nowrap">
+    {
+      jobs.map(({ href, company, title }) => (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class:list={[
+            "card",
+            "flex gap-2 flex-col items-start flex-shrink-0 bg-accent/40 rounded-xl p-4",
+          ]}
+        >
+          <header class="text-4xl">{company}</header>
+          <span class="block py-2 px-4 rounded-full text-sm bg-on-accent/10">
+            {title}
+          </span>
+          <div class="arrow" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.75"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+              />
+            </svg>
+          </div>
+        </a>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .list {
+    --p: theme("spacing.6");
+    margin-inline: calc(-1 * var(--p));
+    scroll-padding-inline: var(--p);
+    scroll-padding-block: var(--p);
+    padding: var(--p);
+    scroll-snap-type: x mandatory;
+  }
+  .card {
+    --inner-shadow-opacity: 0.2;
+    scroll-snap-align: start;
+    inline-size: clamp(15rem, 35rem, 80vw);
+    block-size: 25rem;
+    flex-shrink: 0;
+    padding: var(--p);
+    box-shadow: 0 0 2px theme("colors.on-accent/var(--inner-shadow-opacity)")
+        inset,
+      theme("boxShadow.sm"), theme("boxShadow.DEFAULT");
+    @apply relative rounded-xl bg-accent/70;
+
+    &:where(:focus, :hover) {
+      --inner-shadow-opacity: 0.4;
+      @apply bg-accent/75 outline-2 outline-accent/60;
+    }
+  }
+  .arrow {
+    --size: 4rem;
+    --gradient-position: 0%;
+    padding: 1rem;
+    transition: all 0.2s ease-in-out;
+    block-size: var(--size);
+    inline-size: var(--size);
+    position: absolute;
+    inset-block-end: var(--p);
+    inset-inline-end: var(--p);
+
+    @apply rounded-full;
+  }
+</style>
