@@ -1,0 +1,70 @@
+---
+import GithubIcon from "../icons/github.astro";
+import LinkedinIcon from "../icons/linkedin.astro";
+import TwitterIcon from "../icons/twitter.astro";
+import DevToIcon from "../icons/devto.astro";
+
+type Link = {
+  href: string;
+  Component: Function;
+  label: string;
+};
+
+const links: Link[] = [
+  {
+    href: "https://github.com/LexSwed",
+    Component: GithubIcon,
+    label: "GitHub Profile",
+  },
+  {
+    href: "https://www.linkedin.com/in/lexswed/",
+    Component: LinkedinIcon,
+    label: "LinkedIn Profile",
+  },
+  {
+    href: "https://twitter.com/lexswed",
+    Component: TwitterIcon,
+    label: "Twitter Profile",
+  },
+  {
+    href: "https://dev.to/lexswed",
+    Component: DevToIcon,
+    label: "Dev.to Profile",
+  },
+];
+---
+
+<ul class="flex justify-start flex-row gap-10">
+  {
+    links.map((link) => (
+      <li>
+        <a
+          href={link.href}
+          aria-label={link.label}
+          title={link.label}
+          class="link"
+        >
+          <link.Component aria-hidden="true" />
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .link {
+    --size: 2.5rem;
+    display: block;
+    transition: all 0.14s ease-in-out;
+    block-size: var(--size);
+    inline-size: var(--size);
+
+    &:where(:hover, :focus) {
+    }
+
+    & svg {
+      max-inline-size: 100%;
+      max-block-size: 100%;
+    }
+  }
+</style>

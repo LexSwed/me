@@ -1,0 +1,74 @@
+---
+import ChevronRight from "../icons/chevron-right.astro";
+import SocialLinks from "./SocialLinks.astro";
+---
+
+<section
+  class="sticky top-0 h-[100lvh] md:h-[100vh] flex flex-col justify-between bg-primary text-on-primary"
+>
+  <header class="p-8 flex flex-col justify-center">
+    <!-- <h1 class="text-6xl font-bold">Alesander Vechi</h1> -->
+    <h1 class="heading">Oleksandr Sh.</h1>
+    <div class="subheadline">User Experience Engineer</div>
+  </header>
+  <section class="notes" aria-labelledby="notes">
+    <article class="card flex flex-row gap-8 items-center">
+      <div class="flex flex-col gap-4">
+        <h2 id="notes" class="text-4xl">Notes</h2>
+        <p class="text-xl">Mostly web, mostly JavaScript.</p>
+      </div>
+      <ChevronRight class="h-16" />
+    </article>
+    <ul class="contents">
+      <li>
+        <article class="card">
+          <p class="text-4xl">Some content</p>
+        </article>
+      </li>
+      <li>
+        <article class="card">
+          <p class="text-4xl">Some content</p>
+        </article>
+      </li>
+      <li>
+        <article class="card">
+          <p class="text-4xl">Some content</p>
+        </article>
+      </li>
+    </ul>
+  </section>
+  <footer class="p-8 self-end">
+    <SocialLinks />
+  </footer>
+</section>
+
+<style>
+  .heading {
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 600;
+    line-height: 1.1;
+  }
+  .subheadline {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    font-weight: 500;
+    line-height: 1.1;
+    & > span {
+      text-shadow: 0 0 1px theme("colors.on-background/0.2");
+    }
+  }
+  .notes {
+    --p: theme("spacing.8");
+    scroll-padding-inline: var(--p);
+    scroll-padding-block: var(--p);
+    padding: var(--p);
+    scroll-snap-type: x mandatory;
+
+    @apply flex gap-12 overflow-auto;
+  }
+  .card {
+    scroll-snap-align: start;
+    inline-size: clamp(10rem, 35rem, 70vw);
+    block-size: 25rem;
+    flex-shrink: 0;
+  }
+</style>

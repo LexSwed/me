@@ -1,4 +1,6 @@
 ---
+import ArrowUpRightIcon from "../icons/arrow-up-right.astro";
+
 interface Job {
   title: string;
   company: string;
@@ -23,40 +25,32 @@ const jobs: Job[] = [
 ];
 ---
 
-<section class="flex flex-col">
+<section
+  class="p-8 sticky top-0 bg-background text-on-background flex flex-col"
+>
   <header class="text-3xl font-medium">Contributions</header>
   <ul class="list flex flex-row gap-4 overflow-auto flex-nowrap">
     {
       jobs.map(({ href, company, title }) => (
-        <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          class:list={[
-            "card",
-            "flex gap-2 flex-col items-start flex-shrink-0 bg-accent/40 rounded-xl p-4",
-          ]}
-        >
-          <header class="text-4xl">{company}</header>
-          <span class="block py-2 px-4 rounded-full text-sm bg-on-accent/10">
-            {title}
-          </span>
-          <div class="arrow" aria-hidden="true">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.75"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
-              />
-            </svg>
-          </div>
-        </a>
+        <li>
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class:list={[
+              "card",
+              "flex gap-2 flex-col items-start flex-shrink-0 rounded-xl p-4",
+            ]}
+          >
+            <header class="text-4xl">{company}</header>
+            <span class="block py-2 px-4 rounded-full text-sm bg-on-accent/10">
+              {title}
+            </span>
+            <div class="arrow" aria-hidden="true">
+              <ArrowUpRightIcon />
+            </div>
+          </a>
+        </li>
       ))
     }
   </ul>
@@ -64,7 +58,7 @@ const jobs: Job[] = [
 
 <style>
   .list {
-    --p: theme("spacing.6");
+    --p: theme("spacing.8");
     margin-inline: calc(-1 * var(--p));
     scroll-padding-inline: var(--p);
     scroll-padding-block: var(--p);
@@ -78,14 +72,14 @@ const jobs: Job[] = [
     block-size: 25rem;
     flex-shrink: 0;
     padding: var(--p);
-    box-shadow: 0 0 2px theme("colors.on-accent/var(--inner-shadow-opacity)")
+    box-shadow: 0 0 2px theme("colors.on-primary/var(--inner-shadow-opacity)")
         inset,
       theme("boxShadow.sm"), theme("boxShadow.DEFAULT");
-    @apply relative rounded-xl bg-accent/70;
+    @apply relative rounded-xl bg-primary text-on-primary;
 
     &:where(:focus, :hover) {
       --inner-shadow-opacity: 0.4;
-      @apply bg-accent/75 outline-2 outline-accent/60;
+      @apply outline-on-primary outline-4;
     }
   }
   .arrow {

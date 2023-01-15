@@ -6,10 +6,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "background": "#16161a",
+        "salmon": "#FDBA74",
+        "background": "#3D4B5F",
         "on-background": "#fffffe",
-        "accent": "#7f5af0",
-        "on-accent": "#fffffe",
+        "primary": "#8EC1D6",
+        "on-primary": "#000000",
         "stroke": "#010101",
       },
       fontFamily: {
