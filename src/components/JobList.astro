@@ -5,12 +5,14 @@ interface Job {
   title: string;
   company: string;
   href: `https://${string}`;
+  current?: true;
 }
 const jobs: Job[] = [
   {
     company: "Skyscanner",
     href: "https://www.skyscanner.net",
     title: "Senior Software Engineer",
+    current: true,
   },
   {
     company: "Typeform",
@@ -27,11 +29,12 @@ const jobs: Job[] = [
 
 <section
   class="p-8 sticky top-0 bg-background text-on-background flex flex-col"
+  aria-labelledby="contributions"
 >
-  <header class="text-3xl font-medium">Contributions</header>
+  <header class="text-3xl font-medium" id="contributions">Contributions</header>
   <ul class="list flex flex-row gap-4 overflow-auto flex-nowrap">
     {
-      jobs.map(({ href, company, title }) => (
+      jobs.map(({ href, company, title, current }) => (
         <li>
           <a
             href={href}
@@ -43,9 +46,16 @@ const jobs: Job[] = [
             ]}
           >
             <header class="text-4xl">{company}</header>
-            <span class="block py-2 px-4 rounded-full text-sm bg-on-accent/10">
-              {title}
-            </span>
+            <div class="flex gap-2 flex-wrap">
+              <span class="block px-2 py-1 -ml-1 rounded-full text-sm bg-on-background/50">
+                {title}
+              </span>
+              {current ? (
+                <span class="block px-2 py-1 -ml-1 rounded-full text-sm bg-on-background/50">
+                  Current
+                </span>
+              ) : null}
+            </div>
             <div class="arrow" aria-hidden="true">
               <ArrowUpRightIcon />
             </div>
@@ -79,7 +89,7 @@ const jobs: Job[] = [
 
     &:where(:focus, :hover) {
       --inner-shadow-opacity: 0.4;
-      @apply outline-on-primary outline-4;
+      @apply outline-4 outline-stroke;
     }
   }
   .arrow {

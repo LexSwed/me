@@ -1,8 +1,14 @@
 ---
+import type { HTMLAttributes } from "astro/types";
+
 import GithubIcon from "../icons/github.astro";
 import LinkedinIcon from "../icons/linkedin.astro";
 import TwitterIcon from "../icons/twitter.astro";
 import DevToIcon from "../icons/devto.astro";
+
+export interface Props extends HTMLAttributes<"ul"> {}
+
+const { class: className, ...props } = Astro.props;
 
 type Link = {
   href: string;
@@ -34,7 +40,7 @@ const links: Link[] = [
 ];
 ---
 
-<ul class="flex justify-start flex-row gap-10">
+<ul {...props} class:list={["flex justify-start flex-row gap-4", className]}>
   {
     links.map((link) => (
       <li>
@@ -53,11 +59,13 @@ const links: Link[] = [
 
 <style>
   .link {
-    --size: 2.5rem;
+    --size: 3rem;
     display: block;
     transition: all 0.14s ease-in-out;
     block-size: var(--size);
     inline-size: var(--size);
+
+    @apply p-1 outline-2 outline-stroke;
 
     &:where(:hover, :focus) {
     }
