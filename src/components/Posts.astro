@@ -1,11 +1,13 @@
 ---
 import { HTMLAttributes } from "astro/types";
+import Color from "color";
 import { getPosts } from "../api/github";
 
 export interface Props extends HTMLAttributes<"ul"> {}
 
 let errored = false;
 let response: Awaited<ReturnType<typeof getPosts>>;
+let items: any[];
 try {
   response = await getPosts();
 } catch (error) {
@@ -18,15 +20,25 @@ const { class: className, ...props } = Astro.props;
 <ul class:list={[className]} {...props}>
   {
     response.search.edges.map(({ node: post }) => {
+      const color = Color(`#${post.labels.nodes.at(-1).color}`);
+      const hsl = color.hsl();
+      const textColor = color.isDark() ? "#fff" : "#000";
+
       return (
         <li class="contents">
           <a
             href={post.url}
             target="_blank"
             rel="noopener noreferrer"
-            class="card bg-white rounded-xl p-4 shadow-lg"
+            class="card"
+            style={{
+              "--bg-hsl": `${hsl.hue().toFixed(2)} ${hsl
+                .saturationv()
+                .toFixed(2)}% ${hsl.lightness().toFixed(2)}%`,
+              "--color": textColor,
+            }}
           >
-            <p class="text-4xl">{post.title}</p>
+            <p class="text-3xl">{post.title}</p>
           </a>
         </li>
       );
@@ -36,9 +48,15 @@ const { class: className, ...props } = Astro.props;
 
 <style>
   .card {
+    --bg-hsl: 0 0% 100%;
+    --color: theme("colors.black");
     scroll-snap-align: start;
     inline-size: clamp(20rem, 90svw, 60vw);
     block-size: 25rem;
-    flex-shrink: 0;
+    background-color: hsl(var(--bg-hsl) / 1);
+    color: var(--color);
+    @apply rounded-3xl p-8 shrink-0;
+    box-shadow: 0 -1px theme("spacing.2") theme("colors.on-primary/0.2"),
+      0 2px theme("spacing.6") hsl(var(--bg-hsl) / 0.8);
   }
 </style>

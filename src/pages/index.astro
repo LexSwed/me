@@ -1,6 +1,7 @@
 ---
-import SecondarySection from "../components/SecondarySection.astro";
+import Contributions from "../components/Contributions.astro";
 import MainSection from "../components/MainSection.astro";
+import Projects from "../components/Projects.astro";
 import Layout from "../layouts/Main.astro";
 
 export const prerender = true;
@@ -9,6 +10,10 @@ export const prerender = true;
 <Layout title="Oleksandr Sh." description="UI engineer">
   <div class="flex flex-col gap-y-24">
     <MainSection />
-    <SecondarySection />
+    <div
+      class="bg-background text-on-background p-8 sticky top-0 flex flex-col gap-12"
+    >
+      <Contributions />
+    </div>
   </div>
 </Layout>

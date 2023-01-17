@@ -5,6 +5,10 @@ interface Job {
   title: string;
   company: string;
   href: `https://${string}`;
+  style: {
+    backgroundHsl: `${number} ${number}% ${number}%`;
+    textHsl: `${number} ${number}% ${number}%`;
+  };
   current?: true;
 }
 const jobs: Job[] = [
@@ -12,29 +16,38 @@ const jobs: Job[] = [
     company: "Skyscanner",
     href: "https://www.skyscanner.net",
     title: "Senior Software Engineer",
+    style: {
+      backgroundHsl: "214 100% 45%",
+      textHsl: "0 0% 100%",
+    },
     current: true,
   },
   {
     company: "Typeform",
     title: "Senior Frontend Engineer",
     href: "https://www.typeform.com",
+    style: {
+      backgroundHsl: "240 1% 15%",
+      textHsl: "0 0% 100%",
+    },
   },
   {
     company: "Pipedrive",
     title: "Frontend Engineer",
     href: "https://www.pipedrive.com",
+    style: {
+      backgroundHsl: "114 76% 90%",
+      textHsl: "210 7% 16%",
+    },
   },
 ];
 ---
 
-<section
-  class="section p-8 sticky top-0 bg-background text-on-background flex flex-col"
-  aria-labelledby="contributions"
->
+<section class="flex flex-col" aria-labelledby="contributions">
   <header class="text-3xl font-medium" id="contributions">Contributions</header>
   <ul class="list flex flex-row gap-4 overflow-auto flex-nowrap">
     {
-      jobs.map(({ href, company, title, current }) => (
+      jobs.map(({ href, company, title, current, style }) => (
         <li>
           <a
             href={href}
@@ -42,19 +55,19 @@ const jobs: Job[] = [
             rel="noopener noreferrer"
             class:list={[
               "card",
-              "flex gap-2 flex-col items-start flex-shrink-0 rounded-xl p-4",
+              current && "current",
+              "flex gap-2 flex-col items-start flex-shrink-0 rounded-2xl p-4",
             ]}
+            style={{
+              "--bg-hsl": style.backgroundHsl,
+              "--color-hsl": style.textHsl,
+            }}
           >
             <header class="text-4xl">{company}</header>
             <div class="flex gap-2 flex-wrap">
               <span class="block px-2 py-1 -ml-1 rounded-full text-sm bg-on-background/50">
                 {title}
               </span>
-              {current ? (
-                <span class="block px-2 py-1 -ml-1 rounded-full text-sm bg-on-background/50">
-                  Current
-                </span>
-              ) : null}
             </div>
             <div class="arrow" aria-hidden="true">
               <ArrowUpRightIcon />
@@ -67,9 +80,6 @@ const jobs: Job[] = [
 </section>
 
 <style>
-  .section {
-    box-shadow: 0 -0.125rem 0.125rem theme("colors.background/0.2");
-  }
   .list {
     --p: theme("spacing.8");
     margin-inline: calc(-1 * var(--p));
@@ -85,18 +95,50 @@ const jobs: Job[] = [
     block-size: 25rem;
     flex-shrink: 0;
     padding: var(--p);
+    color: hsl(var(--color-hsl) / 1);
+    background-color: hsl(var(--bg-hsl) / 1);
     box-shadow: 0 0 2px theme("colors.on-primary/var(--inner-shadow-opacity)")
         inset,
       theme("boxShadow.sm"), theme("boxShadow.DEFAULT");
-    @apply relative rounded-xl bg-primary text-on-primary;
+    @apply relative rounded-xl;
 
     &:where(:focus, :hover) {
       --inner-shadow-opacity: 0.4;
       @apply outline-4 outline-stroke;
     }
   }
+
+  @property --wave-size {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 0;
+  }
+  .card.current {
+    --wave-size: 2;
+    --bg-hsl: 0 0 0;
+    --center: calc(var(--p) * 2);
+    animation: current-bg 3s infinite alternate;
+    background-color: hsl(var(--bg-hsl) / 1);
+    background-image: repeating-radial-gradient(
+        circle at bottom var(--center) right var(--center),
+        transparent 0,
+        hsl(var(--bg-hsl) / 1) calc(var(--wave-size) * 1rem)
+      ),
+      repeating-linear-gradient(
+        hsl(var(--bg-hsl) / 1),
+        hsl(var(--color-hsl) / 5%)
+      );
+  }
+  @keyframes current-bg {
+    0% {
+      --wave-size: 5;
+    }
+    100% {
+      --wave-size: 7;
+    }
+  }
   .arrow {
-    --size: 4rem;
+    --size: 5rem;
     --gradient-position: 0%;
     padding: 1rem;
     transition: all 0.2s ease-in-out;
