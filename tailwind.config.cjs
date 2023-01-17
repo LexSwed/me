@@ -7,11 +7,11 @@ module.exports = {
     extend: {
       colors: {
         "salmon": "#FDBA74",
-        "background": "#3D4B5F",
-        "on-background": "#fffffe",
+        "background": "#b8c1ec",
+        "on-background": "#232946",
         // "primary": "#8EC1D6",
-        "primary": "#FDBA74",
-        "on-primary": "#000000",
+        "primary": "#eebbc3",
+        "on-primary": "#232946",
         "stroke": "#010101",
       },
       fontFamily: {
