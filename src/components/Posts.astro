@@ -1,0 +1,44 @@
+---
+import { HTMLAttributes } from "astro/types";
+import { getPosts } from "../api/github";
+
+export interface Props extends HTMLAttributes<"ul"> {}
+
+let errored = false;
+let response: Awaited<ReturnType<typeof getPosts>>;
+try {
+  response = await getPosts();
+} catch (error) {
+  errored = true;
+}
+
+const { class: className, ...props } = Astro.props;
+---
+
+<ul class:list={[className]} {...props}>
+  {
+    response.search.edges.map(({ node: post }) => {
+      return (
+        <li class="contents">
+          <a
+            href={post.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card bg-white rounded-xl p-4 shadow-lg"
+          >
+            <p class="text-4xl">{post.title}</p>
+          </a>
+        </li>
+      );
+    })
+  }
+</ul>
+
+<style>
+  .card {
+    scroll-snap-align: start;
+    inline-size: clamp(20rem, 90svw, 60vw);
+    block-size: 25rem;
+    flex-shrink: 0;
+  }
+</style>

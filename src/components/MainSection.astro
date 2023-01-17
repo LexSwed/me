@@ -1,6 +1,7 @@
 ---
 import ChevronDoubleDown from "../icons/chevron-double-down.astro";
 import ChevronRight from "../icons/chevron-right.astro";
+import Posts from "./Posts.astro";
 import SocialLinks from "./SocialLinks.astro";
 ---
 
@@ -18,27 +19,11 @@ import SocialLinks from "./SocialLinks.astro";
     >
       <div class="flex flex-col gap-4">
         <h2 id="notes" class="text-4xl">Notes</h2>
-        <p class="text-xl">Mostly web, mostly JavaScript.</p>
+        <p class="text-xl">Mostly web, but other things too.</p>
       </div>
       <ChevronRight class="h-16" />
     </header>
-    <ul class="contents">
-      <li>
-        <article class="card bg-white rounded-xl p-4 shadow-lg">
-          <p class="text-4xl">Some content</p>
-        </article>
-      </li>
-      <li>
-        <article class="card bg-white rounded-xl p-4 shadow-lg">
-          <p class="text-4xl">Some content</p>
-        </article>
-      </li>
-      <li>
-        <article class="card bg-white rounded-xl p-4 shadow-lg">
-          <p class="text-4xl">Some content</p>
-        </article>
-      </li>
-    </ul>
+    <Posts class="contents" />
   </section>
   <footer class="p-6 sm:p-8 flex flex-row items-center justify-between">
     <a
