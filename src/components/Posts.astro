@@ -84,7 +84,7 @@ const { class: className, ...props } = Astro.props;
     &:where(:hover, :focus) {
       --shadow-spread: theme("spacing.2");
       & .img {
-        translate: 0 0 10px;
+        translate: 0 0 1px;
         scale: 1;
       }
     }
@@ -93,8 +93,8 @@ const { class: className, ...props } = Astro.props;
     scale: 1.05;
   }
   .placeholder {
-    --r: 3px;
-    --distance: 2rem;
+    --r: 1px;
+    --distance: 1.2rem;
     opacity: 0.8;
     background-image: radial-gradient(var(--bg) var(--r), transparent var(--r)),
       radial-gradient(var(--bg) var(--r), #ffffff var(--r));

@@ -8,10 +8,10 @@ import SocialLinks from "./SocialLinks.astro";
 <section
   class="bg-primary text-on-primary flex h-[100lvh] flex-col justify-between lg:h-[100vh]"
 >
-  <header class="flex flex-col justify-center p-6 sm:p-8">
+  <header class="flex flex-col justify-center gap-2 p-6 sm:p-8">
     <!-- <h1 class="text-6xl font-bold">Alesander Vechi</h1> -->
     <h1 class="heading">Oleksandr Sh.</h1>
-    <div class="subheadline">User Experience Engineer</div>
+    <div class="subheadline">Web Developer / UX Engineer</div>
   </header>
   <section class="notes" aria-labelledby="notes">
     <header
@@ -19,7 +19,7 @@ import SocialLinks from "./SocialLinks.astro";
     >
       <div class="flex flex-col gap-4">
         <h2 id="notes" class="text-4xl">Notes</h2>
-        <p class="text-xl">Mostly web, but other things too.</p>
+        <p class="text-lg sm:text-xl">Mostly web, but other things too.</p>
       </div>
       <ChevronRight class="h-16" />
     </header>
@@ -44,7 +44,7 @@ import SocialLinks from "./SocialLinks.astro";
     line-height: 1.1;
   }
   .subheadline {
-    font-size: clamp(1.25rem, 3vw, 1.6rem);
+    font-size: clamp(1rem, 3vw, 1.5rem);
     font-weight: 500;
     line-height: 1.1;
     & > span {
