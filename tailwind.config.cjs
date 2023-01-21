@@ -6,13 +6,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "salmon": "#FDBA74",
-        // "background": "#232946", // just dark
-        // "on-background": "#fffffe",
-        "background": "#b8c1ec", // blueish
-        "on-background": "#232946",
-        // "primary": "#8EC1D6",
-        "primary": "#eebbc3",
+        "background": "#232946", // just dark
+        "on-background": "#fffffe",
+        // "background": "#b8c1ec", // blueish
+        // "on-background": "#232946",
+        // "primary": "#8EC1D6", // blue-ish
+        "primary": "#FDBA74", // yellow-ish
+        // "primary": "#eebbc3", // pink-ish
         "on-primary": "#232946",
         "stroke": "#010101",
       },

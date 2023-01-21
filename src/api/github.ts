@@ -7,35 +7,24 @@ export const github = graphql.defaults({
 });
 
 export function getPosts() {
-  const query = "repo:LexSwed/lexswed.github.io label:published author:LexSwed";
+  const categoryId = "DIC_kwDOB0MxVM4CTm8u";
 
-  // I use search instead of Discussions to only get last 10 by author (me)
   return github<GetDiscussions>(
     `#graphql 
-    query GetDiscussions($search: String!) {
-  search(
-    query: $search,
-    last: 10
-    type: DISCUSSION
-  ) {
-    discussionCount
-    edges {
-      node {
-        ... on Discussion {
-          id
-          title
-          url
-					publishedAt
-          category {
+    query GetDiscussions($categoryId: ID!) {
+      repository(name: "lexswed.github.io", owner: "LexSwed") {
+    discussions(last: 10, orderBy: {field: CREATED_AT, direction: DESC}, categoryId: $categoryId) {
+      nodes {
+        id
+        title
+        url
+        publishedAt
+        body
+        labels(first: 10) {
+          nodes {
+            color
             id
             name
-          }
-          labels(first: 10) {
-            nodes {
-              name
-              id
-              color
-            }
           }
         }
       }
@@ -44,7 +33,7 @@ export function getPosts() {
 }
 `,
     {
-      search: query,
+      categoryId,
     }
   );
 }
@@ -65,17 +54,17 @@ export interface Post {
   title: string;
   url: string;
   publishedAt: string;
-  category: Category;
+  // category: Category;
+  body: string;
   labels: {
     nodes: Array<Label>;
   };
 }
 
 interface GetDiscussions {
-  search: {
-    discussionsCount: number;
-    edges: Array<{
-      node: Post;
-    }>;
+  repository: {
+    discussions: {
+      nodes: Array<Post>;
+    };
   };
 }

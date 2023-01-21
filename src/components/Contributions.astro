@@ -45,7 +45,7 @@ const jobs: Job[] = [
 
 <section class="flex flex-col" aria-labelledby="contributions">
   <header class="text-3xl font-medium" id="contributions">Contributions</header>
-  <ul class="list flex flex-row gap-4 overflow-auto flex-nowrap">
+  <ul class="list flex flex-row flex-nowrap gap-4 overflow-auto">
     {
       jobs.map(({ href, company, title, current, style }) => (
         <li>
@@ -64,8 +64,8 @@ const jobs: Job[] = [
             }}
           >
             <header class="text-4xl">{company}</header>
-            <div class="flex gap-2 flex-wrap">
-              <span class="block px-2 py-1 -ml-1 rounded-full text-sm bg-on-background/50">
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-on-background/50 -ml-1 block rounded-full px-2 py-1 text-sm">
                 {title}
               </span>
             </div>

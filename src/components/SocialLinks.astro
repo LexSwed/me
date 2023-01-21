@@ -6,12 +6,13 @@ import LinkedinIcon from "../icons/linkedin.astro";
 import TwitterIcon from "../icons/twitter.astro";
 import DevToIcon from "../icons/devto.astro";
 
-export interface Props extends HTMLAttributes<"ul"> {}
+export type Props = HTMLAttributes<"ul">;
 
 const { class: className, ...props } = Astro.props;
 
 type Link = {
   href: string;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   Component: Function;
   label: string;
 };

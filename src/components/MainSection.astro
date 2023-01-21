@@ -6,16 +6,16 @@ import SocialLinks from "./SocialLinks.astro";
 ---
 
 <section
-  class="h-[100lvh] lg:h-[100vh] flex flex-col justify-between bg-primary text-on-primary"
+  class="bg-primary text-on-primary flex h-[100lvh] flex-col justify-between lg:h-[100vh]"
 >
-  <header class="p-6 sm:p-8 flex flex-col justify-center">
+  <header class="flex flex-col justify-center p-6 sm:p-8">
     <!-- <h1 class="text-6xl font-bold">Alesander Vechi</h1> -->
     <h1 class="heading">Oleksandr Sh.</h1>
     <div class="subheadline">User Experience Engineer</div>
   </header>
   <section class="notes" aria-labelledby="notes">
     <header
-      class="snap-start shrink-0 max-w-[60%] flex flex-row gap-2 items-center"
+      class="flex max-w-[60%] shrink-0 snap-start flex-row items-center gap-2"
     >
       <div class="flex flex-col gap-4">
         <h2 id="notes" class="text-4xl">Notes</h2>
@@ -25,10 +25,10 @@ import SocialLinks from "./SocialLinks.astro";
     </header>
     <Posts class="contents" />
   </section>
-  <footer class="p-6 sm:p-8 flex flex-row items-center justify-between">
+  <footer class="flex flex-row items-center justify-between p-6 sm:p-8">
     <a
       href="#contributions"
-      class="rounded-full aspect-square sm:aspect-auto shadow-md outline-2 outline-on-primary bg-on-background text-background text-lg flex items-center gap-2 py-3 px-5"
+      class="bg-on-background text-background outline-on-primary flex aspect-square items-center gap-2 rounded-full py-3 px-5 text-lg shadow-md outline-2 sm:aspect-auto"
     >
       <span class="hidden sm:inline">More</span>
       <ChevronDoubleDown class="h-5" aria-hidden="true" />
@@ -39,7 +39,7 @@ import SocialLinks from "./SocialLinks.astro";
 
 <style>
   .heading {
-    font-size: clamp(2rem, 5vw, 3rem);
+    font-size: clamp(2rem, 5vw, 5rem);
     font-weight: 600;
     line-height: 1.1;
   }
