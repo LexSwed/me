@@ -7,7 +7,9 @@ module.exports = {
     extend: {
       colors: {
         "salmon": "#FDBA74",
-        "background": "#b8c1ec",
+        // "background": "#232946", // just dark
+        // "on-background": "#fffffe",
+        "background": "#b8c1ec", // blueish
         "on-background": "#232946",
         // "primary": "#8EC1D6",
         "primary": "#eebbc3",

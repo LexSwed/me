@@ -7,7 +7,6 @@ export interface Props extends HTMLAttributes<"ul"> {}
 
 let errored = false;
 let response: Awaited<ReturnType<typeof getPosts>>;
-let items: any[];
 try {
   response = await getPosts();
 } catch (error) {
@@ -20,8 +19,15 @@ const { class: className, ...props } = Astro.props;
 <ul class:list={[className]} {...props}>
   {
     response.search.edges.map(({ node: post }) => {
-      const color = Color(`#${post.labels.nodes.at(-1).color}`);
+      const topic = post.labels.nodes.find((label) =>
+        label.name.startsWith("topic:")
+      );
+
+      const color = Color(`#${topic.color}`);
       const hsl = color.hsl();
+      const bg = `${hsl.hue().toFixed(2)} ${hsl.saturationv().toFixed(2)}% ${hsl
+        .lightness()
+        .toFixed(2)}%`;
       const textColor = color.isDark() ? "#fff" : "#000";
 
       return (
@@ -30,15 +36,26 @@ const { class: className, ...props } = Astro.props;
             href={post.url}
             target="_blank"
             rel="noopener noreferrer"
-            class="card"
             style={{
-              "--bg-hsl": `${hsl.hue().toFixed(2)} ${hsl
-                .saturationv()
-                .toFixed(2)}% ${hsl.lightness().toFixed(2)}%`,
+              "--bg-hsl": bg,
               "--color": textColor,
             }}
+            class="card duration-200 ease-in rounded-3xl z-10 snap-start top-0 p-8 shrink-0"
           >
-            <p class="text-3xl">{post.title}</p>
+            <div class="h-full flex flex-col justify-between">
+              <ul class="flex gap-1">
+                {post.labels.nodes
+                  .filter((label) => label.name !== "published")
+                  .map((label) => (
+                    <li class="text-xs px-2 rounded-full bg-white/10 border-white/20 border-[1px]">
+                      {label.name.includes("topic:")
+                        ? label.name.split("topic:").at(1)
+                        : label.name}
+                    </li>
+                  ))}
+              </ul>
+              <p class="text-2xl">{post.title}</p>
+            </div>
           </a>
         </li>
       );
@@ -50,13 +67,16 @@ const { class: className, ...props } = Astro.props;
   .card {
     --bg-hsl: 0 0% 100%;
     --color: theme("colors.black");
-    scroll-snap-align: start;
-    inline-size: clamp(20rem, 90svw, 60vw);
+    --shadow-spread: theme("spacing.4");
+    inline-size: 20rem;
     block-size: 25rem;
     background-color: hsl(var(--bg-hsl) / 1);
     color: var(--color);
-    @apply rounded-3xl p-8 shrink-0;
     box-shadow: 0 -1px theme("spacing.2") theme("colors.on-primary/0.2"),
-      0 1px theme("spacing.8") hsl(var(--bg-hsl) / 0.8);
+      0 1px var(--shadow-spread) hsl(var(--bg-hsl) / 0.8);
+
+    &:hover {
+      --shadow-spread: theme("spacing.1");
+    }
   }
 </style>
