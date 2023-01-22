@@ -1,0 +1,23 @@
+---
+import Contributions from "../components/Contributions.astro";
+import MainSection from "../components/MainSection.astro";
+import Projects from "../components/Projects.astro";
+import Layout from "../layouts/Main.astro";
+
+export const prerender = true;
+/**
+TODO: 
+- issues comments: https://github.com/giscus/giscus
+- 
+*/
+---
+
+<Layout title="Oleksandr Sh." description="UI engineer">
+  <MainSection />
+  <div class="bg-stroke/10 h-px"></div>
+  <div
+    class="bg-background text-on-background sticky top-0 flex flex-col gap-12 p-8"
+  >
+    <Contributions />
+  </div>
+</Layout>

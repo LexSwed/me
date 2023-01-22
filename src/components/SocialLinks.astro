@@ -1,0 +1,74 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+import GithubIcon from "../icons/github.astro";
+import LinkedinIcon from "../icons/linkedin.astro";
+import TwitterIcon from "../icons/twitter.astro";
+import DevToIcon from "../icons/devto.astro";
+
+export type Props = HTMLAttributes<"ul">;
+
+const { class: className, ...props } = Astro.props;
+
+type Link = {
+  href: string;
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  Component: Function;
+  label: string;
+};
+
+const links: Link[] = [
+  {
+    href: "https://github.com/LexSwed",
+    Component: GithubIcon,
+    label: "GitHub Profile",
+  },
+  {
+    href: "https://www.linkedin.com/in/lexswed/",
+    Component: LinkedinIcon,
+    label: "LinkedIn Profile",
+  },
+  {
+    href: "https://twitter.com/lexswed",
+    Component: TwitterIcon,
+    label: "Twitter Profile",
+  },
+  {
+    href: "https://dev.to/lexswed",
+    Component: DevToIcon,
+    label: "Dev.to Profile",
+  },
+];
+---
+
+<ul {...props} class:list={["flex justify-start flex-row gap-4", className]}>
+  {
+    links.map((link) => (
+      <li>
+        <a
+          href={link.href}
+          aria-label={link.label}
+          title={link.label}
+          class="link"
+        >
+          <link.Component aria-hidden="true" />
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .link {
+    --size: 3rem;
+    display: block;
+    transition: all 0.14s ease-in-out;
+    block-size: var(--size);
+    inline-size: var(--size);
+
+    @apply p-1 outline-2 outline-stroke;
+
+    &:where(:hover, :focus) {
+    }
+  }
+</style>

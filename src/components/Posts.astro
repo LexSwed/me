@@ -1,0 +1,103 @@
+---
+import { HTMLAttributes } from "astro/types";
+import Color from "color";
+import matter from "gray-matter";
+
+import { getPosts } from "../api/github";
+
+export type Props = HTMLAttributes<"ul">;
+
+const response = await getPosts();
+const posts = response.repository.discussions.nodes;
+
+const { class: className, ...props } = Astro.props;
+---
+
+<ul class:list={[className]} {...props}>
+  {
+    posts.map((post) => {
+      const topic = post.labels.nodes.find((label) =>
+        label.name.startsWith("topic:")
+      );
+
+      const color = Color(`#${topic.color}`);
+      const hsl = color.hsl();
+      const bg = `${hsl.hue().toFixed(2)} ${hsl.saturationv().toFixed(2)}% ${hsl
+        .lightness()
+        .toFixed(2)}%`;
+      const textColor = color.isDark() ? "#fff" : "#000";
+
+      const { data } = matter(post.body, { delimiters: ["<!--", "-->"] });
+
+      return (
+        <li class="shrink-0 snap-start">
+          <a
+            href={post.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              "--bg-hsl": bg,
+              "--color": textColor,
+            }}
+            class="card outline-on-primary block rounded-3xl outline-4 transition-shadow duration-200 ease-in"
+          >
+            <div class="flex h-full flex-col">
+              <div class="h-[60%] min-h-0 shrink p-4">
+                <div class="h-full overflow-hidden rounded-2xl">
+                  <div class="img h-full w-full duration-[1s] ease-in-out">
+                    {data.poster ? (
+                      <img
+                        src={data.poster}
+                        alt={data.posterAlt}
+                        class="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div class="placeholder h-full rounded-2xl bg-[var(--color)]" />
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div class="mt-auto min-h-0 p-8 pt-0">
+                <p class="text-2xl">{post.title}</p>
+              </div>
+            </div>
+          </a>
+        </li>
+      );
+    })
+  }
+</ul>
+
+<style>
+  .card {
+    --bg-hsl: 0 0% 100%;
+    --color: theme("colors.black");
+    --shadow-spread: theme("spacing.4");
+    --bg: hsl(var(--bg-hsl) / 1);
+    inline-size: 20rem;
+    block-size: 25rem;
+    background-color: var(--bg);
+    color: var(--color);
+    box-shadow: 0 -1px theme("spacing.2") theme("colors.on-primary/0.2"),
+      0 1px var(--shadow-spread) hsl(var(--bg-hsl) / 0.8);
+  }
+  .card:where(:hover, :focus) {
+    --shadow-spread: theme("spacing.2");
+    & .img {
+      translate: 0 0 1px;
+      scale: 1;
+    }
+  }
+  .img {
+    scale: 1.05;
+  }
+  .placeholder {
+    --r: 1px;
+    --distance: 1.2rem;
+    opacity: 0.8;
+    background-image: radial-gradient(var(--bg) var(--r), transparent var(--r)),
+      radial-gradient(var(--bg) var(--r), #ffffff var(--r));
+    background-size: calc(var(--distance) * 2) calc(var(--distance) * 2);
+    background-position: 0 0, var(--distance) var(--distance);
+  }
+</style>

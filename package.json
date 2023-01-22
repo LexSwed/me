@@ -1,18 +1,47 @@
 {
-  "name": "lexswed.github.io",
-  "version": "1.0.0",
+  "name": "@lexswed/site",
+  "version": "0.0.1",
+  "type": "module",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
-    "generate": "nuxt generate",
-    "start": "nuxt start"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "codegen": "graphql-codegen --config codegen.ts -r dotenv/config"
   },
   "dependencies": {
-    "nuxt": "^2.15.3",
-    "vue": "^2.6.12"
+    "@astrojs/mdx": "^1.0.0-beta.2",
+    "@astrojs/prefetch": "^0.1.1",
+    "@astrojs/sitemap": "^1.0.0",
+    "@astrojs/tailwind": "^3.0.0-beta.1",
+    "@astrojs/vercel": "^2.4.0",
+    "@fontsource/inter": "^4.5.15",
+    "@octokit/graphql": "^5.0.5",
+    "@types/color": "^3.0.3",
+    "astro": "^2.0.0-beta.3",
+    "color": "^4.2.3",
+    "gray-matter": "^4.0.3"
   },
-  "browserslist": [
-    "> 2%"
-  ],
-  "devDependencies": {}
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@typescript-eslint/parser": "^5.48.2",
+    "autoprefixer": "^10.4.13",
+    "eslint": "^8.32.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-astro": "^0.23.0",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-tailwindcss": "^3.8.0",
+    "postcss": "^8.4.21",
+    "prettier": "^2.8.3",
+    "tailwindcss": "^3.2.4",
+    "typescript": "^4.9.4"
+  },
+  "prettier": {
+    "semi": true,
+    "trailingComma": "es5",
+    "quoteProps": "consistent"
+  }
 }
