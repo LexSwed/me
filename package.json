@@ -8,8 +8,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "codegen": "graphql-codegen --config codegen.ts -r dotenv/config"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/mdx": "^1.0.0-beta.2",
@@ -35,6 +34,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-tailwindcss": "^3.8.0",
     "postcss": "^8.4.21",
+    "postcss-nesting": "^10.2.0",
     "prettier": "^2.8.3",
     "tailwindcss": "^3.2.4",
     "typescript": "^4.9.4"
