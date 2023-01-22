@@ -1,14 +1,13 @@
 ---
 import { HTMLAttributes } from "astro/types";
 import Color from "color";
-import matter from "gray-matter";
 
 import { getPosts } from "../api/github";
+import { frontmatter } from "../utils/markdown";
 
 export type Props = HTMLAttributes<"ul">;
 
-const response = await getPosts();
-const posts = response.repository.discussions.nodes;
+const posts = await getPosts();
 
 const { class: className, ...props } = Astro.props;
 ---
@@ -27,14 +26,13 @@ const { class: className, ...props } = Astro.props;
         .toFixed(2)}%`;
       const textColor = color.isDark() ? "#fff" : "#000";
 
-      const { data } = matter(post.body, { delimiters: ["<!--", "-->"] });
-
+      const data = frontmatter(post);
+      // TODO: slugify
       return (
         <li class="shrink-0 snap-start">
           <a
-            href={post.url}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={`/blog/${post.number}`}
+            rel="prefetch"
             style={{
               "--bg-hsl": bg,
               "--color": textColor,

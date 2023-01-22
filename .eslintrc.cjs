@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  ignorePatterns: "*.cjs",
+  ignorePatterns: ["*.cjs", "api/graphql/*.ts"],
   plugins: ["tailwindcss", "prettier", "@typescript-eslint"],
   extends: [
     "eslint:recommended",

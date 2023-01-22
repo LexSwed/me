@@ -1,0 +1,43 @@
+---
+import { getPost, getPosts } from "../../api/github";
+import MainLayout from "../../layouts/Main.astro";
+import { frontmatter, parse } from "../../utils/markdown";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => {
+    return {
+      params: {
+        postId: post.number,
+      },
+    };
+  });
+}
+
+const { postId } = Astro.params;
+
+const post = await getPost(Number(postId));
+const data = frontmatter(post);
+const content = parse(post.body);
+console.log(post.publishedAt);
+const publishedAt = new Intl.DateTimeFormat("en", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+}).format(new Date(post.publishedAt));
+---
+
+<MainLayout title={post.title}>
+  <div class="mx-auto flex max-w-4xl flex-col gap-8">
+    <header class="flex flex-col gap-8">
+      <h1 class="text-4xl">{post.title}</h1>
+      {
+        data.poster && (
+          <img src={data.poster} alt={data.posterAlt} class="rounded-lg" />
+        )
+      }
+      <time datetime={post.publishedAt} class="text-md">{publishedAt}</time>
+    </header>
+    <div set:html={content} />
+  </div>
+</MainLayout>
