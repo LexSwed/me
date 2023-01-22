@@ -101,11 +101,10 @@ const jobs: Job[] = [
         inset,
       theme("boxShadow.sm"), theme("boxShadow.DEFAULT");
     @apply relative rounded-xl;
-
-    &:where(:focus, :hover) {
-      --inner-shadow-opacity: 0.4;
-      @apply outline-4 outline-stroke;
-    }
+  }
+  .card:where(:focus, :hover) {
+    --inner-shadow-opacity: 0.4;
+    @apply outline-4 outline-on-background;
   }
 
   @property --wave-size {

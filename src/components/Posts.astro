@@ -80,13 +80,12 @@ const { class: className, ...props } = Astro.props;
     color: var(--color);
     box-shadow: 0 -1px theme("spacing.2") theme("colors.on-primary/0.2"),
       0 1px var(--shadow-spread) hsl(var(--bg-hsl) / 0.8);
-
-    &:where(:hover, :focus) {
-      --shadow-spread: theme("spacing.2");
-      & .img {
-        translate: 0 0 1px;
-        scale: 1;
-      }
+  }
+  .card:where(:hover, :focus) {
+    --shadow-spread: theme("spacing.2");
+    & .img {
+      translate: 0 0 1px;
+      scale: 1;
     }
   }
   .img {
