@@ -52,7 +52,6 @@ const Query_GetDiscussions = /* GraphQL */ `
           title
           url
           publishedAt
-          body
           number
           labels(first: 10) {
             nodes {

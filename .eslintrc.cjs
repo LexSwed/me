@@ -9,6 +9,9 @@ module.exports = {
     "plugin:tailwindcss/recommended",
     "plugin:astro/recommended",
   ],
+  globals: {
+    astroHTML: "readonly",
+  },
   rules: {
     "tailwindcss/no-custom-classname": "off",
   },

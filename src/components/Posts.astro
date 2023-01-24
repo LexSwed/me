@@ -3,7 +3,6 @@ import { HTMLAttributes } from "astro/types";
 import Color from "color";
 
 import { getPosts } from "../api/github";
-import { frontmatter } from "../utils/markdown";
 
 export type Props = HTMLAttributes<"ul">;
 
@@ -21,12 +20,8 @@ const { class: className, ...props } = Astro.props;
 
       const color = Color(`#${topic.color}`);
       const hsl = color.hsl();
-      const bg = `${hsl.hue().toFixed(2)} ${hsl.saturationv().toFixed(2)}% ${hsl
-        .lightness()
-        .toFixed(2)}%`;
       const textColor = color.isDark() ? "#fff" : "#000";
 
-      const data = frontmatter(post);
       // TODO: slugify
       return (
         <li class="shrink-0 snap-start">
@@ -34,30 +29,15 @@ const { class: className, ...props } = Astro.props;
             href={`/blog/${post.number}`}
             rel="prefetch"
             style={{
-              "--bg-hsl": bg,
+              "--bg-h": `${hsl.hue().toFixed(2)}deg`,
+              "--bg-s": `${hsl.saturationv().toFixed(2)}%`,
+              "--bg-l": `${hsl.lightness().toFixed(2)}%`,
               "--color": textColor,
             }}
-            class="card outline-on-primary block rounded-3xl outline-4 transition-shadow duration-200 ease-in"
+            class="card outline-on-primary block rounded-3xl outline-4 transition-all duration-200 ease-in"
           >
-            <div class="flex h-full flex-col">
-              <div class="h-[60%] min-h-0 shrink p-4">
-                <div class="h-full overflow-hidden rounded-2xl">
-                  <div class="img h-full w-full duration-[1s] ease-in-out">
-                    {data.poster ? (
-                      <img
-                        src={data.poster}
-                        alt={data.posterAlt}
-                        class="h-full w-full object-cover"
-                      />
-                    ) : (
-                      <div class="placeholder h-full rounded-2xl bg-[var(--color)]" />
-                    )}
-                  </div>
-                </div>
-              </div>
-              <div class="mt-auto min-h-0 p-8 pt-0">
-                <p class="text-2xl">{post.title}</p>
-              </div>
+            <div class="flex h-full flex-col justify-between p-8">
+              <p class="text-2xl">{post.title}</p>
             </div>
           </a>
         </li>
@@ -68,34 +48,31 @@ const { class: className, ...props } = Astro.props;
 
 <style>
   .card {
-    --bg-hsl: 0 0% 100%;
+    --bg-hsl: var(--bg-h) var(--bg-s) var(--bg-l);
     --color: theme("colors.black");
-    --shadow-spread: theme("spacing.4");
     --bg: hsl(var(--bg-hsl) / 1);
-    inline-size: 20rem;
-    block-size: 25rem;
-    background-color: var(--bg);
+    inline-size: 25rem;
+    block-size: 20rem;
+    background-image: linear-gradient(
+      to bottom left,
+      var(--bg),
+      hsl(
+        min(calc(var(--bg-h) + 4deg), 360deg) max(calc(var(--bg-s) - 10%), 0%)
+          max(calc(var(--bg-l) - 5%), 0%)
+      ),
+      hsl(
+        min(calc(var(--bg-h) + 8deg), 360deg) max(calc(var(--bg-s) - 20%), 0%)
+          max(calc(var(--bg-l) - 15%), 0%)
+      )
+    );
     color: var(--color);
     box-shadow: 0 -1px theme("spacing.2") theme("colors.on-primary/0.2"),
-      0 1px var(--shadow-spread) hsl(var(--bg-hsl) / 0.8);
+      0 1px theme("spacing.4") hsl(var(--bg-hsl) / 0.8);
+    perspective: 1000px;
   }
   .card:where(:hover, :focus) {
-    --shadow-spread: theme("spacing.2");
-    & .img {
-      translate: 0 0 1px;
-      scale: 1;
-    }
-  }
-  .img {
-    scale: 1.05;
-  }
-  .placeholder {
-    --r: 1px;
-    --distance: 1.2rem;
-    opacity: 0.8;
-    background-image: radial-gradient(var(--bg) var(--r), transparent var(--r)),
-      radial-gradient(var(--bg) var(--r), #ffffff var(--r));
-    background-size: calc(var(--distance) * 2) calc(var(--distance) * 2);
-    background-position: 0 0, var(--distance) var(--distance);
+    box-shadow: 0 -1px theme("spacing.2") theme("colors.on-primary/0.2"),
+      0 6px theme("spacing.8") hsl(var(--bg-hsl) / 0.8);
+    transform: rotate3d(1, 0, 0, 4deg) translate3d(0, -4px, 8px);
   }
 </style>

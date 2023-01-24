@@ -1,5 +1,6 @@
 ---
 import { getPost, getPosts } from "../../api/github";
+import ChevronLeft from "../../icons/chevron-left.astro";
 import MainLayout from "../../layouts/Main.astro";
 import { frontmatter, parse } from "../../utils/markdown";
 
@@ -28,6 +29,11 @@ const publishedAt = new Intl.DateTimeFormat("en", {
 ---
 
 <MainLayout title={post.title}>
+  <header>
+    <a href="/" title="Go Back" aria-label="Go Back">
+      <ChevronLeft aria-hidden="true" class="h-8" />
+    </a>
+  </header>
   <div class="mx-auto flex max-w-4xl flex-col gap-8">
     <header class="flex flex-col gap-8">
       <h1 class="text-4xl">{post.title}</h1>
@@ -38,6 +44,6 @@ const publishedAt = new Intl.DateTimeFormat("en", {
       }
       <time datetime={post.publishedAt} class="text-md">{publishedAt}</time>
     </header>
-    <div set:html={content} />
+    <main set:html={content} />
   </div>
 </MainLayout>
