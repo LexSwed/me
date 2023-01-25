@@ -3,6 +3,7 @@ import { HTMLAttributes } from "astro/types";
 import Color from "color";
 
 import { getPosts } from "../api/github";
+import { formatDate } from "../utils";
 
 export type Props = HTMLAttributes<"ul">;
 
@@ -21,6 +22,7 @@ const { class: className, ...props } = Astro.props;
       const color = Color(`#${topic.color}`);
       const hsl = color.hsl();
       const textColor = color.isDark() ? "#fff" : "#000";
+      const publishedAt = formatDate(post.publishedAt);
 
       // TODO: slugify
       return (
@@ -37,6 +39,9 @@ const { class: className, ...props } = Astro.props;
             class="card outline-on-primary block rounded-3xl outline-4 transition-all duration-200 ease-in"
           >
             <div class="flex h-full flex-col justify-between p-8">
+              <div class="self-start rounded-md bg-white/20 py-1 px-3 text-xs backdrop-blur-md">
+                {publishedAt}
+              </div>
               <p class="text-2xl">{post.title}</p>
             </div>
           </a>
@@ -55,15 +60,15 @@ const { class: className, ...props } = Astro.props;
     block-size: 20rem;
     background-image: linear-gradient(
       to bottom left,
-      var(--bg),
       hsl(
-        min(calc(var(--bg-h) + 4deg), 360deg) max(calc(var(--bg-s) - 10%), 0%)
-          max(calc(var(--bg-l) - 5%), 0%)
+        min(calc(var(--bg-h) - 12deg), 360deg) max(calc(var(--bg-s) - 15%), 0%)
+          max(calc(var(--bg-l) + 5%), 0%)
       ),
       hsl(
-        min(calc(var(--bg-h) + 8deg), 360deg) max(calc(var(--bg-s) - 20%), 0%)
-          max(calc(var(--bg-l) - 15%), 0%)
-      )
+        min(calc(var(--bg-h) + 6deg), 360deg) max(calc(var(--bg-s) - 25%), 0%)
+          max(calc(var(--bg-l) + 5%), 0%)
+      ),
+      var(--bg)
     );
     color: var(--color);
     box-shadow: 0 -1px theme("spacing.2") theme("colors.on-primary/0.2"),

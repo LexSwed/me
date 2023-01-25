@@ -2,6 +2,7 @@
 import { getPost, getPosts } from "../../api/github";
 import ChevronLeft from "../../icons/chevron-left.astro";
 import MainLayout from "../../layouts/Main.astro";
+import { formatDate } from "../../utils";
 import { frontmatter, parse } from "../../utils/markdown";
 
 export async function getStaticPaths() {
@@ -20,12 +21,8 @@ const { postId } = Astro.params;
 const post = await getPost(Number(postId));
 const data = frontmatter(post);
 const content = parse(post.body);
-console.log(post.publishedAt);
-const publishedAt = new Intl.DateTimeFormat("en", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-}).format(new Date(post.publishedAt));
+
+const publishedAt = formatDate(post.publishedAt);
 ---
 
 <MainLayout title={post.title}>
