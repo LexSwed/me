@@ -56,8 +56,8 @@ const { class: className, ...props } = Astro.props;
     --bg-hsl: var(--bg-h) var(--bg-s) var(--bg-l);
     --color: theme("colors.black");
     --bg: hsl(var(--bg-hsl) / 1);
-    inline-size: 25rem;
-    block-size: 20rem;
+    inline-size: clamp(15rem, 20rem, 80vw);
+    block-size: 25rem;
     background-image: linear-gradient(
       to bottom left,
       hsl(
