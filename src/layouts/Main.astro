@@ -15,5 +15,11 @@ const { title, description } = Astro.props;
   </head>
   <body class="bg-background text-on-background">
     <slot />
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+    </style>
   </body>
 </html>
