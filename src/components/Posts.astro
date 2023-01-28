@@ -28,7 +28,7 @@ const { class: className, ...props } = Astro.props;
       return (
         <li class="shrink-0 snap-start">
           <a
-            href={`/blog/${post.number}`}
+            href={`/posts/${post.number}`}
             rel="prefetch"
             style={{
               "--bg-h": `${hsl.hue().toFixed(2)}deg`,
@@ -56,8 +56,8 @@ const { class: className, ...props } = Astro.props;
     --bg-hsl: var(--bg-h) var(--bg-s) var(--bg-l);
     --color: theme("colors.black");
     --bg: hsl(var(--bg-hsl) / 1);
-    inline-size: clamp(15rem, 20rem, 80vw);
-    block-size: 25rem;
+    inline-size: clamp(14rem, 20rem, 70vw);
+    block-size: clamp(20rem, 50vw, 25rem);
     background-image: linear-gradient(
       to bottom left,
       hsl(
@@ -74,10 +74,10 @@ const { class: className, ...props } = Astro.props;
     box-shadow: 0 -1px theme("spacing.2") theme("colors.on-primary/0.2"),
       0 1px theme("spacing.4") hsl(var(--bg-hsl) / 0.8);
     perspective: 1000px;
-  }
-  .card:where(:hover, :focus) {
-    box-shadow: 0 -1px theme("spacing.2") theme("colors.on-primary/0.2"),
-      0 6px theme("spacing.8") hsl(var(--bg-hsl) / 0.8);
-    transform: rotate3d(1, 0, 0, 4deg) translate3d(0, -4px, 8px);
+    &:where(:hover, :focus) {
+      box-shadow: 0 -1px theme("spacing.2") theme("colors.on-primary/0.2"),
+        0 6px theme("spacing.6") hsl(var(--bg-hsl) / 0.8);
+      transform: rotate3d(1, 0, 0, 4deg) translate3d(0, -4px, 8px);
+    }
   }
 </style>

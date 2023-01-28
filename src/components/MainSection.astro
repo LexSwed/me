@@ -13,7 +13,10 @@ import SocialLinks from "./SocialLinks.astro";
     <h1 class="heading">Oleksandr Sh.</h1>
     <div class="subheadline">Web Developer</div>
   </header>
-  <section class="notes" aria-labelledby="notes">
+  <section
+    class="flex snap-x scroll-p-8 gap-8 overflow-auto p-8"
+    aria-labelledby="notes"
+  >
     <header
       class="flex max-w-[60%] shrink-0 snap-start flex-row items-center gap-2"
     >
@@ -50,20 +53,5 @@ import SocialLinks from "./SocialLinks.astro";
   }
   .subheadline > span {
     text-shadow: 0 0 1px theme("colors.on-background/0.2");
-  }
-  .notes {
-    --p: theme("spacing.8");
-    scroll-padding-inline: var(--p);
-    scroll-padding-block: var(--p);
-    padding: var(--p);
-    scroll-snap-type: x mandatory;
-
-    @apply flex gap-8 overflow-auto;
-  }
-  .card {
-    scroll-snap-align: start;
-    inline-size: clamp(20rem, 90svw, 60vw);
-    block-size: 25rem;
-    flex-shrink: 0;
   }
 </style>

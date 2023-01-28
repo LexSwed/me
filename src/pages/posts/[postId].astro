@@ -1,0 +1,66 @@
+---
+import { getPost, getPosts } from "../../api/github";
+import ChevronLeft from "../../icons/chevron-left.astro";
+import MainLayout from "../../layouts/Main.astro";
+import { formatDate } from "../../utils";
+import { frontmatter, parse } from "../../utils/markdown";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => {
+    return {
+      params: {
+        postId: post.number,
+      },
+    };
+  });
+}
+
+const { postId } = Astro.params;
+
+const post = await getPost(Number(postId));
+const data = frontmatter(post);
+const { content } = parse(post.body);
+
+const publishedAt = formatDate(post.publishedAt);
+---
+
+<MainLayout title={post.title}>
+  <header class="mx-auto flex max-w-4xl flex-col gap-4 p-6 sm:p-8">
+    <a
+      href="/"
+      class="group/link -ml-4 flex flex-row items-center gap-4 px-4 py-2"
+    >
+      <ChevronLeft
+        aria-hidden="true"
+        class="h-8 w-8 translate-x-1 transition-transform duration-200 group-hover/link:translate-x-0"
+      />
+      <span><b>All posts</b> by Oleksandr</span>
+    </a>
+  </header>
+  <div class="mx-auto mt-12 flex max-w-4xl flex-col gap-8 p-6 sm:p-8">
+    <header class="flex flex-col gap-8">
+      <div class="flex flex-col gap-2">
+        <h1 class="text-4xl">{post.title}</h1>
+        <time
+          datetime={post.publishedAt}
+          class="text-on-background/80 self-end text-sm">{publishedAt}</time
+        >
+      </div>
+      {
+        data.poster && (
+          // TODO: apply image optimizations
+          <img src={data.poster} alt={data.posterAlt} class="rounded-lg" />
+        )
+      }
+    </header>
+    <main set:html={content} class="main text-on-background/80" />
+  </div>
+</MainLayout>
+
+<style is:global>
+  .main kbd {
+    box-shadow: inset 0 -1px 0 theme("colors[slate][500]");
+    @apply rounded-md text-[0.7rem] align-middle inline-block px-1 py-0.5 font-mono leading-none text-slate-300 border-[1px] border-slate-500 bg-slate-800;
+  }
+</style>
