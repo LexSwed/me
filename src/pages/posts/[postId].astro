@@ -6,7 +6,7 @@ import { formatDate } from "../../utils";
 import { frontmatter, parse } from "../../utils/markdown";
 
 export async function getStaticPaths() {
-  const posts = await getPosts();
+  const posts = await getPosts(10);
   return posts.map((post) => {
     return {
       params: {

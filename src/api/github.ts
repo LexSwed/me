@@ -18,11 +18,12 @@ const PARAMS = {
   owner: "LexSwed",
 };
 
-export async function getPosts() {
+export async function getPosts(count: number) {
   const response = await github<GetDiscussionsQuery>(Query_GetDiscussions, {
     repo: PARAMS.repo,
     owner: PARAMS.owner,
     categoryId: PARAMS.categoryId,
+    count,
   } satisfies GetDiscussionsQueryVariables);
 
   return response.repository.discussions.nodes;
@@ -40,10 +41,15 @@ export async function getPost(number: number) {
 
 const Query_GetDiscussions = /* GraphQL */ `
   #graphql
-  query GetDiscussions($repo: String!, $owner: String!, $categoryId: ID!) {
+  query GetDiscussions(
+    $repo: String!
+    $owner: String!
+    $categoryId: ID!
+    $count: Int!
+  ) {
     repository(name: $repo, owner: $owner) {
       discussions(
-        last: 10
+        last: $count
         orderBy: { field: CREATED_AT, direction: DESC }
         categoryId: $categoryId
       ) {

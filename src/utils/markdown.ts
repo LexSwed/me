@@ -54,7 +54,6 @@ const renderer = {
     </p>`;
   },
   link(href, title, text) {
-    console.log({ href, title, text });
     let external = false;
     try {
       new URL(href);
