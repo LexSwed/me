@@ -26,34 +26,40 @@ const publishedAt = formatDate(post.publishedAt);
 ---
 
 <MainLayout title={post.title}>
-  <header class="mx-auto flex max-w-4xl flex-col gap-4 p-6 sm:p-8">
-    <a
-      href="/"
-      class="group/link -ml-4 flex flex-row items-center gap-4 px-4 py-2"
-    >
-      <ChevronLeft
-        aria-hidden="true"
-        class="h-8 w-8 translate-x-1 transition-transform duration-200 group-hover/link:translate-x-0"
-      />
-      <span><b>All posts</b> by Oleksandr</span>
-    </a>
-  </header>
-  <div class="mx-auto mt-12 flex max-w-4xl flex-col gap-8 p-6 sm:p-8">
-    <header class="flex flex-col gap-8">
-      <div class="flex flex-col gap-2">
-        <h1 class="text-4xl">{post.title}</h1>
-        <time
-          datetime={post.publishedAt}
-          class="text-on-background/80 self-end text-sm">{publishedAt}</time
-        >
+  <header class="bg-primary text-on-primary">
+    <div class="mx-auto flex max-w-4xl flex-col gap-4 p-6 sm:p-8">
+      <a
+        href="/"
+        class="group/link -ml-4 flex flex-row items-center gap-4 px-4 py-2"
+      >
+        <ChevronLeft
+          aria-hidden="true"
+          class="h-8 w-8 translate-x-1 stroke-2 transition-transform duration-200 group-hover/link:translate-x-0"
+        />
+        <span><b>All posts</b> by Oleksandr</span>
+      </a>
+      <div class="flex flex-col gap-20">
+        {
+          data.poster && (
+            // TODO: apply image optimizations
+            <img
+              src={data.poster}
+              alt={data.posterAlt}
+              class="rounded-xl shadow-xl"
+            />
+          )
+        }
+        <div class="flex flex-col gap-8 text-center">
+          <h1 class="text-4xl md:text-7xl">{post.title}</h1>
+          <time datetime={post.publishedAt} class="text-on-primary/90 text-sm"
+            >{publishedAt}</time
+          >
+        </div>
       </div>
-      {
-        data.poster && (
-          // TODO: apply image optimizations
-          <img src={data.poster} alt={data.posterAlt} class="rounded-lg" />
-        )
-      }
-    </header>
+    </div>
+  </header>
+  <div class="mx-auto flex max-w-4xl flex-col gap-8 p-6 sm:p-8">
+    <header class="flex flex-col gap-8"></header>
     <main set:html={content} class="main text-on-background/80" />
   </div>
 </MainLayout>
