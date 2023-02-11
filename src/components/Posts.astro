@@ -36,7 +36,7 @@ const { class: className, ...props } = Astro.props;
               "--bg-l": `${hsl.lightness().toFixed(2)}%`,
               "--color": textColor,
             }}
-            class="card outline-on-primary block rounded-3xl outline-4 transition-all duration-300 ease-in"
+            class="card outline-on-primary block rounded-2xl outline-4 transition-all duration-300 ease-in"
           >
             <div class="flex h-full flex-col justify-between p-8">
               <div class="self-start rounded-md bg-white/20 py-1 px-3 text-xs backdrop-blur-md">
@@ -52,39 +52,44 @@ const { class: className, ...props } = Astro.props;
 </ul>
 
 <style>
+  @property --bg-gradient-saturation {
+    syntax: "<percentage>";
+    inherits: true;
+    initial-value: 0%;
+  }
   .card {
     --bg-hsl: var(--bg-h) var(--bg-s) var(--bg-l);
     --color: theme("colors.black");
     --bg: hsl(var(--bg-hsl) / 1);
+    --bg-gradient-saturation: max(calc(var(--bg-s) - 30%), 0%);
     inline-size: clamp(14rem, 20rem, 70vw);
     block-size: clamp(20rem, 40vh, 25rem);
-    background-image: linear-gradient(
-      to bottom left,
-      hsl(
-          min(calc(var(--bg-h) - 12deg), 360deg)
-            max(calc(var(--bg-s) - 15%), 0%) min(calc(var(--bg-l) + 5%), 100%)
+    background-color: var(--bg);
+    background-image: radial-gradient(
+        circle at 90% 10%,
+        hsl(
+          max(calc(var(--bg-h) - 10deg), 0deg) var(--bg-gradient-saturation)
+            var(--bg-l)
+        ),
+        hsl(
+          max(calc(var(--bg-h) - 10deg), 0deg) var(--bg-gradient-saturation)
+            var(--bg-l) / 0%
         )
-        20%,
-      hsl(
-          min(calc(var(--bg-h) + 6deg), 360deg) max(calc(var(--bg-s) - 25%), 0%)
-            min(calc(var(--bg-l) + 10%), 100%)
+      ),
+      radial-gradient(
+        circle at 10% 90%,
+        hsl(
+          min(calc(var(--bg-h) + 10deg), 360deg) var(--bg-gradient-saturation)
+            max(calc(var(--bg-l) - 10%), 0%)
+        ),
+        hsl(
+          min(calc(var(--bg-h) + 15deg), 360deg) var(--bg-gradient-saturation)
+            max(calc(var(--bg-l) - 10%), 0%) / 0%
         )
-        50%,
-      var(--bg)
-    );
-    background-size: 200% 200%;
-    background-position: 0% 0%;
-    border: 2px solid
-      hsl(var(--bg-h) var(--bg-s) min(calc(var(--bg-l) + 30%), 100%));
+      );
+    border: 2px solid hsl(var(--bg-h) var(--bg-s) 50% / 0.5);
     color: var(--color);
-    /* box-shadow: 0 -1px theme("spacing.2") theme("colors.on-primary/0.2"),
+    box-shadow: 0 -1px theme("spacing.2") theme("colors.on-primary/0.2"),
       0 1px theme("spacing.4") hsl(var(--bg-hsl) / 0.8);
-    perspective: 1000px; */
-    &:where(:hover, :focus) {
-      background-position: 100% 50%;
-      /* box-shadow: 0 -1px theme("spacing.2") theme("colors.on-primary/0.2"),
-        0 6px theme("spacing.6") hsl(var(--bg-hsl) / 0.8);
-      transform: rotate3d(1, 0, 0, 4deg) translate3d(0, -4px, 8px); */
-    }
   }
 </style>

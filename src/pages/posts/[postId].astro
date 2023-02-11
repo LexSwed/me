@@ -26,8 +26,10 @@ const publishedAt = formatDate(post.publishedAt);
 ---
 
 <MainLayout title={post.title}>
-  <header class="bg-primary text-on-primary">
-    <div class="mx-auto flex max-w-4xl flex-col gap-12 p-6 sm:p-8">
+  <header class="bg-primary text-on-primary h-[80%]">
+    <div
+      class="mx-auto flex h-full max-w-4xl flex-col justify-between gap-8 p-6 sm:p-8"
+    >
       <a
         href="/"
         class="group/link -ml-4 flex flex-row items-center gap-4 px-4"
@@ -44,7 +46,7 @@ const publishedAt = formatDate(post.publishedAt);
           <img
             src={data.poster}
             alt={data.posterAlt}
-            class="rounded-xl shadow-xl"
+            class="mx-auto aspect-video min-h-0 rounded-xl shadow-xl"
           />
         )
       }
