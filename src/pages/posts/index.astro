@@ -14,8 +14,6 @@ const [posts, topics] = await Promise.all([
   getPosts(100, { topic }),
   getTopics(),
 ]);
-
-export const prerender = true;
 ---
 
 <MainLayout
@@ -24,7 +22,16 @@ export const prerender = true;
 >
   <div class="bg-primary text-on-primary h-[80%] p-8">
     <header>
-      <a href="/"> </a>
+      <a
+        href="/"
+        aria-label="Home page"
+        class="flex flex-row items-center gap-3 text-3xl font-bold"
+        ><ChevronLeft
+          aria-hidden="true"
+          class="h-8"
+          style="stroke-width:0.2rem;"
+        /> Oleksandr Sh.</a
+      >
     </header>
     <div class="pt-8"></div>
     <main>
