@@ -1,20 +1,9 @@
 ---
-import { getPost, getPosts } from "../../api/github";
+import { getPost } from "../../api/github";
 import ChevronLeft from "../../icons/chevron-left.astro";
 import MainLayout from "../../layouts/Main.astro";
 import { formatDate } from "../../utils";
 import { frontmatter, parse } from "../../utils/markdown";
-
-export async function getStaticPaths() {
-  const posts = await getPosts(10);
-  return posts.map((post) => {
-    return {
-      params: {
-        postId: post.number,
-      },
-    };
-  });
-}
 
 const { postId } = Astro.params;
 
@@ -31,7 +20,7 @@ const publishedAt = formatDate(post.publishedAt);
       class="mx-auto flex h-full max-w-4xl flex-col justify-between gap-8 p-6 sm:p-8"
     >
       <a
-        href="/"
+        href="/posts"
         class="group/link -ml-4 flex flex-row items-center gap-4 px-4"
       >
         <ChevronLeft

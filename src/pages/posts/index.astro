@@ -1,10 +1,56 @@
 ---
+import { getPosts, getTopics } from "../../api/github";
+import ChevronLeft from "../../icons/chevron-left.astro";
 import MainLayout from "../../layouts/Main.astro";
+
+const topic = Astro.url.searchParams.get("topic");
+
+// clean up empty URL param
+if (!topic && Astro.url.searchParams.has("topic")) {
+  return Astro.redirect("/posts");
+}
+
+const [posts, topics] = await Promise.all([
+  getPosts(100, { topic }),
+  getTopics(),
+]);
+
+export const prerender = true;
 ---
 
 <MainLayout
   title="Oleksandr Sh. content"
   description="Sharing ideas about Software Engineering, Web Development, and Life of an Indie hacker through text, code and memes."
 >
-  Posts
+  <div class="bg-primary text-on-primary h-[80%] p-8">
+    <header>
+      <a href="/"> </a>
+    </header>
+    <div class="pt-8"></div>
+    <main>
+      <h1 class="text-7xl font-bold">Posts</h1>
+      <ul
+        class="bg-on-background text-background border-stroke/20 rounded-xl border-2 p-4"
+      >
+        <li><a href="?topic=">All</a></li>
+        {
+          topics.map((topic) => {
+            const name = topic.name.slice(topic.name.indexOf(":") + 1);
+            return (
+              <li>
+                <a href={`?topic=${name}`}>{name}</a>
+              </li>
+            );
+          })
+        }
+      </ul>
+      {
+        posts.map((post) => (
+          <li>
+            <a href={`/posts/${post.number}`}>{post.title}</a>
+          </li>
+        ))
+      }
+    </main>
+  </div>
 </MainLayout>

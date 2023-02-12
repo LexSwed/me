@@ -1,10 +1,11 @@
 ---
 import Contributions from "../components/Contributions.astro";
-import MainSection from "../components/MainSection.astro";
+import PostsSection from "../components/PostsSection.astro";
 import Projects from "../components/Projects.astro";
+import SocialLinks from "../components/SocialLinks.astro";
+import ChevronDoubleDown from "../icons/chevron-double-down.astro";
 import Layout from "../layouts/Main.astro";
 
-export const prerender = true;
 /**
 TODO: 
 - issues comments: https://github.com/giscus/giscus
@@ -13,7 +14,24 @@ TODO:
 ---
 
 <Layout title="Oleksandr Sh." description="UI engineer">
-  <MainSection />
+  <div class="bg-primary text-on-primary flex h-full flex-col justify-between">
+    <header class="flex flex-col justify-center gap-2 p-6 sm:p-8">
+      <!-- <h1 class="text-6xl font-bold">Alesander Vechi</h1> -->
+      <h1 class="heading font-bold leading-[1.1em]">Oleksandr Sh.</h1>
+      <div class="subheadline font-bold leading-[1.1em]">Web Developer</div>
+    </header>
+    <PostsSection />
+    <footer class="flex flex-row items-center justify-between p-6 sm:p-8">
+      <a
+        href="#contributions"
+        class="bg-on-background text-on-primary outline-on-primary flex aspect-square items-center gap-2 rounded-full py-3 px-5 text-lg shadow-md outline-2 sm:aspect-auto"
+      >
+        <span class="hidden sm:inline">More</span>
+        <ChevronDoubleDown class="h-5" aria-hidden="true" />
+      </a>
+      <SocialLinks class="md:gap-10" />
+    </footer>
+  </div>
   <div class="bg-stroke/10 h-px"></div>
   <div
     class="bg-background text-on-background sticky top-0 flex flex-col gap-12 p-8"
@@ -21,3 +39,15 @@ TODO:
     <Contributions />
   </div>
 </Layout>
+
+<style>
+  .heading {
+    font-size: clamp(3rem, 5vw, 5rem);
+  }
+  .subheadline {
+    font-size: clamp(1.8rem, 3vw, 1.5rem);
+  }
+  .subheadline > span {
+    text-shadow: 0 0 1px theme("colors.on-background/0.2");
+  }
+</style>
