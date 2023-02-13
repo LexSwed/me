@@ -3,7 +3,8 @@ const config = {
   schema: {
     "https://api.github.com/graphql": {
       headers: {
-        Authorization: `Bearer ${process.env.GITHUB_PAT}`,
+        "Authorization": `Bearer ${process.env.GITHUB_PAT}`,
+        "User-Agent": "GraphQL Codegen - Personal Website",
       },
     },
   },
