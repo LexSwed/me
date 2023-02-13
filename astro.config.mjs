@@ -9,7 +9,7 @@ import commonjs from "vite-plugin-commonjs";
 const shikiResourcePaths = Object.keys(
   import.meta.glob([
     "./node_modules/shiki/languages/*.json",
-    "./node_modules/shiki@*/node_modules/shiki/themes/material-palenight.json",
+    "./node_modules/shiki/themes/material-palenight.json",
   ])
 );
 
