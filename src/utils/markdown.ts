@@ -56,7 +56,9 @@ const renderer = {
   link(href, title, text) {
     let external = false;
     try {
-      new URL(href);
+      if (href) {
+        new URL(href);
+      }
     } catch {
       external = false;
     }
