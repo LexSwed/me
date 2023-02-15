@@ -15,7 +15,7 @@
     "codegen": "graphql-codegen --config codegen.cjs -r dotenv/config"
   },
   "dependencies": {
-    "@astrojs/mdx": "^0.16.0",
+    "@astrojs/mdx": "^0.16.2",
     "@astrojs/prefetch": "^0.1.2",
     "@astrojs/sitemap": "^1.0.1",
     "@astrojs/tailwind": "^3.0.1",
@@ -23,7 +23,7 @@
     "@fontsource/inter": "^4.5.15",
     "@octokit/graphql": "^5.0.5",
     "@types/color": "^3.0.3",
-    "astro": "^2.0.10",
+    "astro": "^2.0.12",
     "color": "^4.2.3",
     "dompurify": "^3.0.0",
     "graphql": "^16.6.0",
