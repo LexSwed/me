@@ -21,20 +21,23 @@ const [posts, topics] = await Promise.all([
   description="Sharing ideas about Software Engineering, Web Development, and Life of an Indie hacker through text, code and memes."
 >
   <div class="bg-primary text-on-primary h-[80%] p-8">
-    <header>
+    <nav>
       <a
         href="/"
         aria-label="Home page"
-        class="outline-on-primary flex flex-row items-center justify-between gap-2 text-xl decoration-2 underline-offset-2 outline-2 hover:underline"
-        >Home
-        <span class="bg-on-primary rounded-xl p-2">
-          <img src="/logo-inner.svg" aria-hidden="true" class="h-6 w-6" />
-        </span></a
+        class="outline-on-primary text-on-primary flex flex-row items-center justify-between gap-6 text-2xl font-medium decoration-2 underline-offset-2 outline-2 hover:underline"
       >
-    </header>
-    <div class="pt-8"></div>
+        <span>Oleksandr Sh.</span>
+        <img
+          src="/logo-inner.svg"
+          aria-hidden="true"
+          class="bg-on-primary h-12 w-12 rounded-2xl p-2"
+        />
+      </a>
+    </nav>
+    <div class="pt-4"></div>
     <main>
-      <h1 class="text-7xl font-bold">Posts</h1>
+      <h1 class="mb-8 text-7xl font-bold">Posts</h1>
       <ul
         class="bg-on-background text-background border-stroke/20 rounded-xl border-2 p-4"
       >

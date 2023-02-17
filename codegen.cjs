@@ -8,7 +8,7 @@ const config = {
       },
     },
   },
-  documents: ["src/api/**/*.ts"],
+  documents: ["src/**/*.ts"],
   generates: {
     "./src/api/graphql/": {
       preset: "client",

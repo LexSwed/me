@@ -15,7 +15,6 @@ const github = graphql.defaults({
 });
 
 const PARAMS = {
-  categoryId: "DIC_kwDOB0MxVM4CTm8u",
   repo: "lexswed.github.io",
   owner: "LexSwed",
   query: 'repo:"LexSwed/lexswed.github.io" label:_published',
@@ -43,6 +42,7 @@ export async function getPosts(
       }
       return null;
     })
+    // not necessary as we know we only request Discussions, but just in case
     .filter((el) => !!el);
 
   return posts;
