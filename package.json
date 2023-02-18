@@ -25,6 +25,7 @@
     "@types/color": "^3.0.3",
     "astro": "^2.0.14",
     "color": "^4.2.3",
+    "date-fns": "^2.29.3",
     "dompurify": "^3.0.0",
     "graphql": "^16.6.0",
     "gray-matter": "^4.0.3",

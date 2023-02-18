@@ -1,7 +1,8 @@
 ---
-import { getPosts, getTopics } from "../../api/github";
-import ChevronLeft from "../../icons/chevron-left.astro";
+import { getPostsData } from "../../api/posts";
+import Logo from "../../icons/logo.astro";
 import MainLayout from "../../layouts/Main.astro";
+import { frontmatter } from "../../utils/markdown";
 
 const topic = Astro.url.searchParams.get("topic");
 
@@ -10,10 +11,7 @@ if (!topic && Astro.url.searchParams.has("topic")) {
   return Astro.redirect("/posts");
 }
 
-const [posts, topics] = await Promise.all([
-  getPosts(100, { topic }),
-  getTopics(),
-]);
+const { posts, topics } = await getPostsData(100, { topic });
 ---
 
 <MainLayout
@@ -28,25 +26,23 @@ const [posts, topics] = await Promise.all([
         class="outline-on-primary text-on-primary flex flex-row items-center justify-between gap-6 text-2xl font-medium decoration-2 underline-offset-2 outline-2 hover:underline"
       >
         <span>Oleksandr Sh.</span>
-        <img
-          src="/logo-inner.svg"
-          aria-hidden="true"
-          class="bg-on-primary h-12 w-12 rounded-2xl p-2"
-        />
+        <Logo />
       </a>
     </nav>
     <div class="pt-4"></div>
     <main>
       <h1 class="mb-8 text-7xl font-bold">Posts</h1>
-      <ul
-        class="bg-on-background text-background border-stroke/20 rounded-xl border-2 p-4"
-      >
-        <li><a href="?topic=">All</a></li>
+      <ul class="text-on-primary flex flex-row gap-2">
+        <li
+          class="p-2 font-light decoration-2 underline-offset-2 hover:underline"
+        >
+          <a href="?topic=">All</a>
+        </li>
         {
           topics.map((topic) => {
             const name = topic.name.slice(topic.name.indexOf(":") + 1);
             return (
-              <li>
+              <li class="p-2 font-light decoration-2 underline-offset-2 hover:underline">
                 <a href={`?topic=${name}`}>{name}</a>
               </li>
             );
@@ -54,11 +50,15 @@ const [posts, topics] = await Promise.all([
         }
       </ul>
       {
-        posts.map((post) => (
-          <li>
-            <a href={`/posts/${post.number}`}>{post.title}</a>
-          </li>
-        ))
+        posts.map((post) => {
+          const data = frontmatter({ body: post.body });
+          console.log(data);
+          return (
+            <li>
+              <a href={`/posts/${post.number}`}>{post.title}</a>
+            </li>
+          );
+        })
       }
     </main>
   </div>

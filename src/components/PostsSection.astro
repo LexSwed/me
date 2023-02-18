@@ -2,8 +2,8 @@
 import ChevronRight from "../icons/chevron-right.astro";
 import Color from "color";
 
-import { getPosts } from "../api/github";
 import { formatDate } from "../utils";
+import { getPosts } from "../api/homepage";
 
 const posts = await getPosts(10);
 ---
@@ -33,9 +33,16 @@ const posts = await getPosts(10);
           label.name.startsWith("topic:")
         );
 
-        const color = Color(`#${topic.color}`);
+        let color: Color;
+        if (topic) {
+          color = Color(`#${topic.color}`);
+        } else {
+          color = Color(`#232946`);
+        }
+
         const hsl = color.hsl();
-        const textColor = color.isDark() ? "#fff" : "#000";
+        // TODO: replace with tailwind theme colors: on-primary and on-background
+        const textColor = color.isDark() ? "#fffffe" : "#232946";
         const publishedAt = formatDate(post.publishedAt);
 
         // TODO: slugify
@@ -50,7 +57,7 @@ const posts = await getPosts(10);
                 "--bg-l": `${hsl.lightness().toFixed(2)}%`,
                 "--color": textColor,
               }}
-              class="card outline-on-primary block rounded-2xl outline-4 transition-all duration-300 ease-in"
+              class="card outline-on-primary block rounded-2xl outline-4 transition-all duration-200 ease-in"
             >
               <div class="flex h-full flex-col justify-between p-8">
                 <div class="self-start rounded-md bg-white/20 py-1 px-3 text-xs backdrop-blur-md">
@@ -74,32 +81,37 @@ const posts = await getPosts(10);
 </section>
 
 <style>
+  @property --bg-gradient-saturation {
+    syntax: "<percentage>";
+    inherits: false;
+    initial-value: 0%;
+  }
   .card {
     --bg-hsl: var(--bg-h) var(--bg-s) var(--bg-l);
     --color: theme("colors.black");
     --bg: hsl(var(--bg-hsl) / 1);
-    --bg-gradient-saturation: max(calc(var(--bg-s) - 30%), 0%);
+    --bg-gradient-saturation: max(calc(var(--bg-s) - 40%), 10%);
     --bg-gradient-lightness: var(--bg-l);
     --bg-gradient: radial-gradient(
         circle at top right,
         hsl(
-          max(calc(var(--bg-h) - 20deg), 0deg) var(--bg-gradient-saturation)
+          max(calc(var(--bg-h) - 20deg), 10deg) var(--bg-gradient-saturation)
             var(--bg-gradient-lightness)
         ),
         hsl(
-          max(calc(var(--bg-h) - 10deg), 0deg) var(--bg-gradient-saturation)
+          max(calc(var(--bg-h) - 10deg), 10deg) var(--bg-gradient-saturation)
             var(--bg-gradient-lightness) / 0%
         )
       ),
       radial-gradient(
         circle at 40% 90%,
         hsl(
-          min(calc(var(--bg-h) + 20deg), 360deg) var(--bg-gradient-saturation)
-            max(calc(var(--bg-gradient-lightness) - 5%), 0%)
+          min(calc(var(--bg-h) + 20deg), 350deg) var(--bg-gradient-saturation)
+            max(calc(var(--bg-gradient-lightness) - 5%), 10%)
         ),
         hsl(
-          min(calc(var(--bg-h) + 10deg), 360deg) var(--bg-gradient-saturation)
-            max(calc(var(--bg-gradient-lightness) - 10%), 0%) / 0%
+          min(calc(var(--bg-h) + 10deg), 350deg) var(--bg-gradient-saturation)
+            max(calc(var(--bg-gradient-lightness) - 10%), 10%) / 0%
         )
       );
     position: relative;
@@ -108,12 +120,11 @@ const posts = await getPosts(10);
     background-color: var(--bg);
     transform-style: preserve-3d;
     background-image: var(--bg-gradient);
-    background-size: 100% 100%;
     border: 2px solid hsl(var(--bg-h) var(--bg-s) 50% / 0.5);
     color: var(--color);
 
     &:where(:focus, :hover) {
-      background-size: 200% 200%;
+      --bg-gradient-saturation: max(calc(var(--bg-s) - 30%), 0%);
     }
 
     &:before {

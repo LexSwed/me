@@ -1,6 +1,7 @@
 ---
-import { getPost } from "../../api/github";
+import { getPost } from "../../api/post";
 import ChevronLeft from "../../icons/chevron-left.astro";
+import Logo from "../../icons/logo.astro";
 import MainLayout from "../../layouts/Main.astro";
 import { formatDate } from "../../utils";
 import { frontmatter, parse } from "../../utils/markdown";
@@ -19,16 +20,19 @@ const publishedAt = formatDate(post.publishedAt);
     <div
       class="mx-auto flex h-full max-w-4xl flex-col justify-between gap-8 p-6 sm:p-8"
     >
-      <a
-        href="/posts"
-        class="group/link -ml-4 flex flex-row items-center gap-4 px-4"
-      >
-        <ChevronLeft
-          aria-hidden="true"
-          class="h-8 w-8 translate-x-1 stroke-2 transition-transform duration-200 group-hover/link:translate-x-0"
-        />
-        <span><b>All posts</b> by Oleksandr</span>
-      </a>
+      <div class="flex flex-row items-center justify-between gap-4">
+        <a
+          href="/posts"
+          class="group/link -ml-4 flex flex-row items-center gap-4 px-4"
+        >
+          <ChevronLeft
+            aria-hidden="true"
+            class="h-8 w-8 translate-x-1 stroke-2 transition-transform duration-200 group-hover/link:translate-x-0"
+          />
+          <span><b>All posts</b> by Oleksandr</span>
+        </a>
+        <a href="/" aria-label="Main page" title="Main page"><Logo /></a>
+      </div>
       {
         data.poster && (
           // TODO: apply image optimizations
