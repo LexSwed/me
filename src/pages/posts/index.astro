@@ -11,14 +11,21 @@ if (!topic && Astro.url.searchParams.has("topic")) {
   return Astro.redirect("/posts");
 }
 
-const { posts, topics } = await getPostsData(100, { topic });
+let { posts, topics } = await getPostsData(50, { topic });
+const pinnedPostIndex = posts.findIndex((post) =>
+  post.labels.nodes.some((label) => label.name === "_pinned")
+);
+let pinnedPost: (typeof posts)[number];
+if (pinnedPostIndex > -1) {
+  pinnedPost = posts.splice(pinnedPostIndex, 1);
+}
 ---
 
 <MainLayout
   title="Oleksandr Sh. content"
   description="Sharing ideas about Software Engineering, Web Development, and Life of an Indie hacker through text, code and memes."
 >
-  <div class="bg-primary text-on-primary h-[80%] p-8">
+  <div class="bg-primary text-on-primary p-8">
     <nav>
       <a
         href="/"
@@ -29,10 +36,9 @@ const { posts, topics } = await getPostsData(100, { topic });
         <Logo />
       </a>
     </nav>
-    <div class="pt-4"></div>
     <main>
-      <h1 class="mb-8 text-7xl font-bold">Posts</h1>
-      <ul class="text-on-primary flex flex-row gap-2">
+      <h1 class="mb-16 mt-12 text-7xl font-bold">Posts</h1>
+      <ul class="text-on-primary flex flex-row gap-2 pl-2.5">
         <li
           class="p-2 font-light decoration-2 underline-offset-2 hover:underline"
         >
@@ -49,17 +55,31 @@ const { posts, topics } = await getPostsData(100, { topic });
           })
         }
       </ul>
-      {
-        posts.map((post) => {
-          const data = frontmatter({ body: post.body });
-          console.log(data);
-          return (
-            <li>
-              <a href={`/posts/${post.number}`}>{post.title}</a>
-            </li>
-          );
-        })
-      }
+      <div class="pt-8"></div>
+      {pinnedPost ? <article /> : null}
+      <ul class="flex flex-col gap-4">
+        {
+          posts.map((post) => {
+            const data = frontmatter({ body: post.body });
+            return (
+              <li>
+                <a
+                  href={`/posts/${post.number}`}
+                  class="text-on-primary flex flex-col gap-2 rounded-xl p-4"
+                >
+                  <img
+                    src={data.poster}
+                    alt={data.posterAlt}
+                    class="max-h-32 w-auto self-start rounded-xl"
+                  />
+                  <span class="text-xl">{post.title}</span>
+                  <p class="text-md">{data.description}</p>
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
     </main>
   </div>
 </MainLayout>

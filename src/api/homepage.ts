@@ -1,16 +1,35 @@
-import { PARAMS, request } from "./github";
-import {
-  GetHomepageDataQuery,
-  GetHomepageDataQueryVariables,
-} from "./graphql/graphql";
+import { PARAMS, github } from "./github";
 
 export async function getPosts(count: number) {
-  const response = await request<
-    GetHomepageDataQuery,
-    GetHomepageDataQueryVariables
-  >(query, {
-    searchQuery: PARAMS.query,
-    count,
+  const response = await github.query({
+    search: {
+      __args: {
+        last: count,
+        type: "DISCUSSION",
+        query: PARAMS.query,
+      },
+      edges: {
+        node: {
+          __typename: true,
+          on_Discussion: {
+            id: true,
+            title: true,
+            createdAt: true,
+            number: true,
+            labels: {
+              __args: {
+                first: 10,
+              },
+              nodes: {
+                id: true,
+                name: true,
+                color: true,
+              },
+            },
+          },
+        },
+      },
+    },
   });
 
   // Narrow down the type to Discussions only
@@ -21,34 +40,8 @@ export async function getPosts(count: number) {
       }
       return null;
     })
-    // not necessary as we know we only request Discussions, but just in case
-    .filter((el) => !!el);
+    .filter((el) => !!el)
+    .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
 
   return posts;
 }
-
-const query = /* GraphQL */ `
-  #graphql
-  query GetHomepageData($count: Int!, $searchQuery: String!) {
-    search(last: $count, type: DISCUSSION, query: $searchQuery) {
-      edges {
-        node {
-          ... on Discussion {
-            __typename
-            id
-            title
-            publishedAt
-            number
-            labels(first: 20) {
-              nodes {
-                id
-                name
-                color
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;

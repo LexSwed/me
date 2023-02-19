@@ -1,38 +1,33 @@
-import { PARAMS, request } from "./github";
-import {
-  GetDiscussionQuery,
-  GetDiscussionQueryVariables,
-} from "./graphql/graphql";
+import { PARAMS, github } from "./github";
 
 export async function getPost(number: number) {
-  const response = await request<
-    GetDiscussionQuery,
-    GetDiscussionQueryVariables
-  >(query, {
-    repo: PARAMS.repo,
-    owner: PARAMS.owner,
-    number,
-  } satisfies GetDiscussionQueryVariables);
+  const response = await github.query({
+    repository: {
+      __args: {
+        name: PARAMS.repo,
+        owner: PARAMS.owner,
+      },
+      discussion: {
+        __args: {
+          number,
+        },
+        id: true,
+        title: true,
+        body: true,
+        createdAt: true,
+        labels: {
+          __args: {
+            first: 10,
+          },
+          nodes: {
+            id: true,
+            name: true,
+            description: true,
+          },
+        },
+      },
+    },
+  });
 
   return response.repository.discussion;
 }
-const query = /* GraphQL */ `
-  #graphql
-  query GetDiscussion($number: Int!, $repo: String!, $owner: String!) {
-    repository(name: $repo, owner: $owner) {
-      discussion(number: $number) {
-        id
-        title
-        body
-        publishedAt
-        labels(first: 10) {
-          nodes {
-            id
-            name
-            description
-          }
-        }
-      }
-    }
-  }
-`;

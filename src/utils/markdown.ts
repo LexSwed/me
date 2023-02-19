@@ -8,6 +8,7 @@ import { gfmHeadingId } from "marked-gfm-heading-id";
 type Frontmatter = {
   poster?: string;
   posterAlt?: string;
+  description?: string;
 };
 
 export function frontmatter<T = Frontmatter>(post: { body: string }): T {

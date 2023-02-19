@@ -1,8 +1,4 @@
-import { PARAMS, request } from "./github";
-import {
-  GetPostsDataQuery,
-  GetPostsDataQueryVariables,
-} from "./graphql/graphql";
+import { PARAMS, github } from "./github";
 
 export async function getPostsData(
   count: number,
@@ -13,17 +9,55 @@ export async function getPostsData(
     searchQuery += ` label:"topic:${topic}"`;
   }
 
-  const response = await request<GetPostsDataQuery, GetPostsDataQueryVariables>(
-    query,
-    {
-      count,
-      searchQuery,
-      repo: PARAMS.repo,
-      owner: PARAMS.owner,
-    }
-  );
+  const response = await github.query({
+    repository: {
+      __args: {
+        name: PARAMS.repo,
+        owner: PARAMS.owner,
+      },
+      labels: {
+        __args: {
+          first: 100,
+        },
+        nodes: {
+          id: true,
+          name: true,
+          color: true,
+        },
+      },
+    },
+    search: {
+      __args: {
+        last: count,
+        type: "DISCUSSION",
+        query: searchQuery,
+      },
+      edges: {
+        node: {
+          __typename: true,
+          on_Discussion: {
+            id: true,
+            title: true,
+            createdAt: true,
+            url: true,
+            number: true,
+            body: true,
+            labels: {
+              __args: {
+                first: 20,
+              },
+              nodes: {
+                id: true,
+                name: true,
+                color: true,
+              },
+            },
+          },
+        },
+      },
+    },
+  });
 
-  // Narrow down the type to Discussions only
   const posts = response.search.edges
     ?.map((edge) => {
       if (edge.node.__typename === "Discussion") {
@@ -31,8 +65,8 @@ export async function getPostsData(
       }
       return null;
     })
-    // not necessary as we know we only request Discussions, but just in case
-    .filter((el) => !!el);
+    .filter((el) => !!el)
+    .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
 
   const topics = response.repository.labels.nodes.filter(
     (topic) => topic.name !== "_published"
@@ -41,48 +75,5 @@ export async function getPostsData(
   return {
     posts,
     topics,
-  } as const;
+  };
 }
-
-const query = /* GraphQL */ `
-  #graphql
-  query GetPostsData(
-    $count: Int!
-    $searchQuery: String!
-    $repo: String!
-    $owner: String!
-  ) {
-    repository(name: $repo, owner: $owner) {
-      labels(first: 100) {
-        nodes {
-          id
-          color
-          name
-          description
-        }
-      }
-    }
-    search(last: $count, type: DISCUSSION, query: $searchQuery) {
-      edges {
-        node {
-          ... on Discussion {
-            __typename
-            id
-            title
-            publishedAt
-            url
-            number
-            body
-            labels(first: 20) {
-              nodes {
-                id
-                name
-                color
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
