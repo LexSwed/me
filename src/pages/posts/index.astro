@@ -53,13 +53,7 @@ let { pinnedPost, posts, topics } = await getPostsData(50, { topic });
         }
       </ul>
       <div class="pt-8"></div>
-      {
-        pinnedPost && (
-          <div class="max-w-4xl">
-            <PinnedPost post={pinnedPost} />
-          </div>
-        )
-      }
+      {pinnedPost && <PinnedPost post={pinnedPost} />}
     </div>
     <ul class="flex flex-col gap-4">
       {
