@@ -1,5 +1,7 @@
 ---
+import { FragmentPostsPostFragment } from "../../api/generated/graphql";
 import { getPostsData } from "../../api/posts";
+import PinnedPost from "../../components/PinnedPost.astro";
 import Logo from "../../icons/logo.astro";
 import MainLayout from "../../layouts/Main.astro";
 import { frontmatter } from "../../utils/markdown";
@@ -11,34 +13,29 @@ if (!topic && Astro.url.searchParams.has("topic")) {
   return Astro.redirect("/posts");
 }
 
-let { posts, topics } = await getPostsData(50, { topic });
-const pinnedPostIndex = posts.findIndex((post) =>
-  post.labels.nodes.some((label) => label.name === "_pinned")
-);
-let pinnedPost: (typeof posts)[number];
-if (pinnedPostIndex > -1) {
-  pinnedPost = posts.splice(pinnedPostIndex, 1);
-}
+let { pinnedPost, posts, topics } = await getPostsData(50, { topic });
 ---
 
 <MainLayout
   title="Oleksandr Sh. content"
   description="Sharing ideas about Software Engineering, Web Development, and Life of an Indie hacker through text, code and memes."
 >
-  <div class="bg-primary text-on-primary p-8">
-    <nav>
-      <a
-        href="/"
-        aria-label="Home page"
-        class="outline-on-primary text-on-primary flex flex-row items-center justify-between gap-6 text-2xl font-medium decoration-2 underline-offset-2 outline-2 hover:underline"
+  <nav class="bg-primary text-on-primary p-8">
+    <a
+      href="/"
+      aria-label="Home page"
+      class="outline-on-primary text-on-primary flex flex-row items-center justify-between gap-6 text-2xl font-medium decoration-2 underline-offset-2 outline-2 hover:underline"
+    >
+      <span>Oleksandr Sh.</span>
+      <Logo />
+    </a>
+  </nav>
+  <main>
+    <div class="bg-primary text-on-primary p-8">
+      <h1 class="mb-12 text-7xl font-bold">Posts</h1>
+      <ul
+        class="text-on-primary -mx-4 flex max-w-full flex-row gap-2 overflow-auto pl-2.5"
       >
-        <span>Oleksandr Sh.</span>
-        <Logo />
-      </a>
-    </nav>
-    <main>
-      <h1 class="mb-16 mt-12 text-7xl font-bold">Posts</h1>
-      <ul class="text-on-primary flex flex-row gap-2 pl-2.5">
         <li
           class="p-2 font-light decoration-2 underline-offset-2 hover:underline"
         >
@@ -56,30 +53,36 @@ if (pinnedPostIndex > -1) {
         }
       </ul>
       <div class="pt-8"></div>
-      {pinnedPost ? <article /> : null}
-      <ul class="flex flex-col gap-4">
-        {
-          posts.map((post) => {
-            const data = frontmatter({ body: post.body });
-            return (
-              <li>
-                <a
-                  href={`/posts/${post.number}`}
-                  class="text-on-primary flex flex-col gap-2 rounded-xl p-4"
-                >
-                  <img
-                    src={data.poster}
-                    alt={data.posterAlt}
-                    class="max-h-32 w-auto self-start rounded-xl"
-                  />
-                  <span class="text-xl">{post.title}</span>
-                  <p class="text-md">{data.description}</p>
-                </a>
-              </li>
-            );
-          })
-        }
-      </ul>
-    </main>
-  </div>
+      {
+        pinnedPost && (
+          <div class="max-w-4xl">
+            <PinnedPost post={pinnedPost} />
+          </div>
+        )
+      }
+    </div>
+    <ul class="flex flex-col gap-4">
+      {
+        posts.map((post) => {
+          const data = frontmatter({ body: post.body });
+          return (
+            <li>
+              <a
+                href={`/posts/${post.number}`}
+                class="text-on-background flex flex-col gap-2 rounded-xl p-4"
+              >
+                <img
+                  src={data.poster}
+                  alt={data.posterAlt}
+                  class="max-h-32 w-auto self-start rounded-xl"
+                />
+                <span class="text-xl">{post.title}</span>
+                <p class="text-md hidden sm:block">{data.description}</p>
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </main>
 </MainLayout>

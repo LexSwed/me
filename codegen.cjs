@@ -1,18 +1,22 @@
 /** @type {import("@graphql-codegen/cli").CodegenConfig} */
 const config = {
-  schema: {
-    "https://api.github.com/graphql": {
-      headers: {
-        "Authorization": `Bearer ${process.env.GITHUB_PAT}`,
-        "User-Agent": "GraphQL Codegen - Personal Website",
-      },
-    },
-  },
+  schema: "./src/api/github.graphql",
   documents: ["src/**/*.ts"],
+  ignoreNoDocuments: true,
+  emitLegacyCommonJSImports: false,
   generates: {
-    "./src/api/graphql/": {
-      preset: "client",
-      plugins: ["typescript"],
+    "./src/api/generated/graphql.ts": {
+      plugins: ["typescript", "typescript-operations"],
+      config: {
+        preResolveTypes: true,
+        dedupeOperationSuffix: true,
+        exportFragmentSpreadSubTypes: true,
+        useTypeImports: true,
+        skipTypename: true,
+        scalars: {
+          DateTime: "string",
+        },
+      },
     },
   },
 };

@@ -1,6 +1,44 @@
 ---
-import { Discussion } from '../api/graphql';
+import { FragmentPostsPostFragment } from "../api/generated/graphql";
+import ArrowUpRight from "../icons/arrow-up-right.astro";
+import { frontmatter } from "../utils/markdown";
 
-export type Props = Discussion
-const { post } = Astro.props
+export type Props = {
+  post: FragmentPostsPostFragment;
+};
+const { post } = Astro.props;
+const data = frontmatter(post);
 ---
+
+<article class="group/image-container flex cursor-pointer flex-col gap-4">
+  <h3
+    class="bg-primary inline-block max-w-[80%] rounded-2xl text-2xl font-semibold group-hover/image-container:underline md:text-4xl"
+  >
+    {post.title}
+  </h3>
+  <div class="flex flex-row gap-4">
+    <div class="self-start overflow-hidden rounded-2xl">
+      <img
+        src={data.poster}
+        title={data.posterAlt}
+        alt={data.posterAlt}
+        class="image aspect-square w-full rounded-2xl object-cover transition-transform duration-[2s] group-hover/image-container:scale-105"
+      />
+    </div>
+    <div
+      class="hidden w-full min-w-[240px] flex-col justify-between gap-4 sm:flex"
+    >
+      <p class="hidden w-full min-w-[240px] sm:block">
+        {data.description}
+      </p>
+      <ArrowUpRight class="mr-8 h-16 w-16 self-end" />
+    </div>
+  </div>
+</article>
+
+<style>
+  .image {
+    isolation: isolate;
+    backface-visibility: hidden;
+  }
+</style>

@@ -1,7 +1,11 @@
-import { config } from "dotenv";
-import { createClient } from "./graphql";
+import { graphql } from "@octokit/graphql";
+import { RequestParameters } from "@octokit/graphql/dist-types/types";
 
-config();
+const github = graphql.defaults({
+  headers: {
+    Authorization: `Bearer ${import.meta.env.GITHUB_PAT}`,
+  },
+});
 
 export const PARAMS = {
   repo: "lexswed.github.io",
@@ -9,10 +13,9 @@ export const PARAMS = {
   query: 'repo:"LexSwed/lexswed.github.io" label:_published',
 };
 
-export const github = createClient({
-  url: "https://api.github.com/graphql",
-  headers: {
-    "Authorization": `Bearer ${process.env.GITHUB_PAT}`,
-    "User-Agent": "GraphQL Codegen - Personal Website",
-  },
-});
+export async function request<Q, V extends RequestParameters>(
+  query: string,
+  variables: V
+) {
+  return await github<Q>(query, variables);
+}

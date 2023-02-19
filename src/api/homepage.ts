@@ -1,35 +1,16 @@
-import { PARAMS, github } from "./github";
+import { PARAMS, request } from "./github";
+import type {
+  GetHomepageDataQuery,
+  GetHomepageDataQueryVariables,
+} from "./generated/graphql";
 
 export async function getPosts(count: number) {
-  const response = await github.query({
-    search: {
-      __args: {
-        last: count,
-        type: "DISCUSSION",
-        query: PARAMS.query,
-      },
-      edges: {
-        node: {
-          __typename: true,
-          on_Discussion: {
-            id: true,
-            title: true,
-            createdAt: true,
-            number: true,
-            labels: {
-              __args: {
-                first: 10,
-              },
-              nodes: {
-                id: true,
-                name: true,
-                color: true,
-              },
-            },
-          },
-        },
-      },
-    },
+  const response = await request<
+    GetHomepageDataQuery,
+    GetHomepageDataQueryVariables
+  >(query, {
+    searchQuery: PARAMS.query,
+    count,
   });
 
   // Narrow down the type to Discussions only
@@ -45,3 +26,29 @@ export async function getPosts(count: number) {
 
   return posts;
 }
+
+const query = /* GraphQL */ `
+  #graphql
+  query GetHomepageData($count: Int!, $searchQuery: String!) {
+    search(last: $count, type: DISCUSSION, query: $searchQuery) {
+      edges {
+        node {
+          __typename
+          ... on Discussion {
+            id
+            title
+            createdAt
+            number
+            labels(first: 20) {
+              nodes {
+                id
+                name
+                color
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
