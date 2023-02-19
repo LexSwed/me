@@ -22,6 +22,8 @@ export async function getPostsData(
       owner: PARAMS.owner,
     }
   );
+  const pinnedPost =
+    response.repository.pinnedDiscussions.nodes?.[0]?.discussion || null;
   const internalLabels = new Set(["_published"]);
 
   // Narrow down the type to Discussions only
@@ -35,7 +37,7 @@ export async function getPostsData(
       }
       return null;
     })
-    .filter((el) => !!el)
+    .filter((post) => (post && pinnedPost ? pinnedPost.id !== post.id : !!post))
     .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
 
   const topics = response.repository.labels.nodes.filter(
@@ -43,8 +45,7 @@ export async function getPostsData(
   );
 
   return {
-    pinnedPost:
-      response.repository.pinnedDiscussions.nodes?.[0]?.discussion || null,
+    pinnedPost,
     posts,
     topics,
   } as const;
