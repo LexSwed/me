@@ -31,9 +31,10 @@ let { pinnedPost, posts, topics } = await getPostsData(50, { topic });
     </a>
   </nav>
   <main>
-    <div class="bg-primary text-on-primary p-8">
+    <div
+      class="bg-primary text-on-primary flex max-h-[70vh] flex-col justify-between p-8"
+    >
       <h1 class="mb-12 text-7xl font-bold">Posts</h1>
-      <div class="pt-8"></div>
       {pinnedPost && <PinnedPost post={pinnedPost} />}
     </div>
 
