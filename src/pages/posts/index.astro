@@ -33,28 +33,27 @@ let { pinnedPost, posts, topics } = await getPostsData(50, { topic });
   <main>
     <div class="bg-primary text-on-primary p-8">
       <h1 class="mb-12 text-7xl font-bold">Posts</h1>
-      <ul
-        class="text-on-primary -mx-4 flex max-w-full flex-row gap-2 overflow-auto pl-2.5"
-      >
-        <li
-          class="p-2 font-light decoration-2 underline-offset-2 hover:underline"
-        >
-          <a href="?topic=">All</a>
-        </li>
-        {
-          topics.map((topic) => {
-            const name = topic.name.slice(topic.name.indexOf(":") + 1);
-            return (
-              <li class="p-2 font-light decoration-2 underline-offset-2 hover:underline">
-                <a href={`?topic=${name}`}>{name}</a>
-              </li>
-            );
-          })
-        }
-      </ul>
       <div class="pt-8"></div>
       {pinnedPost && <PinnedPost post={pinnedPost} />}
     </div>
+
+    <ul class="flex max-w-full flex-row gap-2 overflow-auto pl-2.5">
+      <li
+        class="p-2 font-light decoration-2 underline-offset-2 hover:underline"
+      >
+        <a href="?topic=">All</a>
+      </li>
+      {
+        topics.map((topic) => {
+          const name = topic.name.slice(topic.name.indexOf(":") + 1);
+          return (
+            <li class="p-2 font-light decoration-2 underline-offset-2 hover:underline">
+              <a href={`?topic=${name}`}>{name}</a>
+            </li>
+          );
+        })
+      }
+    </ul>
     <ul class="flex flex-col gap-4">
       {
         posts.map((post) => {
