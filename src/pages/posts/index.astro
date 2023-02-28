@@ -1,9 +1,9 @@
 ---
-import { FragmentPostsPostFragment } from "../../api/generated/graphql";
 import { getPostsData } from "../../api/posts";
+import Header from "../../components/Header.astro";
 import PinnedPost from "../../components/PinnedPost.astro";
-import Logo from "../../icons/logo.astro";
 import MainLayout from "../../layouts/Main.astro";
+import PostLayout from "../../layouts/Post.astro";
 import { frontmatter } from "../../utils/markdown";
 
 const topic = Astro.url.searchParams.get("topic");
@@ -20,63 +20,59 @@ let { pinnedPost, posts, topics } = await getPostsData(50, { topic });
   title="Oleksandr Sh. content"
   description="Sharing ideas about Software Engineering, Web Development, and Life of an Indie hacker through text, code and memes."
 >
-  <nav class="bg-primary text-on-primary p-8">
-    <a
-      href="/"
-      aria-label="Home page"
-      class="outline-on-primary text-on-primary flex flex-row items-center justify-between gap-6 text-2xl font-medium decoration-2 underline-offset-2 outline-2 hover:underline"
-    >
-      <span>Oleksandr Sh.</span>
-      <Logo />
-    </a>
-  </nav>
+  <header class="bg-primary text-on-primary">
+    <PostLayout>
+      <Header backLink="/"><b slot="back-link">Home</b></Header>
+    </PostLayout>
+  </header>
   <main>
-    <div
-      class="bg-primary text-on-primary flex max-h-[70vh] flex-col justify-between p-8"
-    >
-      <h1 class="mb-12 text-7xl font-bold">Posts</h1>
-      {pinnedPost && <PinnedPost post={pinnedPost} />}
+    <div class="bg-primary text-on-primary flex flex-col justify-between">
+      <PostLayout>
+        <h1 class="mb-12 text-7xl font-bold">Posts</h1>
+        {pinnedPost && <PinnedPost post={pinnedPost} />}
+      </PostLayout>
     </div>
-
-    <ul class="flex max-w-full flex-row gap-2 overflow-auto pl-2.5">
-      <li
-        class="p-2 font-light decoration-2 underline-offset-2 hover:underline"
-      >
-        <a href="?topic=">All</a>
-      </li>
-      {
-        topics.map((topic) => {
-          const name = topic.name.slice(topic.name.indexOf(":") + 1);
-          return (
-            <li class="p-2 font-light decoration-2 underline-offset-2 hover:underline">
-              <a href={`?topic=${name}`}>{name}</a>
-            </li>
-          );
-        })
-      }
-    </ul>
-    <ul class="flex flex-col gap-4">
-      {
-        posts.map((post) => {
-          const data = frontmatter({ body: post.body });
-          return (
-            <li>
-              <a
-                href={`/posts/${post.number}`}
-                class="text-on-background flex flex-col gap-2 rounded-xl p-4"
-              >
-                <img
-                  src={data.poster}
-                  alt={data.posterAlt}
-                  class="max-h-32 w-auto self-start rounded-xl"
-                />
-                <span class="text-xl">{post.title}</span>
-                <p class="text-md hidden sm:block">{data.description}</p>
-              </a>
-            </li>
-          );
-        })
-      }
-    </ul>
+    <PostLayout>
+      <ul class="flex max-w-full flex-row gap-2 overflow-auto pl-2.5">
+        <li
+          class="p-2 font-light decoration-2 underline-offset-2 hover:underline"
+        >
+          <a href="?topic=">All</a>
+        </li>
+        {
+          topics.map((topic) => {
+            const name = topic.name.slice(topic.name.indexOf(":") + 1);
+            return (
+              <li class="p-2 font-light decoration-2 underline-offset-2 hover:underline">
+                <a href={`?topic=${name}`}>{name}</a>
+              </li>
+            );
+          })
+        }
+      </ul>
+      <ul class="flex flex-col gap-4">
+        {
+          posts.map((post) => {
+            const data = frontmatter({ body: post.body });
+            return (
+              <li>
+                <a
+                  href={`/posts/${post.number}`}
+                  class="text-on-background flex flex-col gap-2 rounded-xl p-4"
+                >
+                  <img
+                    src={data.poster}
+                    alt={data.posterAlt}
+                    class="max-h-32 w-auto self-start rounded-xl"
+                  />
+                  <span class="text-xl">{post.title}</span>
+                  <p class="text-md hidden sm:block">{data.description}</p>
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </PostLayout>
   </main>
 </MainLayout>

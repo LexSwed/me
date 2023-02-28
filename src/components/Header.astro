@@ -1,0 +1,24 @@
+---
+import ChevronLeft from "../icons/chevron-left.astro";
+import Logo from "../icons/logo.astro";
+
+export interface Props {
+  backLink: string;
+}
+
+const { backLink } = Astro.props;
+---
+
+<div class="flex flex-row items-center justify-between gap-4">
+  <a
+    href={backLink}
+    class="group/link -ml-4 flex flex-row items-center gap-4 px-4"
+  >
+    <ChevronLeft
+      aria-hidden="true"
+      class="h-8 w-8 translate-x-1 stroke-2 transition-transform duration-200 group-hover/link:translate-x-0"
+    />
+    <span><slot name="back-link" /></span>
+  </a>
+  <a href="/" aria-label="Main page" title="Main page"><Logo /></a>
+</div>

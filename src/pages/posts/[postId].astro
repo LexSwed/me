@@ -1,5 +1,6 @@
 ---
 import { getPost } from "../../api/post";
+import Header from "../../components/Header.astro";
 import ChevronLeft from "../../icons/chevron-left.astro";
 import Logo from "../../icons/logo.astro";
 import MainLayout from "../../layouts/Main.astro";
@@ -20,19 +21,9 @@ const publishedAt = formatDate(post.publishedAt);
   <header class="bg-primary text-on-primary h-[80%]">
     <PostLayout>
       <div class="flex flex-col justify-between gap-8">
-        <div class="flex flex-row items-center justify-between gap-4">
-          <a
-            href="/posts"
-            class="group/link -ml-4 flex flex-row items-center gap-4 px-4"
-          >
-            <ChevronLeft
-              aria-hidden="true"
-              class="h-8 w-8 translate-x-1 stroke-2 transition-transform duration-200 group-hover/link:translate-x-0"
-            />
-            <span><b>All posts</b> by Oleksandr</span>
-          </a>
-          <a href="/" aria-label="Main page" title="Main page"><Logo /></a>
-        </div>
+        <Header backLink="/posts">
+          <span slot="back-link"><b>All posts</b> by Oleksandr</span>
+        </Header>
         {
           data.poster && (
             // TODO: apply image optimizations
