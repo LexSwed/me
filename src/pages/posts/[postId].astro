@@ -3,6 +3,7 @@ import { getPost } from "../../api/post";
 import ChevronLeft from "../../icons/chevron-left.astro";
 import Logo from "../../icons/logo.astro";
 import MainLayout from "../../layouts/Main.astro";
+import PostLayout from "../../layouts/Post.astro";
 import { formatDate } from "../../utils";
 import { frontmatter, parse } from "../../utils/markdown";
 
@@ -17,44 +18,44 @@ const publishedAt = formatDate(post.publishedAt);
 
 <MainLayout title={post.title}>
   <header class="bg-primary text-on-primary h-[80%]">
-    <div
-      class="mx-auto flex h-full max-w-4xl flex-col justify-between gap-8 p-6 sm:p-8"
-    >
-      <div class="flex flex-row items-center justify-between gap-4">
-        <a
-          href="/posts"
-          class="group/link -ml-4 flex flex-row items-center gap-4 px-4"
-        >
-          <ChevronLeft
-            aria-hidden="true"
-            class="h-8 w-8 translate-x-1 stroke-2 transition-transform duration-200 group-hover/link:translate-x-0"
-          />
-          <span><b>All posts</b> by Oleksandr</span>
-        </a>
-        <a href="/" aria-label="Main page" title="Main page"><Logo /></a>
+    <PostLayout>
+      <div class="flex flex-col justify-between gap-8">
+        <div class="flex flex-row items-center justify-between gap-4">
+          <a
+            href="/posts"
+            class="group/link -ml-4 flex flex-row items-center gap-4 px-4"
+          >
+            <ChevronLeft
+              aria-hidden="true"
+              class="h-8 w-8 translate-x-1 stroke-2 transition-transform duration-200 group-hover/link:translate-x-0"
+            />
+            <span><b>All posts</b> by Oleksandr</span>
+          </a>
+          <a href="/" aria-label="Main page" title="Main page"><Logo /></a>
+        </div>
+        {
+          data.poster && (
+            // TODO: apply image optimizations
+            <img
+              src={data.poster}
+              alt={data.posterAlt}
+              class="mx-auto aspect-video min-h-0 rounded-xl shadow-xl"
+            />
+          )
+        }
+        <div class="flex flex-col gap-8 text-center">
+          <h1 class="text-4xl font-semibold md:text-6xl">{post.title}</h1>
+          <time datetime={post.publishedAt} class="text-on-primary/90 text-sm"
+            >{publishedAt}</time
+          >
+        </div>
       </div>
-      {
-        data.poster && (
-          // TODO: apply image optimizations
-          <img
-            src={data.poster}
-            alt={data.posterAlt}
-            class="mx-auto aspect-video min-h-0 rounded-xl shadow-xl"
-          />
-        )
-      }
-      <div class="flex flex-col gap-8 text-center">
-        <h1 class="text-4xl font-semibold md:text-6xl">{post.title}</h1>
-        <time datetime={post.publishedAt} class="text-on-primary/90 text-sm"
-          >{publishedAt}</time
-        >
-      </div>
-    </div>
+    </PostLayout>
   </header>
-  <div class="mx-auto flex max-w-4xl flex-col gap-8 p-6 sm:p-8">
+  <PostLayout class="flex flex-col gap-8">
     <header class="flex flex-col gap-8"></header>
     <main set:html={content} class="main text-on-background/80" />
-  </div>
+  </PostLayout>
 </MainLayout>
 
 <style is:global>
