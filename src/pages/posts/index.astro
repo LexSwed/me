@@ -8,12 +8,14 @@ import { frontmatter } from "../../utils/markdown";
 
 const topic = Astro.url.searchParams.get("topic");
 
+export const prerender = true;
+
 // clean up empty URL param
 if (!topic && Astro.url.searchParams.has("topic")) {
   return Astro.redirect("/posts");
 }
 
-let { pinnedPost, posts, topics } = await getPostsData(50, { topic });
+let { pinnedPost, posts, topics } = await getPostsData(100, { topic });
 ---
 
 <MainLayout
@@ -26,7 +28,9 @@ let { pinnedPost, posts, topics } = await getPostsData(50, { topic });
     </PostLayout>
   </header>
   <main>
-    <div class="bg-primary text-on-primary flex flex-col justify-between">
+    <div
+      class="bg-primary text-on-primary flex flex-col items-start justify-between"
+    >
       <PostLayout>
         <h1 class="mb-12 text-7xl font-bold">Posts</h1>
         {pinnedPost && <PinnedPost post={pinnedPost} />}

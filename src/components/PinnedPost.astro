@@ -8,36 +8,32 @@ export type Props = {
 };
 const { post } = Astro.props;
 const data = frontmatter(post);
-const topic = post.labels.nodes.find((label) =>
-  label.name.startsWith("topic:")
-);
-const topicName = topic ? topic.name.slice("topic:".length) : null;
 ---
 
 <a
   href={`/posts/${post.number}`}
-  class="group/image-container flex h-full min-h-0 cursor-pointer flex-col gap-4 md:flex-row"
+  class="group/image-container flex h-full min-h-0 cursor-pointer flex-col gap-6"
 >
-  <div class="flex flex-col items-end justify-between gap-8">
-    <h3
-      class="bg-primary inline-block text-2xl group-hover/image-container:underline md:text-4xl"
-    >
-      {post.title}
-    </h3>
-    <ArrowUpRight class="mr-4 mt-4 hidden h-16 w-16 md:inline-block" />
-    <!-- <div class="bg-on-background text-on-primary rounded-sm p-1">
-      {topicName}
-    </div> -->
-  </div>
-  <div class="flex flex-col gap-4">
+  <div class="flex flex-row items-center gap-8">
     <img
       src={data.poster}
       title={data.posterAlt}
       alt={data.posterAlt}
-      class="isolate w-full min-w-0 rounded-2xl object-cover md:aspect-video"
+      class="isolate aspect-square min-w-0 max-w-sm flex-[3] rounded-2xl object-cover"
     />
-    <p class="hidden md:block">
-      {data.description}
-    </p>
+    <div class="relative flex h-full flex-col gap-4 md:flex-[2]">
+      <h3
+        class="bg-primary inline-block text-2xl font-semibold group-hover/image-container:underline md:text-3xl"
+      >
+        {post.title}
+      </h3>
+      <p class="bg-primary hidden md:block">
+        {data.description.slice(0, 120)}
+      </p>
+    </div>
+    <ArrowUpRight
+      aria-hidden="true"
+      class="-ml-24 hidden h-16 w-16 self-end justify-self-end md:inline-block"
+    />
   </div>
 </a>
