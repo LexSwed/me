@@ -11,7 +11,7 @@ module.exports = {
         // "background": "#b8c1ec", // blueish
         // "on-background": "#232946",
         "background": "#16161a", // blue-dark
-        "on-background": "#fffffe",
+        "on-background": "#F8FBFE",
         // "primary": "#8EC1D6", // aqua-ish
         "primary": "#FDBA74", // yellow-ish
         // "primary": "#eebbc3", // pink-ish

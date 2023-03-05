@@ -12,28 +12,28 @@ const data = frontmatter(post);
 
 <a
   href={`/posts/${post.number}`}
-  class="group/image-container flex h-full min-h-0 cursor-pointer flex-col gap-6"
+  class="group/post flex h-full min-h-0 cursor-pointer flex-col gap-6 outline-none"
 >
   <div class="flex flex-row items-center gap-8">
     <img
       src={data.poster}
       title={data.posterAlt}
       alt={data.posterAlt}
-      class="isolate aspect-square min-w-0 max-w-sm flex-[3] rounded-2xl object-cover"
+      class="ring-on-primary aspect-square min-w-0 max-w-sm flex-1 rounded-2xl object-cover transition-shadow duration-300 group-hover/post:ring-4 group-focus/post:ring-4"
     />
-    <div class="relative flex h-full flex-col gap-4 md:flex-[2]">
+    <div class="relative flex h-full flex-1 flex-col gap-4">
       <h3
-        class="bg-primary inline-block text-2xl font-semibold group-hover/image-container:underline md:text-3xl"
+        class="bg-primary inline-block text-2xl font-semibold group-hover/post:underline group-focus/post:underline md:text-3xl"
       >
         {post.title}
       </h3>
       <p class="bg-primary hidden md:block">
-        {data.description.slice(0, 120)}
+        {data.description}
       </p>
+      <ArrowUpRight
+        aria-hidden="true"
+        class="float-right hidden h-16 w-16 self-end justify-self-end md:inline-block"
+      />
     </div>
-    <ArrowUpRight
-      aria-hidden="true"
-      class="-ml-24 hidden h-16 w-16 self-end justify-self-end md:inline-block"
-    />
   </div>
 </a>

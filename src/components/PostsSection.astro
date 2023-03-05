@@ -42,7 +42,7 @@ const posts = await getPosts(10);
 
         const hsl = color.hsl();
         // TODO: replace with tailwind theme colors: on-primary and on-background
-        const textColor = color.isDark() ? "#fffffe" : "#232946";
+        const textColor = color.isDark() ? "#E7ECEF" : "#232946";
         const createdAt = formatDate(post.createdAt);
 
         // TODO: slugify
@@ -57,7 +57,7 @@ const posts = await getPosts(10);
                 "--bg-l": `${hsl.lightness().toFixed(2)}%`,
                 "--color": textColor,
               }}
-              class="card outline-on-primary block rounded-2xl outline-4 transition-all duration-200 ease-in"
+              class="card outline-on-primary block rounded-2xl outline-4 transition-all duration-500 ease-in"
             >
               <div class="flex h-full flex-col justify-between p-8">
                 <div class="self-start rounded-md bg-white/20 py-1 px-3 text-xs backdrop-blur-md">
@@ -120,11 +120,10 @@ const posts = await getPosts(10);
     background-color: var(--bg);
     transform-style: preserve-3d;
     background-image: var(--bg-gradient);
-    border: 2px solid hsl(var(--bg-h) var(--bg-s) 50% / 0.5);
     color: var(--color);
 
     &:where(:focus, :hover) {
-      --bg-gradient-saturation: max(calc(var(--bg-s) - 30%), 0%);
+      --bg-gradient-saturation: max(calc(var(--bg-s) - 30%), 10%);
     }
 
     &:before {

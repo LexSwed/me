@@ -4,6 +4,7 @@ import Header from "../../components/Header.astro";
 import PinnedPost from "../../components/PinnedPost.astro";
 import MainLayout from "../../layouts/Main.astro";
 import PostLayout from "../../layouts/Post.astro";
+import { formatDate } from "../../utils";
 import { frontmatter } from "../../utils/markdown";
 
 const topic = Astro.url.searchParams.get("topic");
@@ -32,51 +33,91 @@ let { pinnedPost, posts, topics } = await getPostsData(100, { topic });
       class="bg-primary text-on-primary flex flex-col items-start justify-between"
     >
       <PostLayout>
-        <h1 class="mb-12 text-7xl font-bold">Posts</h1>
+        <h1 class="mb-12 text-7xl font-bold md:mb-24">Notes</h1>
         {pinnedPost && <PinnedPost post={pinnedPost} />}
       </PostLayout>
     </div>
     <PostLayout>
-      <ul class="flex max-w-full flex-row gap-2 overflow-auto pl-2.5">
-        <li
-          class="p-2 font-light decoration-2 underline-offset-2 hover:underline"
-        >
-          <a href="?topic=">All</a>
-        </li>
-        {
-          topics.map((topic) => {
-            const name = topic.name.slice(topic.name.indexOf(":") + 1);
-            return (
-              <li class="p-2 font-light decoration-2 underline-offset-2 hover:underline">
-                <a href={`?topic=${name}`}>{name}</a>
-              </li>
-            );
-          })
-        }
-      </ul>
-      <ul class="flex flex-col gap-4">
-        {
-          posts.map((post) => {
-            const data = frontmatter({ body: post.body });
-            return (
-              <li>
-                <a
-                  href={`/posts/${post.number}`}
-                  class="text-on-background flex flex-col gap-2 rounded-xl p-4"
+      <div class="flex flex-col gap-16">
+        <ul class="flex max-w-full flex-row gap-4 overflow-auto pl-2.5">
+          <li
+            class:list={[
+              !topic
+                ? "bg-primary text-on-primary"
+                : "bg-transparent text-on-background",
+              "min-w-[3rem] text-sm rounded-full px-2 py-1 text-center font-light",
+            ]}
+          >
+            <a href="?topic=">All</a>
+          </li>
+          {
+            topics.map((label) => {
+              const name = label.name.slice(label.name.indexOf(":") + 1);
+              return (
+                <li
+                  class:list={[
+                    topic === name
+                      ? "bg-primary text-on-primary"
+                      : "bg-transparent text-on-background",
+                    "min-w-[3rem] text-sm rounded-full px-2 py-1 text-center font-light",
+                  ]}
                 >
-                  <img
-                    src={data.poster}
-                    alt={data.posterAlt}
-                    class="max-h-32 w-auto self-start rounded-xl"
-                  />
-                  <span class="text-xl">{post.title}</span>
-                  <p class="text-md hidden sm:block">{data.description}</p>
-                </a>
-              </li>
-            );
-          })
-        }
-      </ul>
+                  <a href={`?topic=${label.name}`}>#{name}</a>
+                </li>
+              );
+            })
+          }
+        </ul>
+        <ul class="flex flex-col gap-24">
+          {
+            posts.map((post) => {
+              const data = frontmatter({ body: post.body });
+              const labels = post.labels?.nodes?.filter(
+                (node) => !node.name.startsWith("topic:")
+              );
+              return (
+                <li>
+                  <a
+                    href={`/posts/${post.number}`}
+                    class="text-on-background group/post flex flex-row items-center gap-8"
+                  >
+                    <div class="w-64 shrink-0">
+                      {data.poster ? (
+                        <img
+                          src={data.poster}
+                          alt={data.posterAlt}
+                          class="ring-on-background/80 shadow-background w-full rounded-xl object-contain shadow-md transition-shadow duration-300 group-hover/post:ring-4 group-focus/post:ring-4"
+                        />
+                      ) : (
+                        <div class="aspect-video w-56" />
+                      )}
+                    </div>
+                    <div class="flex flex-col gap-4">
+                      <h3 class="text-2xl group-hover/post:underline group-focus/post:underline">
+                        {post.title}
+                      </h3>
+                      <p class="text-md text-on-background/90 hidden sm:block">
+                        {data.description}
+                      </p>
+                      <div class="text-on-background/80 flex flex-row flex-wrap items-center justify-between gap-4 text-sm">
+                        <ul class="flex flex-row flex-wrap gap-2">
+                          {labels?.map((node) => (
+                            <li class="rounded-full py-1 px-2">#{node.name}</li>
+                          ))}
+                        </ul>
+                        <div class="flex flex-row gap-2">
+                          <div>{formatDate(post.createdAt)}</div>
+                          <div>by Oleksandr Sh.</div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </div>
     </PostLayout>
   </main>
 </MainLayout>

@@ -13,5 +13,5 @@ export function formatDate(isoDate: string) {
   if (daysDiff > -3) {
     return rtf.format(daysDiff, "day");
   }
-  return formatter.format(new Date(date));
+  return formatter.format(date);
 }

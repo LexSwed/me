@@ -10,7 +10,7 @@ export async function getPostsData(
 ) {
   let searchQuery = PARAMS.query;
   if (topic) {
-    searchQuery += ` label:"topic:${topic}"`;
+    searchQuery += ` label:"${topic}"`;
   }
 
   const response = await request<GetPostsDataQuery, GetPostsDataQueryVariables>(
@@ -30,14 +30,13 @@ export async function getPostsData(
   const posts = response.search.edges
     ?.map((edge) => {
       if (edge.node.__typename === "Discussion") {
-        edge.node.labels.nodes = edge.node.labels.nodes.filter((label) =>
-          internalLabels.has(label.name)
+        edge.node.labels.nodes = edge.node.labels.nodes.filter(
+          (label) => !internalLabels.has(label.name)
         );
         return edge.node;
       }
       return null;
     })
-    .filter((post) => (post && pinnedPost ? pinnedPost.id !== post.id : !!post))
     .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
 
   const topics = response.repository.labels.nodes.filter(
