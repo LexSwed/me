@@ -12,28 +12,30 @@ const data = frontmatter(post);
 
 <a
   href={`/posts/${post.number}`}
-  class="group/post flex h-full min-h-0 cursor-pointer flex-col gap-6 outline-none"
+  class="group/post flex h-full min-h-0 cursor-pointer flex-col-reverse items-center gap-4 outline-none sm:flex-row sm:gap-8"
 >
-  <div class="flex flex-row items-center gap-8">
-    <img
-      src={data.poster}
-      title={data.posterAlt}
-      alt={data.posterAlt}
-      class="ring-on-primary aspect-square min-w-0 max-w-sm flex-1 rounded-2xl object-cover transition-shadow duration-300 group-hover/post:ring-4 group-focus/post:ring-4"
-    />
-    <div class="relative flex h-full flex-1 flex-col gap-4">
-      <h3
-        class="bg-primary inline-block text-2xl font-semibold group-hover/post:underline group-focus/post:underline md:text-3xl"
-      >
-        {post.title}
-      </h3>
-      <p class="bg-primary hidden md:block">
-        {data.description}
-      </p>
+  <img
+    src={data.poster}
+    title={data.posterAlt}
+    alt={data.posterAlt}
+    class="ring-on-primary aspect-video min-h-0 min-w-0 max-w-full flex-1 rounded-2xl object-cover transition-shadow duration-300 group-hover/post:ring-4 group-focus/post:ring-4 sm:aspect-square sm:max-w-sm"
+  />
+  <div class="relative flex h-full flex-1 flex-col gap-4">
+    <h3
+      class="bg-primary inline-block text-2xl font-semibold group-hover/post:underline group-focus/post:underline sm:text-3xl"
+    >
       <ArrowUpRight
         aria-hidden="true"
-        class="float-right hidden h-16 w-16 self-end justify-self-end md:inline-block"
+        class="float-right mt-2 mr-2 h-10 w-10 self-end justify-self-end stroke-2 sm:hidden"
       />
-    </div>
+      {post.title}
+    </h3>
+    <p class="bg-primary hidden sm:block">
+      {data.description}
+    </p>
+    <ArrowUpRight
+      aria-hidden="true"
+      class="float-right hidden h-16 w-16 self-end justify-self-end sm:inline-block"
+    />
   </div>
 </a>
