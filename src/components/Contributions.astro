@@ -64,14 +64,13 @@ const jobs: Job[] = [
             }}
           >
             <header class="text-4xl">{company}</header>
-            <div class="flex flex-wrap gap-2">
-              <span class="bg-on-background/50 -ml-1 block rounded-full px-2 py-1 text-sm">
-                {title}
-              </span>
-            </div>
-            <div class="arrow" aria-hidden="true">
-              <ArrowUpRightIcon />
-            </div>
+            <span class="title -ml-1 block rounded-full px-2 py-1 text-sm">
+              {title}
+            </span>
+            <ArrowUpRightIcon
+              class="absolute bottom-8 right-8 h-20 w-20 p-4"
+              aria-hidden="true"
+            />
           </a>
         </li>
       ))
@@ -89,15 +88,11 @@ const jobs: Job[] = [
     scroll-snap-type: x mandatory;
   }
   .card {
-    --inner-shadow-opacity: 0.2;
     inline-size: clamp(15rem, 35rem, 80vw);
     block-size: 25rem;
     padding: var(--p);
     color: hsl(var(--color-hsl) / 1);
     background-color: hsl(var(--bg-hsl) / 1);
-    box-shadow: 0 0 2px theme("colors.on-primary/var(--inner-shadow-opacity)")
-        inset,
-      theme("boxShadow.sm"), theme("boxShadow.DEFAULT");
   }
   .card:where(:focus, :hover) {
     --inner-shadow-opacity: 0.4;
@@ -112,7 +107,7 @@ const jobs: Job[] = [
   .card.current {
     --wave-size: 2;
     --bg-hsl: 0 0 0;
-    --center: calc(var(--p) * 2);
+    --center: calc(var(--p) * 2.2);
     animation: current-bg 3s infinite alternate;
     background-color: hsl(var(--bg-hsl) / 1);
     background-image: repeating-radial-gradient(
@@ -133,17 +128,8 @@ const jobs: Job[] = [
       --wave-size: 7;
     }
   }
-  .arrow {
-    --size: 5rem;
-    --gradient-position: 0%;
-    padding: 1rem;
-    transition: all 0.2s ease-in-out;
-    block-size: var(--size);
-    inline-size: var(--size);
-    position: absolute;
-    inset-block-end: var(--p);
-    inset-inline-end: var(--p);
 
-    @apply rounded-full;
+  .title {
+    background-color: hsl(var(--color-hsl) / 0.1);
   }
 </style>
