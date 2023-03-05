@@ -1,17 +1,16 @@
 import { differenceInDays } from "date-fns";
 
-const formatter = new Intl.DateTimeFormat("en", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-});
-const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
-
 export function formatDate(isoDate: string) {
   const date = new Date(isoDate);
   const daysDiff = differenceInDays(date, new Date());
   if (daysDiff > -3) {
+    const rtf = new Intl.RelativeTimeFormat("en-GB", { numeric: "auto" });
     return rtf.format(daysDiff, "day");
   }
+  const formatter = new Intl.DateTimeFormat("en-GB", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
   return formatter.format(date);
 }

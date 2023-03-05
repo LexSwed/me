@@ -2,7 +2,6 @@
 import { getPostsData } from "../../api/posts";
 import Header from "../../components/Header.astro";
 import PinnedPost from "../../components/PinnedPost.astro";
-import ArrowUpRight from "../../icons/arrow-up-right.astro";
 import MainLayout from "../../layouts/Main.astro";
 import PostLayout from "../../layouts/Post.astro";
 import { formatDate } from "../../utils";
@@ -40,16 +39,16 @@ let { pinnedPost, posts, topics } = await getPostsData(100, { topic });
     </div>
     <PostLayout>
       <div class="flex flex-col gap-12 sm:gap-16">
-        <ul class="flex max-w-full flex-row gap-4 overflow-auto pl-2.5">
+        <ul class="flex max-w-full flex-row gap-4 overflow-auto p-2">
           <li
             class:list={[
               !topic
                 ? "bg-primary text-on-primary"
                 : "bg-transparent text-on-background",
-              "min-w-[3rem] text-sm rounded-full px-2 py-1 text-center font-light",
+              "min-w-[3rem] text-sm rounded-full px-2 py-1 text-center font-light focus-within:ring-2 ring-on-background",
             ]}
           >
-            <a href="?topic=">All</a>
+            <a class="outline-none" href="?topic=">All</a>
           </li>
           {
             topics.map((label) => {
@@ -60,10 +59,12 @@ let { pinnedPost, posts, topics } = await getPostsData(100, { topic });
                     topic === name
                       ? "bg-primary text-on-primary"
                       : "bg-transparent text-on-background",
-                    "min-w-[3rem] text-sm rounded-full px-2 py-1 text-center font-light",
+                    "min-w-[3rem] text-sm rounded-full px-2 py-1 text-center font-light focus-within:ring-2 ring-on-background",
                   ]}
                 >
-                  <a href={`?topic=${label.name}`}>#{name}</a>
+                  <a class="outline-none " href={`?topic=${label.name}`}>
+                    #{name}
+                  </a>
                 </li>
               );
             })
@@ -80,43 +81,40 @@ let { pinnedPost, posts, topics } = await getPostsData(100, { topic });
                 <li>
                   <a
                     href={`/posts/${post.number}`}
-                    class="text-on-background group/post flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8"
+                    class="text-on-background group/post grid gap-4 outline-none sm:grid-cols-[4fr_5fr] sm:items-center sm:gap-8"
                   >
-                    <div class="w-full shrink-0 sm:w-64">
+                    <h3 class="text-2xl group-hover/post:underline group-focus/post:underline sm:hidden">
+                      {post.title}
+                    </h3>
+                    <div class="w-full shrink-0">
                       {data.poster ? (
                         <img
                           src={data.poster}
                           alt={data.posterAlt}
-                          class="ring-on-background/80 shadow-background w-full rounded-xl object-contain shadow-md transition-shadow duration-300 group-hover/post:ring-4 group-focus/post:ring-4"
+                          class="ring-on-background/80 shadow-background w-full rounded-md object-contain shadow-md transition-shadow duration-300 group-hover/post:ring-2 group-focus/post:ring-2"
                         />
                       ) : (
-                        <div class="w-full shrink-0 sm:w-64" />
+                        <div class="w-full" />
                       )}
                     </div>
-                    <div class="flex flex-col gap-4">
-                      <h3 class="text-2xl group-hover/post:underline group-focus/post:underline">
+                    <div class="hidden h-full flex-col justify-center gap-4 sm:flex">
+                      <h3 class="text-3xl group-hover/post:underline group-focus/post:underline">
                         {post.title}
-                        {!data.poster ? (
-                          <ArrowUpRight
-                            aria-hidden="true"
-                            class="float-right h-8 w-8 stroke-2 sm:hidden"
-                          />
-                        ) : null}
                       </h3>
-                      <p class="text-md text-on-background/90 hidden sm:block">
+                      <p class="text-md text-on-background/90 ">
                         {data.description}
                       </p>
-                      <div class="text-on-background/80 flex flex-row flex-wrap items-center justify-between gap-4 text-sm">
-                        <ul class="flex flex-row flex-wrap gap-2">
-                          {labels?.map((node) => (
-                            <li class="rounded-full py-1 px-2">#{node.name}</li>
-                          ))}
-                        </ul>
-                        <div class="flex flex-row gap-2">
-                          <div>{formatDate(post.createdAt)}</div>
-                          <div>by Oleksandr Sh.</div>
-                        </div>
-                      </div>
+                    </div>
+                    <div class="hidden sm:block" />
+                    <div class="text-on-background/80 flex flex-row flex-wrap items-center justify-between gap-4 text-sm">
+                      <ul class="flex flex-row flex-wrap gap-2">
+                        {labels?.map((node) => (
+                          <li>#{node.name}</li>
+                        ))}
+                      </ul>
+                      <time datetime={post.createdAt}>
+                        {formatDate(post.createdAt)}
+                      </time>
                     </div>
                   </a>
                 </li>
