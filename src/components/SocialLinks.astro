@@ -49,7 +49,7 @@ const links: Link[] = [
           href={link.href}
           aria-label={link.label}
           title={link.label}
-          class="link"
+          class="ring-on-primary xs:h-12 xs:w-12 block h-10 w-10 p-1 outline-none transition-shadow duration-150 focus:ring-2"
         >
           <link.Component aria-hidden="true" />
         </a>
@@ -57,18 +57,3 @@ const links: Link[] = [
     ))
   }
 </ul>
-
-<style>
-  .link {
-    --size: 3rem;
-    display: block;
-    transition: all 0.14s ease-in-out;
-    block-size: var(--size);
-    inline-size: var(--size);
-
-    @apply p-1 outline-2 outline-stroke;
-
-    &:where(:hover, :focus) {
-    }
-  }
-</style>
