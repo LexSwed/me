@@ -43,11 +43,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
   description={data.description}
   image={data.poster}
 >
-  <header class="bg-primary text-on-primary h-[80%]">
+  <header class="bg-primary text-on-primary">
     <PostLayout>
-      <div class="flex h-full flex-col gap-12">
+      <div class="flex h-full min-h-[80vh] flex-col gap-12">
         <Header backLink="/posts">
-          <span slot="back-link"><b>All posts</b> by Oleksandr</span>
+          <span slot="back-link"
+            ><b>All posts</b>
+            <span class="xs:inline hidden">by Oleksandr</span></span
+          >
         </Header>
         <div class="my-auto flex flex-col gap-8">
           {
@@ -72,8 +75,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       </div>
     </PostLayout>
   </header>
-  <PostLayout class="flex flex-col gap-8">
-    <header class="flex flex-col gap-8"></header>
+  <PostLayout>
     <main set:html={content} class="main text-on-background/80" />
   </PostLayout>
 </MainLayout>
@@ -82,5 +84,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   .main kbd {
     box-shadow: inset 0 -1px 0 theme("colors[slate][500]");
     @apply rounded-md text-[0.7rem] align-middle inline-block px-1 py-0.5 font-mono leading-none text-slate-300 border-[1px] border-slate-500 bg-slate-800;
+  }
+  .main pre {
+    overflow: overlay;
   }
 </style>

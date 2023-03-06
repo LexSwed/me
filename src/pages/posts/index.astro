@@ -56,13 +56,13 @@ let { pinnedPost, posts, topics } = await getPostsData(100, { topic });
               return (
                 <li
                   class:list={[
-                    topic === name
+                    topic === label.name
                       ? "bg-primary text-on-primary"
                       : "bg-transparent text-on-background",
                     "min-w-[3rem] text-sm rounded-full px-2 py-1 text-center font-light focus-within:ring-2 ring-on-background",
                   ]}
                 >
-                  <a class="outline-none " href={`?topic=${label.name}`}>
+                  <a class="outline-none" href={`?topic=${label.name}`}>
                     #{name}
                   </a>
                 </li>

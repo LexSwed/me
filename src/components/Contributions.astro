@@ -56,7 +56,7 @@ const jobs: Job[] = [
             class:list={[
               "card",
               current && "current",
-              "flex snap-start shrink-0 relative rounded-2xl gap-2 flex-col items-start p-4",
+              "flex snap-start shrink-0 relative rounded-2xl gap-2 flex-col items-start p-4 transition-all duration-300",
             ]}
             style={{
               "--bg-hsl": style.backgroundHsl,
@@ -93,6 +93,9 @@ const jobs: Job[] = [
     padding: var(--p);
     color: hsl(var(--color-hsl) / 1);
     background-color: hsl(var(--bg-hsl) / 1);
+    &:where(:focus, :hover) {
+      filter: brightness(0.9);
+    }
   }
   .card:where(:focus, :hover) {
     --inner-shadow-opacity: 0.4;

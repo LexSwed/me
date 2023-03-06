@@ -1,5 +1,12 @@
+---
+export type Props = astroHTML.JSX.SVGAttributes;
+
+const { "class": className, "class:list": classList, ...props } = Astro.props;
+---
+
 <img
   src="/logo-inner.svg"
   aria-hidden="true"
-  class="bg-on-primary h-10 w-10 rounded-2xl p-2"
+  class:list={[classList, "bg-on-primary h-10 w-10 rounded-2xl p-2", className]}
+  {...props}
 />

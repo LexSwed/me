@@ -5,6 +5,9 @@ module.exports = {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
     extend: {
+      screens: {
+        xs: "375px",
+      },
       colors: {
         // "background": "#232946", // just dark
         // "on-background": "#fffffe",
