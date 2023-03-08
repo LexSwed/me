@@ -85,7 +85,7 @@ const posts = await getPosts(10);
   .card {
     --bg-hsl: var(--bg-h) var(--bg-s) var(--bg-l);
     --bg: hsl(var(--bg-hsl) / 1);
-    --bg-gradient-saturation: max(calc(var(--bg-s) - 40%), 10%);
+    --bg-gradient-saturation: max(calc(var(--bg-s) - 20%), 10%);
     --bg-gradient-lightness: var(--bg-l);
     --bg-gradient: radial-gradient(
         circle at top right,
@@ -118,18 +118,6 @@ const posts = await getPosts(10);
 
     &:where(:focus, :hover) {
       --bg-gradient-saturation: max(calc(var(--bg-s) - 30%), 10%);
-    }
-
-    &:before {
-      position: absolute;
-      inset: -2px;
-      content: "";
-      transform: translate3d(0, 0, -1px);
-      background-color: var(--bg);
-      background-image: var(--bg-gradient);
-      filter: blur(15px);
-      border-radius: inherit;
-      z-index: -1;
     }
   }
 </style>
