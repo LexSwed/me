@@ -1,11 +1,11 @@
 ---
-import { getPostsData } from "../../api/posts";
+import { getPages, getTopics } from "../../api/notion";
 import Header from "../../components/Header.astro";
+import NotionBlock from "../../components/NotionBlock.astro";
 import PinnedPost from "../../components/PinnedPost.astro";
 import MainLayout from "../../layouts/Main.astro";
 import PostLayout from "../../layouts/Post.astro";
 import { formatDate } from "../../utils";
-import { frontmatter } from "../../utils/markdown";
 
 const topic = Astro.url.searchParams.get("topic");
 
@@ -16,7 +16,9 @@ if (!topic && Astro.url.searchParams.has("topic")) {
   return Astro.redirect("/posts");
 }
 
-let { pinnedPost, posts, topics } = await getPostsData(100, { topic });
+const posts = await getPages(100, { topic });
+const pinnedPost = posts.find((post) => post.pinned);
+const topics = await getTopics();
 ---
 
 <MainLayout
@@ -51,19 +53,18 @@ let { pinnedPost, posts, topics } = await getPostsData(100, { topic });
             <a class="outline-none" href="?topic=">All</a>
           </li>
           {
-            topics.map((label) => {
-              const name = label.name.slice(label.name.indexOf(":") + 1);
+            topics.map((tag) => {
               return (
                 <li
                   class:list={[
-                    topic === label.name
+                    topic === tag
                       ? "bg-primary text-on-primary"
                       : "bg-transparent text-on-background",
                     "min-w-[3rem] text-sm rounded-full px-2 py-1 text-center font-light focus-within:ring-2 ring-on-background",
                   ]}
                 >
-                  <a class="outline-none" href={`?topic=${label.name}`}>
-                    #{name}
+                  <a class="outline-none" href={`?topic=${tag}`}>
+                    #{tag.toLowerCase()}
                   </a>
                 </li>
               );
@@ -73,24 +74,20 @@ let { pinnedPost, posts, topics } = await getPostsData(100, { topic });
         <ul class="flex flex-col gap-24">
           {
             posts.map((post) => {
-              const data = frontmatter({ body: post.body });
-              const labels = post.labels?.nodes?.filter(
-                (node) => !node.name.startsWith("topic:")
-              );
               return (
                 <li>
                   <a
-                    href={`/posts/${post.number}`}
+                    href={`/posts/${post.slug}`}
                     class="text-on-background group/post grid gap-4 outline-none sm:grid-cols-[4fr_5fr] sm:items-center sm:gap-8"
                   >
                     <h3 class="text-2xl group-hover/post:underline group-focus/post:underline sm:hidden">
                       {post.title}
                     </h3>
                     <div class="w-full shrink-0">
-                      {data.poster ? (
+                      {post.cover ? (
                         <img
-                          src={data.poster}
-                          alt={data.posterAlt}
+                          src={post.cover.image}
+                          alt={post.cover.alt}
                           class="ring-on-background/80 shadow-background w-full rounded-md object-contain shadow-md transition-shadow duration-300 group-hover/post:ring-2 group-focus/post:ring-2"
                         />
                       ) : (
@@ -102,14 +99,14 @@ let { pinnedPost, posts, topics } = await getPostsData(100, { topic });
                         {post.title}
                       </h3>
                       <p class="text-md text-on-background/90 ">
-                        {data.description}
+                        <NotionBlock text={post.summary} />
                       </p>
                     </div>
                     <div class="hidden sm:block" />
                     <div class="text-on-background/80 flex flex-row flex-wrap items-center justify-between gap-4 text-sm">
                       <ul class="flex flex-row flex-wrap gap-2">
-                        {labels?.map((node) => (
-                          <li>#{node.name}</li>
+                        {post.tags?.map((tag) => (
+                          <li>{`#${tag}`}</li>
                         ))}
                       </ul>
                       <time datetime={post.createdAt}>
