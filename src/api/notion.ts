@@ -1,7 +1,8 @@
-import { Client, isFullPage } from "@notionhq/client";
+import { Client, isFullBlock, isFullPage } from "@notionhq/client";
 import {
+  BlockObjectResponse,
+  ListBlockChildrenResponse,
   RichTextItemResponse,
-  TextRichTextItemResponse,
 } from "@notionhq/client/build/src/api-endpoints";
 import { slugify } from "../utils/slugify";
 
@@ -14,7 +15,7 @@ const DATABASE_ID = "955ba45cd025434bb7edbd3fe5c07e12";
 
 export async function getPages(
   count = 10,
-  { topic }: { topic?: string } = {}
+  { topic, fetchContent }: { topic?: string; fetchContent?: boolean } = {}
 ): Promise<NotionPage[]> {
   try {
     const data = await notion.databases.query({
@@ -44,7 +45,8 @@ export async function getPages(
       ],
     });
     const results: NotionPage[] = [];
-    data.results.forEach((page) => {
+
+    for (const page of data.results) {
       if (!isFullPage(page)) return;
       const title =
         page.properties["Title"].type === "title"
@@ -79,6 +81,11 @@ export async function getPages(
             }, "")
           : null;
 
+      let content: NotionPage["content"] = null;
+      if (fetchContent) {
+        content = await getPage(page.id);
+      }
+
       results.push({
         id: page.id,
         title,
@@ -96,8 +103,9 @@ export async function getPages(
           page.properties["Pinned"]?.type === "checkbox" &&
           page.properties["Pinned"].checkbox,
         tags,
+        content,
       });
-    });
+    }
     return results;
   } catch (error) {
     console.error(error);
@@ -121,6 +129,7 @@ export type NotionPage = {
     color: string;
   };
   tags: string[];
+  content: Array<BlockObjectResponse> | null;
 };
 
 export async function getTopics() {
@@ -141,4 +150,25 @@ export async function getTopics() {
     .concat(pageTopics.select.options.map((tag) => tag.name));
 
   return topics;
+}
+
+async function getBlock(blockId: string, cursor?: string) {
+  const response = await notion.blocks.children.list({
+    block_id: blockId,
+    page_size: 100,
+    start_cursor: cursor,
+  });
+  if (response.has_more) {
+    const more = await getBlock(blockId, response.next_cursor);
+    response.results.concat(more.results);
+  }
+  return response;
+}
+
+export async function getPage(id: string) {
+  const response = await getBlock(id);
+  console.log(JSON.stringify(response, null, 2));
+  return response.results.filter((block): block is BlockObjectResponse =>
+    isFullBlock(block)
+  );
 }
