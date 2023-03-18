@@ -5,7 +5,7 @@ import PinnedPost from "../../components/PinnedPost.astro";
 import MainLayout from "../../layouts/Main.astro";
 import PostLayout from "../../layouts/Post.astro";
 import { formatDate } from "../../utils";
-import { frontmatter, parse } from "../../utils/markdown";
+import { parse } from "../../utils/markdown";
 
 const topic = Astro.url.searchParams.get("topic");
 
@@ -25,7 +25,9 @@ let { pinnedPost, feed, topics } = await getFeed(100, { topic });
 >
   <header class="bg-primary text-on-primary">
     <PostLayout>
-      <Header backLink="/"><b slot="back-link">Home</b></Header>
+      <Header backLink="/">
+        <span class="font-semibold" slot="back-link">Oleksandr Sh.</span>
+      </Header>
     </PostLayout>
   </header>
   <main>

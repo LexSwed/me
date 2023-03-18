@@ -19,7 +19,7 @@ const alsoPosts = posts.map((post) => {
     color = Color(`#232946`);
   }
 
-  const pastel = color.mix(Color("white"), 0.9).darken(0.6).hsl();
+  const pastel = color.mix(Color("white"), 0.2).hsl().saturate(-0.5);
 
   const createdAt = formatDate(post.createdAt);
   return {
@@ -126,7 +126,7 @@ const alsoPosts = posts.map((post) => {
     background-image: var(--bg-gradient);
 
     &:where(:focus, :hover) {
-      --bg-gradient-lightness: max(calc(var(--bg-l) - 2%), 10%);
+      --bg-gradient-lightness: max(calc(var(--bg-l) - 4%), 10%);
     }
     &:where(:focus) {
       @apply ring-4 outline-none ring-current;
