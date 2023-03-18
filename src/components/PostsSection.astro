@@ -3,9 +3,33 @@ import ChevronRight from "../icons/chevron-right.astro";
 import Color from "color";
 
 import { formatDate } from "../utils";
-import { getPages } from "../api/notion";
+import { getPosts } from "../api/homepage";
 
-const posts = await getPages(10);
+const posts = await getPosts(10);
+
+const alsoPosts = posts.map((post) => {
+  const topic = post.labels.nodes.find((label) =>
+    label.name.startsWith("topic:")
+  );
+
+  let color: Color;
+  if (topic) {
+    color = Color(`#${topic.color}`);
+  } else {
+    color = Color(`#232946`);
+  }
+
+  const pastel = color.mix(Color("white"), 0.9).darken(0.6).hsl();
+
+  const createdAt = formatDate(post.createdAt);
+  return {
+    title: post.title,
+    color: pastel,
+    createdAt,
+    // TODO: slugify
+    slug: post.number,
+  };
+});
 ---
 
 <section
@@ -24,34 +48,27 @@ const posts = await getPages(10);
   </header>
   <ul class="contents">
     {
-      posts.map((post) => {
-        const color = Color(post.topic.color);
-        const pastel = color.mix(Color("white"), 0.6);
-
-        const hsl = pastel.hsl();
-        const createdAt = formatDate(post.createdAt);
-
-        // TODO: slugify
+      alsoPosts.map(({ color, title, createdAt, slug }) => {
         return (
           <li class="contents">
             <a
-              href={`/posts/${post.slug}`}
+              href={`/posts/${slug}`}
               rel="prefetch"
               style={{
-                "--bg-h": `${hsl.hue().toPrecision(2)}deg`,
-                "--bg-s": `${hsl.saturationv().toPrecision(2)}%`,
-                "--bg-l": `${hsl.lightness().toPrecision(2)}%`,
+                "--bg-h": `${color.hue().toPrecision(2)}deg`,
+                "--bg-s": `${color.saturationv().toPrecision(2)}%`,
+                "--bg-l": `${color.lightness().toPrecision(2)}%`,
               }}
               class:list={[
                 "card isolate shrink-0 snap-start outline-on-primary block rounded-2xl outline-4 transition-all duration-300 ease-in",
-                pastel.isDark() ? "text-on-background" : "text-on-primary",
+                color.isDark() ? "text-on-background" : "text-on-primary",
               ]}
             >
               <div class="flex h-full flex-col justify-between p-8">
                 <div class="self-start rounded-md bg-white/20 py-1 px-3 text-xs backdrop-blur-md">
                   {createdAt}
                 </div>
-                <p class="xs:text-2xl text-xl">{post.title}</p>
+                <p class="xs:text-2xl text-xl">{title}</p>
               </div>
             </a>
           </li>

@@ -1,20 +1,34 @@
 ---
 import { GetStaticPaths } from "astro";
-import { getPages, NotionPage } from "../../api/notion";
+import { FragmentPostFragment } from "../../api/generated/graphql";
+import { getPost, getPosts } from "../../api/post";
 import Header from "../../components/Header.astro";
 import MainLayout from "../../layouts/Main.astro";
 import PostLayout from "../../layouts/Post.astro";
 import { formatDate } from "../../utils";
+import { frontmatter, parse } from "../../utils/markdown";
+
+const { postId } = Astro.params;
+let post: FragmentPostFragment = Astro.props.post;
+
+if (!post) {
+  post = await getPost(Number(postId));
+}
+
+const data = frontmatter(post);
+const { content } = parse(post.body);
+
+const publishedAt = formatDate(post.publishedAt);
 
 export const prerender = true;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const pages = await getPages(100, { fetchContent: true });
+  const posts = await getPosts(20);
 
-  return pages.map((post) => {
+  return posts.map((post) => {
     return {
       params: {
-        id: post.slug,
+        postId: post.number,
       },
       props: {
         post,
@@ -22,17 +36,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
   });
 };
-
-let post: NotionPage = Astro.props.post;
-
-const summary = post.summary.reduce((res, block) => {
-  res += block.plain_text;
-  return res;
-}, "");
-const publishedAt = formatDate(post.createdAt);
 ---
 
-<MainLayout title={post.title} description={summary} image={post.cover.image}>
+<MainLayout
+  title={post.title}
+  description={data.description}
+  image={data.poster}
+>
   <header class="bg-primary text-on-primary">
     <PostLayout>
       <div class="flex h-full min-h-[80vh] flex-col gap-12">
@@ -44,11 +54,11 @@ const publishedAt = formatDate(post.createdAt);
         </Header>
         <div class="my-auto flex flex-col gap-8">
           {
-            post.cover && (
+            data.poster && (
               // TODO: apply image optimizations
               <img
-                src={post.cover.image}
-                alt={post.cover.alt}
+                src={data.poster}
+                alt={data.posterAlt}
                 class="mx-auto aspect-video min-h-0 rounded-xl shadow-xl"
               />
             )
@@ -56,7 +66,7 @@ const publishedAt = formatDate(post.createdAt);
           <div class="flex flex-col gap-8 text-center">
             <h1 class="text-4xl font-semibold md:text-6xl">{post.title}</h1>
             <time
-              datetime={post.createdAt}
+              datetime={post.publishedAt}
               class="text-on-primary/70 text-sm font-semibold"
               >{publishedAt}</time
             >
@@ -66,7 +76,7 @@ const publishedAt = formatDate(post.createdAt);
     </PostLayout>
   </header>
   <PostLayout>
-    <div>Content</div>
+    <main set:html={content} class="main text-on-background/80" />
   </PostLayout>
 </MainLayout>
 

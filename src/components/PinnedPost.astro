@@ -1,22 +1,23 @@
 ---
-import { NotionPage } from "../api/notion";
+import { FragmentPostsPostFragment } from "../api/generated/graphql";
 import ArrowUpRight from "../icons/arrow-up-right.astro";
-import NotionBlock from "./NotionBlock.astro";
+import { frontmatter } from "../utils/markdown";
 
 export type Props = {
-  post: NotionPage;
+  post: FragmentPostsPostFragment;
 };
 const { post } = Astro.props;
+const data = frontmatter(post);
 ---
 
 <a
-  href={`/posts/${post.slug}`}
+  href={`/posts/${post.number}`}
   class="group/post flex h-full min-h-0 cursor-pointer flex-col-reverse items-center gap-4 outline-none sm:flex-row sm:gap-8"
 >
   <img
-    src={post.cover.image}
-    title={post.cover.alt}
-    alt={post.cover.alt}
+    src={data.poster}
+    title={data.posterAlt}
+    alt={data.posterAlt}
     class="ring-on-primary aspect-video min-h-0 w-full min-w-0 flex-1 rounded-2xl object-cover transition-shadow duration-300 group-hover/post:ring-4 group-focus/post:ring-4 sm:aspect-square sm:max-w-sm"
   />
   <div class="relative flex h-full flex-1 flex-col gap-4">
@@ -30,11 +31,11 @@ const { post } = Astro.props;
       {post.title}
     </h3>
     <p class="bg-primary hidden sm:block">
-      <NotionBlock text={post.summary} />
+      {data.description}
     </p>
     <ArrowUpRight
       aria-hidden="true"
-      class="float-right m-4 mt-16 hidden h-16 w-16 self-end justify-self-end sm:inline-block"
+      class="float-right m-4 mt-10 hidden h-16 w-16 self-end justify-self-end sm:inline-block"
     />
   </div>
 </a>
