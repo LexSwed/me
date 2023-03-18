@@ -3,8 +3,9 @@ import type {
   GetPostsDataQuery,
   GetPostsDataQueryVariables,
 } from "./generated/graphql";
+import { frontmatter } from "../utils/markdown";
 
-export async function getPostsData(
+export async function getFeed(
   count: number,
   { topic }: { topic?: string | null } = {}
 ) {
@@ -20,6 +21,7 @@ export async function getPostsData(
       searchQuery,
       repo: PARAMS.repo,
       owner: PARAMS.owner,
+      shortsCollectionId: PARAMS.shortsCollectionId,
     }
   );
   const pinnedPost =
@@ -27,17 +29,31 @@ export async function getPostsData(
   const internalLabels = new Set(["_published"]);
 
   // Narrow down the type to Discussions only
-  const posts = response.search.edges
-    ?.map((edge) => {
-      if (edge.node.__typename === "Discussion") {
-        edge.node.labels.nodes = edge.node.labels.nodes.filter(
-          (label) => !internalLabels.has(label.name)
-        );
-        return edge.node;
-      }
-      return null;
-    })
-    .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
+  const posts = response.search.edges?.map((edge) => {
+    if (edge.node.__typename === "Discussion") {
+      const { title, labels, number, body, createdAt } = edge.node;
+      const data = frontmatter({ body });
+      return {
+        title,
+        createdAt,
+        summary: data.description,
+        slug: number,
+        poster: data.poster
+          ? {
+              img: data.poster,
+              alt: data.posterAlt,
+            }
+          : null,
+        tags: labels.nodes.filter((label) => !internalLabels.has(label.name)),
+      };
+    }
+    return null;
+  });
+  const shorts = []; // response.repository.discussion.comments.nodes;
+
+  const feed = [...posts, ...shorts].sort(
+    (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
+  );
 
   const topics = response.repository.labels.nodes.filter(
     (topic) => !internalLabels.has(topic.name)
@@ -45,7 +61,7 @@ export async function getPostsData(
 
   return {
     pinnedPost,
-    posts,
+    feed,
     topics,
   } as const;
 }
@@ -57,6 +73,7 @@ const query = /* GraphQL */ `
     $searchQuery: String!
     $repo: String!
     $owner: String!
+    $shortsCollectionId: Int!
   ) {
     repository(name: $repo, owner: $owner) {
       labels(first: 100) {
@@ -71,6 +88,14 @@ const query = /* GraphQL */ `
         nodes {
           discussion {
             ...FragmentPostsPost
+          }
+        }
+      }
+      discussion(number: $shortsCollectionId) {
+        comments(first: 100) {
+          nodes {
+            createdAt
+            body
           }
         }
       }

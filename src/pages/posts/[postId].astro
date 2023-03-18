@@ -45,7 +45,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 >
   <header class="bg-primary text-on-primary">
     <PostLayout>
-      <div class="flex h-full min-h-[80vh] flex-col gap-12">
+      <div class="flex h-full flex-col gap-12">
         <Header backLink="/posts">
           <span slot="back-link"
             ><b>All posts</b>
@@ -59,7 +59,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
               <img
                 src={data.poster}
                 alt={data.posterAlt}
-                class="mx-auto aspect-video min-h-0 rounded-xl shadow-xl"
+                class="mx-auto aspect-video min-h-0 rounded-2xl shadow-lg"
               />
             )
           }
@@ -67,7 +67,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
             <h1 class="text-4xl font-semibold md:text-6xl">{post.title}</h1>
             <time
               datetime={post.publishedAt}
-              class="text-on-primary/70 text-sm font-semibold"
+              class="text-on-primary/70 text-md font-semibold"
               >{publishedAt}</time
             >
           </div>

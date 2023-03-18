@@ -11,6 +11,7 @@ export const PARAMS = {
   repo: "lexswed.github.io",
   owner: "LexSwed",
   query: 'repo:"LexSwed/lexswed.github.io" label:_published',
+  shortsCollectionId: 33,
 };
 
 export async function request<Q, V extends RequestParameters>(
