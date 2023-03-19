@@ -38,7 +38,7 @@ export const prerender = true;
         <span class="hidden sm:inline">More</span>
         <ChevronDoubleDown class="xs:h-5 h-4" aria-hidden="true" />
       </a>
-      <SocialLinks class="md:gap-10" />
+      <SocialLinks class="animate-social md:gap-10" />
     </footer>
   </div>
   <div class="bg-stroke/10 h-px"></div>
@@ -48,3 +48,24 @@ export const prerender = true;
     <Contributions />
   </div>
 </Layout>
+
+<style>
+  .animate-social {
+    --y: 0.5rem;
+    animation: slideY 0.4s 1s ease-out both;
+  }
+
+  @keyframes slideY {
+    0% {
+      transform: translateY(var(--y));
+      opacity: 0;
+    }
+    75% {
+      opacity: 1;
+    }
+    100% {
+      transform: none;
+      opacity: 1;
+    }
+  }
+</style>

@@ -39,16 +39,16 @@ const postsWithColor = posts.map((post) => {
   <header
     class="flex max-w-[60%] shrink-0 snap-start flex-row items-center gap-2"
   >
-    <div class="flex flex-col gap-6">
+    <div class="animate-appearSlideIn flex flex-col gap-6">
       <h2 id="notes" class="text-4xl">Feed</h2>
       <p class="text-lg sm:text-xl">Mostly web, but other things too.</p>
       <a href="/posts" class="leading-10 underline decoration-2">See all</a>
     </div>
-    <ChevronRight class="h-16" />
+    <ChevronRight class="animate-arrow h-16" />
   </header>
   <ul class="contents">
     {
-      postsWithColor.map(({ color, title, createdAt, slug }) => {
+      postsWithColor.map(({ color, title, createdAt, slug }, index) => {
         return (
           <li class="contents">
             <a
@@ -58,9 +58,10 @@ const postsWithColor = posts.map((post) => {
                 "--bg-h": `${color.hue().toPrecision(2)}deg`,
                 "--bg-s": `${color.saturationv().toPrecision(2)}%`,
                 "--bg-l": `${color.lightness().toPrecision(2)}%`,
+                "--index": index,
               }}
               class:list={[
-                "card isolate shrink-0 snap-start outline-on-primary block rounded-2xl outline-4 transition-all duration-300 ease-in",
+                "card animate-feed-item isolate shrink-0 snap-start outline-on-primary block rounded-2xl outline-4 transition-all duration-300 ease-in",
                 color.isDark() ? "text-on-background" : "text-on-primary",
               ]}
             >
@@ -130,6 +131,44 @@ const postsWithColor = posts.map((post) => {
     }
     &:where(:focus) {
       @apply ring-4 outline-none ring-current;
+    }
+  }
+
+  .animate-arrow {
+    --x: -0.5rem;
+    animation: slideC 0.3s 0.1s ease-in both;
+  }
+  .animate-feed-item {
+    --x: 1rem;
+    --index: 0;
+    --delay: calc(var(--index) * 0.2s);
+    --opacity-start: 1;
+    animation: slideX 1s var(--delay) both;
+    animation-timing-function: cubic-bezier(0.5, -0.53, 0.14, 1.23);
+  }
+
+  @keyframes slideY {
+    0% {
+      transform: translateY(var(--y));
+      opacity: 0;
+    }
+    100% {
+      transform: none;
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideX {
+    0% {
+      opacity: var(--opacity-start, 0);
+      transform: translateX(var(--x));
+    }
+    60% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+      transform: none;
     }
   }
 </style>

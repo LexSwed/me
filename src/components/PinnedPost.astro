@@ -18,7 +18,7 @@ const data = frontmatter(post);
     src={data.poster}
     title={data.posterAlt}
     alt={data.posterAlt}
-    class="ring-on-primary aspect-video min-h-0 w-full min-w-0 flex-1 rounded-2xl object-cover transition-shadow duration-300 group-hover/post:ring-4 group-focus/post:ring-4 sm:aspect-square sm:max-w-sm"
+    class="animate-image ring-on-primary aspect-video min-h-0 w-full min-w-0 flex-1 rounded-2xl object-cover transition-shadow duration-300 group-hover/post:ring-4 group-focus/post:ring-4 sm:aspect-square sm:max-w-sm"
   />
   <div class="relative flex h-full flex-1 flex-col gap-4">
     <h3
@@ -35,7 +35,22 @@ const data = frontmatter(post);
     </p>
     <ArrowUpRight
       aria-hidden="true"
-      class="float-right m-4 mt-10 hidden h-16 w-16 self-end justify-self-end sm:inline-block"
+      class="animate-arrow float-right m-4 mt-10 hidden h-16 w-16 self-end justify-self-end sm:inline-block"
     />
   </div>
 </a>
+
+<style>
+  .animate-image {
+    animation: scaleIn 0.7s 0.1s ease-out both;
+  }
+
+  @keyframes scaleIn {
+    0% {
+      transform: scale(1.02);
+    }
+    100% {
+      transform: none;
+    }
+  }
+</style>
