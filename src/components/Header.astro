@@ -20,5 +20,10 @@ const { backLink } = Astro.props;
     />
     <slot name="back-link" />
   </a>
-  <a href="/" aria-label="Main page" title="Main page"><Logo /></a>
+  <a
+    href="/"
+    aria-label="Main page"
+    class="-focus:trnaslate-y-1 duration-300 hover:-translate-y-1"
+    title="Main page"><Logo /></a
+  >
 </div>

@@ -1,4 +1,6 @@
+import { frontmatter, parse } from "../utils/markdown";
 import {
+  FragmentPostFragment,
   GetDiscussionQuery,
   GetDiscussionQueryVariables,
   GetDiscussionsQuery,
@@ -16,7 +18,7 @@ export async function getPosts(count: number) {
     count,
   });
 
-  return response.repository.discussions.nodes;
+  return response.repository.discussions.nodes.map((node) => parsePost(node));
 }
 
 export async function getPost(number: number) {
@@ -29,8 +31,30 @@ export async function getPost(number: number) {
     number,
   } satisfies GetDiscussionQueryVariables);
 
-  return response.repository.discussion;
+  return parsePost(response.repository.discussion);
 }
+
+function parsePost(post: FragmentPostFragment) {
+  const internalLabels = new Set(["_published"]);
+  const { title, labels, number, body, publishedAt } = post;
+  const data = frontmatter({ body });
+  return {
+    title,
+    publishedAt,
+    summary: data.description,
+    slug: number,
+    poster: data.poster
+      ? {
+          img: data.poster,
+          alt: data.posterAlt,
+        }
+      : null,
+    tags: labels.nodes.filter((label) => !internalLabels.has(label.name)),
+    body: parse(post.body),
+  };
+}
+
+export type Post = ReturnType<typeof parsePost>;
 
 const FragmentPost = /* GraphQL */ `
   #graphql

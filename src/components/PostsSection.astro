@@ -7,7 +7,7 @@ import { getPosts } from "../api/homepage";
 
 const posts = await getPosts(10);
 
-const alsoPosts = posts.map((post) => {
+const postsWithColor = posts.map((post) => {
   const topic = post.labels.nodes.find((label) =>
     label.name.startsWith("topic:")
   );
@@ -40,7 +40,7 @@ const alsoPosts = posts.map((post) => {
     class="flex max-w-[60%] shrink-0 snap-start flex-row items-center gap-2"
   >
     <div class="flex flex-col gap-6">
-      <h2 id="notes" class="text-4xl">Notes</h2>
+      <h2 id="notes" class="text-4xl">Feed</h2>
       <p class="text-lg sm:text-xl">Mostly web, but other things too.</p>
       <a href="/posts" class="leading-10 underline decoration-2">See all</a>
     </div>
@@ -48,7 +48,7 @@ const alsoPosts = posts.map((post) => {
   </header>
   <ul class="contents">
     {
-      alsoPosts.map(({ color, title, createdAt, slug }) => {
+      postsWithColor.map(({ color, title, createdAt, slug }) => {
         return (
           <li class="contents">
             <a

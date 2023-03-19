@@ -1,22 +1,18 @@
 ---
 import { GetStaticPaths } from "astro";
-import { FragmentPostFragment } from "../../api/generated/graphql";
-import { getPost, getPosts } from "../../api/post";
+import { getPost, getPosts, Post } from "../../api/post";
 import Header from "../../components/Header.astro";
+import LinkIcon from "../../icons/link.astro";
 import MainLayout from "../../layouts/Main.astro";
 import PostLayout from "../../layouts/Post.astro";
 import { formatDate } from "../../utils";
-import { frontmatter, parse } from "../../utils/markdown";
 
 const { postId } = Astro.params;
-let post: FragmentPostFragment = Astro.props.post;
+let post: Post = Astro.props.post;
 
 if (!post) {
   post = await getPost(Number(postId));
 }
-
-const data = frontmatter(post);
-const { content } = parse(post.body);
 
 const publishedAt = formatDate(post.publishedAt);
 
@@ -28,7 +24,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return posts.map((post) => {
     return {
       params: {
-        postId: post.number,
+        postId: post.slug,
       },
       props: {
         post,
@@ -40,8 +36,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 <MainLayout
   title={post.title}
-  description={data.description}
-  image={data.poster}
+  description={post.summary}
+  image={post.poster.img}
 >
   <header class="bg-primary text-on-primary">
     <PostLayout>
@@ -54,20 +50,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
         </Header>
         <div class="my-auto flex flex-col gap-8">
           {
-            data.poster && (
+            post.poster && (
               // TODO: apply image optimizations
               <img
-                src={data.poster}
-                alt={data.posterAlt}
+                src={post.poster.img}
+                alt={post.poster.alt}
                 class="mx-auto aspect-video min-h-0 rounded-2xl shadow-lg"
               />
             )
           }
           <div class="flex flex-col gap-8 text-center">
             <h1 class="text-4xl font-semibold md:text-6xl">{post.title}</h1>
-            <time
-              datetime={post.publishedAt}
-              class="text-on-primary/70 text-md font-semibold"
+            <time datetime={post.publishedAt} class="font-semibold"
               >{publishedAt}</time
             >
           </div>
@@ -76,7 +70,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
     </PostLayout>
   </header>
   <PostLayout>
-    <main set:html={content} class="main text-on-background/80" />
+    <main set:html={post.body.content} class="main text-on-background/80" />
+    <footer class="mt-12 flex justify-center p-8">
+      <div class="flex items-center gap-12">
+        <button
+          type="button"
+          class="border-on-background/20 hover:bg-primary/90 hover:text-on-primary focus:bg-primary/90 focus:text-on-primary focus:border-primary text-on-background/70 hover:border-primary rounded-full border-2 p-4 transition-colors duration-150"
+        >
+          <LinkIcon class="h-5 w-5" />
+        </button>
+      </div>
+    </footer>
   </PostLayout>
 </MainLayout>
 

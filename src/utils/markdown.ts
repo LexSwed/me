@@ -86,7 +86,7 @@ const renderer = {
   image(href, title, text) {
     return /*html*/ `<img src="${href}"${title ? `title="${title}"` : ""}${
       text ? `alt="${text}"` : ""
-    } class="rounded-lg max-w-full sm:-mx-16 shadow-md" />`;
+    } class="rounded-lg max-w-full shadow-md" />`;
   },
 } satisfies marked.RendererObject;
 

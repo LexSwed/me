@@ -72,7 +72,7 @@ let { pinnedPost, feed, topics } = await getFeed(100, { topic });
             })
           }
         </ul>
-        <ul class="flex flex-col gap-24">
+        <ul class="flex flex-col gap-8 sm:gap-16">
           {
             feed.map((post) => {
               if ("body" in post) {
