@@ -19,7 +19,7 @@ const publishedAt = formatDate(post.publishedAt);
 export const prerender = true;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await getPosts(20);
+  const posts = await getPosts(100);
 
   return posts.map((post) => {
     return {
@@ -37,7 +37,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 <MainLayout
   title={post.title}
   description={post.summary}
-  image={post.poster.img}
+  image={post.poster?.img}
 >
   <header class="bg-primary text-on-primary">
     <PostLayout>
@@ -75,7 +75,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
       <div class="flex items-center gap-12">
         <button
           type="button"
-          class="border-on-background/20 hover:bg-primary/90 hover:text-on-primary focus:bg-primary/90 focus:text-on-primary focus:border-primary text-on-background/70 hover:border-primary rounded-full border-2 p-4 transition-colors duration-150"
+          id="copy-url"
+          aria-label="Copy link"
+          class="border-on-background/20 hover:bg-primary/90 hover:text-on-primary focus:bg-primary/90 focus:text-on-primary focus:border-primary text-on-background/70 hover:border-primary relative rounded-full border-2 p-4 transition-colors duration-150"
         >
           <LinkIcon class="h-5 w-5" />
         </button>
@@ -92,4 +94,43 @@ export const getStaticPaths: GetStaticPaths = async () => {
   .main pre {
     overflow: overlay;
   }
+
+  #copy-url:after {
+    content: attr(aria-label);
+    inset-block: 15%;
+    inset-inline-start: calc(100% + theme(spacing.4));
+
+    opacity: 0;
+    transform: translateY(0.5rem);
+
+    @apply duration-200 ease-out transition-all absolute text-sm whitespace-nowrap p-2 flex items-center justify-center border-2 border-primary/75 bg-primary/20 text-primary rounded-2xl;
+  }
+
+  #copy-url:where(:hover, :focus):after {
+    opacity: 1;
+    transform: none;
+
+    @apply ease-in;
+  }
+  #copy-url[data-copied="true"] .text {
+    opacity: 1;
+    transform: none;
+  }
 </style>
+
+<script>
+  const button = document.getElementById("copy-url");
+
+  let timeout = null;
+  button.addEventListener("click", () => {
+    button.setAttribute("aria-label", "Copied");
+    navigator.clipboard.writeText(document.location.href);
+    if (timeout) {
+      clearTimeout(timeout);
+      timeout = null;
+    }
+    timeout = setTimeout(() => {
+      button.setAttribute("aria-label", "Copy link");
+    }, 1500);
+  });
+</script>
