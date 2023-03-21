@@ -75,15 +75,6 @@ let { pinnedPost, feed, topics } = await getFeed(100, { topic });
         <ul class="flex flex-col gap-8 sm:gap-16">
           {
             feed.map((post) => {
-              if ("body" in post) {
-                const markdown = parse(post.body);
-                return (
-                  <li
-                    class="text-on-background p-4"
-                    set:html={markdown.content}
-                  />
-                );
-              }
               return (
                 <li>
                   <a

@@ -49,9 +49,9 @@ export async function getFeed(
     }
     return null;
   });
-  const shorts = []; // response.repository.discussion.comments.nodes;
+  // const shorts = response.repository.discussion.comments.nodes;
 
-  const feed = [...posts, ...shorts].sort(
+  const feed = posts.sort(
     (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
   );
 
