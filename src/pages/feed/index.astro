@@ -13,7 +13,7 @@ export const prerender = true;
 
 // clean up empty URL param
 if (!topic && Astro.url.searchParams.has("topic")) {
-  return Astro.redirect("/posts");
+  return Astro.redirect("/feed");
 }
 
 let { pinnedPost, feed, topics } = await getFeed(100, { topic });
@@ -78,7 +78,7 @@ let { pinnedPost, feed, topics } = await getFeed(100, { topic });
               return (
                 <li>
                   <a
-                    href={`/posts/${post.slug}`}
+                    href={`/feed/${post.slug}`}
                     class="text-on-background bg-on-background/10 group/post hover:bg-on-background/10 focus:bg-on-background/10 grid gap-4 rounded-lg p-8 outline-none transition-colors duration-150 sm:grid-cols-[4fr_5fr] sm:items-center sm:gap-8 sm:bg-transparent"
                   >
                     <h3 class="text-2xl group-hover/post:underline group-focus/post:underline sm:hidden">

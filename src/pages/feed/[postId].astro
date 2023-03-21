@@ -3,6 +3,7 @@ import { GetStaticPaths } from "astro";
 import { getPost, getPosts, Post } from "../../api/post";
 import Header from "../../components/Header.astro";
 import LinkIcon from "../../icons/link.astro";
+import TopicIcon from "../../icons/topic.astro";
 import MainLayout from "../../layouts/Main.astro";
 import PostLayout from "../../layouts/Post.astro";
 import { formatDate } from "../../utils";
@@ -13,6 +14,10 @@ let post: Post = Astro.props.post;
 if (!post) {
   post = await getPost(Number(postId));
 }
+
+const topic = post.tags
+  ?.find((tag) => tag.name.includes("topic:"))
+  ?.name.slice(6);
 
 const publishedAt = formatDate(post.publishedAt);
 
@@ -41,31 +46,47 @@ export const getStaticPaths: GetStaticPaths = async () => {
 >
   <header class="bg-primary text-on-primary">
     <PostLayout>
-      <div class="flex h-full flex-col gap-12">
-        <Header backLink="/posts">
+      <div class="flex h-full flex-col gap-6 sm:gap-10">
+        <Header backLink="/feed">
           <span slot="back-link"
             ><b>All posts</b>
             <span class="xs:inline hidden">by Oleksandr</span></span
           >
         </Header>
-        <div class="my-auto flex flex-col gap-8">
+        <div class="my-auto flex flex-col gap-6 sm:gap-8">
           {
             post.poster && (
               // TODO: apply image optimizations
               <img
                 src={post.poster.img}
                 alt={post.poster.alt}
-                class="animate-poster mx-auto aspect-video min-h-0 rounded-2xl shadow-lg"
+                class="animate-poster box-shadow-[theme(boxShadow.sm)_theme(boxShadow.lg)] mx-auto aspect-video min-h-0 rounded-2xl"
               />
             )
           }
-          <div class="flex flex-col gap-8 text-center">
-            <h1 class="animate-title text-4xl font-semibold md:text-6xl">
+          <div class="animate-heading flex flex-col gap-8">
+            <h1 class="text-3xl font-bold sm:text-4xl">
               {post.title}
             </h1>
-            <time datetime={post.publishedAt} class="animate-date font-semibold"
-              >{publishedAt}</time
-            >
+            <div class="text-on-primary/80 flex justify-between text-base">
+              {
+                topic && (
+                  <div class="flex items-center gap-2">
+                    <TopicIcon class="h-4 w-4" stroke-width="2" />
+                    <span>
+                      Published in{" "}
+                      <a
+                        href={`/feed?topic=${topic}`}
+                        class="font-semibold underline-offset-2 hover:underline focus:underline"
+                      >
+                        {topic}
+                      </a>
+                    </span>
+                  </div>
+                )
+              }
+              <time datetime={post.publishedAt}>{publishedAt}</time>
+            </div>
           </div>
         </div>
       </div>
@@ -73,7 +94,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
   </header>
   <div class="animate-content">
     <PostLayout>
-      <main set:html={post.body.content} class="main text-on-background/80" />
+      <main set:html={post.body.content} class="main text-on-background/90" />
+    </PostLayout>
+    <PostLayout>
       <footer class="mt-12 flex justify-center p-8">
         <div class="flex items-center gap-12">
           <button
@@ -126,17 +149,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
     --y: 0.3rem;
     animation: slideY 1s 0.1s ease-out both;
   }
-  .animate-title {
+  .animate-heading {
     --y: 0.3rem;
     animation: slideY 0.6s 0.4s ease-out both;
   }
-  .animate-date {
-    --y: 0;
-    animation: slideY 0.4s 1s ease-out both;
-  }
   .animate-content {
     --y: 0.5rem;
-    animation: slideY 1s 0.4s ease-out both;
+    animation: slideY 0.6s 0.4s ease-out both;
   }
 
   @keyframes slideY {

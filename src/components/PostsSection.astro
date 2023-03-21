@@ -42,7 +42,7 @@ const postsWithColor = posts.map((post) => {
     <div class="animate-appearSlideIn flex flex-col gap-6">
       <h2 id="notes" class="text-4xl">Feed</h2>
       <p class="text-lg sm:text-xl">Mostly web, but other things too.</p>
-      <a href="/posts" class="leading-10 underline decoration-2">See all</a>
+      <a href="/feed" class="leading-10 underline decoration-2">See all</a>
     </div>
     <ChevronRight class="animate-arrow h-16" />
   </header>
@@ -52,7 +52,7 @@ const postsWithColor = posts.map((post) => {
         return (
           <li class="contents">
             <a
-              href={`/posts/${slug}`}
+              href={`/feed/${slug}`}
               rel="prefetch"
               style={{
                 "--bg-h": `${color.hue().toPrecision(2)}deg`,
