@@ -4,7 +4,6 @@ import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import prefetch from "@astrojs/prefetch";
 import vercel from "@astrojs/vercel/serverless";
-import commonjs from "vite-plugin-commonjs";
 
 const shikiResourcePaths = Object.keys(
   import.meta.glob([
@@ -15,14 +14,11 @@ const shikiResourcePaths = Object.keys(
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://example.com",
+  site: "https://alex-vechi.vercel.app",
   integrations: [mdx(), sitemap(), tailwind(), prefetch()],
   output: "server",
   adapter: vercel({
     analytics: true,
     includeFiles: shikiResourcePaths,
   }),
-  vite: {
-    plugins: [commonjs()],
-  },
 });
