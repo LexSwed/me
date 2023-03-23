@@ -14,12 +14,16 @@ const data = frontmatter(post);
   href={`/feed/${post.number}`}
   class="group/post flex min-h-0 cursor-pointer flex-col-reverse items-center gap-4 outline-none sm:flex-row sm:gap-8"
 >
-  <img
-    src={data.poster}
-    title={data.posterAlt}
-    alt={data.posterAlt}
-    class="animate-image ring-on-primary aspect-video min-h-0 w-full min-w-0 flex-1 rounded-2xl object-cover transition-shadow duration-300 group-hover/post:ring-4 group-focus/post:ring-4 sm:aspect-square sm:max-w-sm"
-  />
+  <div
+    class="aspect-video min-h-0 w-full min-w-0 flex-1 overflow-hidden rounded-2xl sm:aspect-square sm:max-w-sm"
+  >
+    <img
+      src={data.poster}
+      title={data.posterAlt}
+      alt={data.posterAlt}
+      class="animate-image h-full rounded-2xl object-cover transition-shadow duration-300 group-hover/post:ring-4 group-focus/post:ring-4"
+    />
+  </div>
   <div class="relative flex h-full flex-1 flex-col gap-4">
     <h3
       class="bg-primary inline-block text-2xl font-semibold group-hover/post:underline group-focus/post:underline sm:text-3xl"
@@ -41,13 +45,16 @@ const data = frontmatter(post);
 </a>
 
 <style>
-  .animate-image {
-    animation: scaleIn 0.7s 0.1s ease-out both;
+  @screen md {
+    .animate-image {
+      --scale: 1.05;
+      animation: scaleIn 0.6s 0.4s ease-out both;
+    }
   }
 
   @keyframes scaleIn {
     0% {
-      transform: scale(1.02);
+      transform: scale(var(--scale, 1));
     }
     100% {
       transform: none;

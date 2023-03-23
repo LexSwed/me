@@ -49,9 +49,11 @@ export const prerender = true;
 </Layout>
 
 <style>
-  .animate-social {
-    --y: 0.5rem;
-    animation: slideY 0.4s 1s ease-out both;
+  @screen sm {
+    .animate-social {
+      --y: 0.5rem;
+      animation: slideY 0.4s 1s ease-out both;
+    }
   }
 
   @keyframes slideY {
