@@ -8,10 +8,9 @@ const github = graphql.defaults({
 });
 
 export const PARAMS = {
-  repo: "lexswed.github.io",
+  repo: "me",
   owner: "LexSwed",
-  query: 'repo:"LexSwed/lexswed.github.io" label:_published',
-  shortsCollectionId: 33,
+  query: 'repo:"LexSwed/me" label:_published',
 };
 
 export async function request<Q, V extends RequestParameters>(

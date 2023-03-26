@@ -21,7 +21,6 @@ export async function getFeed(
       searchQuery,
       repo: PARAMS.repo,
       owner: PARAMS.owner,
-      shortsCollectionId: PARAMS.shortsCollectionId,
     }
   );
   const pinnedPost =
@@ -36,7 +35,7 @@ export async function getFeed(
       return {
         title,
         createdAt,
-        summary: data.description,
+        summary: data.summary,
         slug: number,
         poster: data.poster
           ? {
@@ -49,7 +48,6 @@ export async function getFeed(
     }
     return null;
   });
-  // const shorts = response.repository.discussion.comments.nodes;
 
   const feed = posts.sort(
     (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
@@ -73,7 +71,6 @@ const query = /* GraphQL */ `
     $searchQuery: String!
     $repo: String!
     $owner: String!
-    $shortsCollectionId: Int!
   ) {
     repository(name: $repo, owner: $owner) {
       labels(first: 100) {
@@ -88,14 +85,6 @@ const query = /* GraphQL */ `
         nodes {
           discussion {
             ...FragmentPostsPost
-          }
-        }
-      }
-      discussion(number: $shortsCollectionId) {
-        comments(first: 100) {
-          nodes {
-            createdAt
-            body
           }
         }
       }
