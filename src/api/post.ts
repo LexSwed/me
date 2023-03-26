@@ -41,7 +41,7 @@ function parsePost(post: FragmentPostFragment) {
   return {
     title,
     publishedAt,
-    summary: data.description,
+    summary: data.summary,
     slug: number,
     poster: data.poster
       ? {
