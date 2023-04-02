@@ -1,5 +1,5 @@
 ---
-// import tailwindConfig from '../../tailwind.config.cjs'
+import tailwindConfig from "../../tailwind.config";
 import "@fontsource/inter/variable.css";
 
 export interface Props {
@@ -11,6 +11,7 @@ export interface Props {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { title, description, image = "/placeholder-social.jpg" } = Astro.props;
+const themeColor = tailwindConfig.theme.extend.colors.primary;
 ---
 
 <!-- Global Metadata -->
@@ -22,19 +23,18 @@ const { title, description, image = "/placeholder-social.jpg" } = Astro.props;
   content="width=device-width, initial-scale=1, shrink-to-fit=no"
 />
 
-<!-- TODO: Update with theme colours -->
 <!-- Mobile browser theme -->
 <meta name="color-scheme" content="dark" />
-<meta name="theme-color" content={"#FDBA74"} />
+<meta name="theme-color" content={themeColor} />
 <meta
   name="theme-color"
   media="(prefers-color-scheme: light)"
-  content={"#FDBA74"}
+  content={themeColor}
 />
 <meta
   name="theme-color"
   media="(prefers-color-scheme: dark)"
-  content={"#FDBA74"}
+  content={themeColor}
 />
 <link rel="icon" href="/favicon.ico" sizes="any" />
 <link rel="icon" href="/icon.svg" type="image/svg+xml" />
