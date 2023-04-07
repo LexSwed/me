@@ -37,16 +37,16 @@ export async function getPost(number: number) {
 function parsePost(post: FragmentPostFragment) {
   const internalLabels = new Set(["_published"]);
   const { title, labels, number, body, publishedAt } = post;
-  const data = frontmatter({ body });
+  const { summary, poster, posterAlt } = frontmatter({ body });
   return {
     title,
     publishedAt,
-    summary: data.summary,
+    summary,
     slug: number,
-    poster: data.poster
+    poster: poster
       ? {
-          img: data.poster,
-          alt: data.posterAlt,
+          img: poster,
+          alt: posterAlt,
         }
       : null,
     tags: labels.nodes.filter((label) => !internalLabels.has(label.name)),

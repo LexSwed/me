@@ -12,7 +12,9 @@ type Frontmatter = {
 };
 
 export function frontmatter<T = Frontmatter>(post: { body: string }): T {
-  const { data } = matter(post.body, { delimiters: ["<!--", "-->"] });
+  const { data } = matter(post.body, {
+    delimiters: ["<!--", "-->"],
+  });
   return data as T;
 }
 
@@ -58,7 +60,9 @@ const renderer = {
     let external = false;
     try {
       if (href) {
+        // absolute URL - external
         new URL(href);
+        external = true;
       }
     } catch {
       external = false;
@@ -124,4 +128,10 @@ export function parse(source: string) {
     .filter((item) => item.type === "heading" && item.depth < 3);
 
   return { content, toc };
+}
+
+export function parseInline(source: string) {
+  const unsanitizedContent = marked.parseInline(source);
+  const content = DOMPurify.sanitize(unsanitizedContent);
+  return content;
 }

@@ -1,5 +1,6 @@
 import { PARAMS, request } from "./github";
 import type {
+  FragmentPostsPostFragment,
   GetPostsDataQuery,
   GetPostsDataQueryVariables,
 } from "./generated/graphql";
@@ -23,28 +24,14 @@ export async function getFeed(
       owner: PARAMS.owner,
     }
   );
-  const pinnedPost =
+  const pinned =
     response.repository.pinnedDiscussions.nodes?.[0]?.discussion || null;
-  const internalLabels = new Set(["_published"]);
+  const pinnedPost = pinned ? parsePost(pinned) : null;
 
   // Narrow down the type to Discussions only
   const posts = response.search.edges?.map((edge) => {
     if (edge.node.__typename === "Discussion") {
-      const { title, labels, number, body, createdAt } = edge.node;
-      const data = frontmatter({ body });
-      return {
-        title,
-        createdAt,
-        summary: data.summary,
-        slug: number,
-        poster: data.poster
-          ? {
-              img: data.poster,
-              alt: data.posterAlt,
-            }
-          : null,
-        tags: labels.nodes.filter((label) => !internalLabels.has(label.name)),
-      };
+      return parsePost(edge.node);
     }
     return null;
   });
@@ -114,3 +101,24 @@ const query = /* GraphQL */ `
     }
   }
 `;
+
+const internalLabels = new Set(["_published"]);
+function parsePost(post: FragmentPostsPostFragment) {
+  const { title, labels, number, body, createdAt } = post;
+  const data = body ? frontmatter(post) : {};
+  return {
+    title,
+    createdAt,
+    summary: data.summary,
+    slug: number,
+    poster: data.poster
+      ? {
+          img: data.poster,
+          alt: data.posterAlt,
+        }
+      : null,
+    tags: labels.nodes.filter((label) => !internalLabels.has(label.name)),
+  };
+}
+
+export type FeedItem = ReturnType<typeof parsePost>;
