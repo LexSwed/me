@@ -4,6 +4,8 @@ import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import prefetch from "@astrojs/prefetch";
 import vercel from "@astrojs/vercel/serverless";
+import remarkMdxCodeMeta from "remark-mdx-code-meta";
+import preact from "@astrojs/preact";
 
 const shikiResourcePaths = Object.keys(
   import.meta.glob([
@@ -15,10 +17,21 @@ const shikiResourcePaths = Object.keys(
 // https://astro.build/config
 export default defineConfig({
   site: "https://alex-vechi.vercel.app",
-  integrations: [mdx(), sitemap(), tailwind(), prefetch()],
+  markdown: {
+    syntaxHighlight: "shiki",
+    shikiConfig: {
+      theme: "material-palenight",
+    },
+    gfm: true,
+    remarkPlugins: [remarkMdxCodeMeta],
+  },
+  integrations: [mdx(), sitemap(), tailwind(), prefetch(), preact()],
   output: "server",
   adapter: vercel({
     analytics: true,
     includeFiles: shikiResourcePaths,
   }),
+  experimental: {
+    assets: true,
+  },
 });

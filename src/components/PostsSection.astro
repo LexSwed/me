@@ -3,31 +3,29 @@ import ChevronRight from "../icons/chevron-right.astro";
 import Color from "color";
 
 import { formatDate } from "../utils";
-import { getPosts } from "../api/homepage";
+import { topicColor } from "../content/config";
+import { getFeed } from "../content/_utils";
 
-const posts = await getPosts(10);
+const feed = await getFeed();
 
-const postsWithColor = posts.map((post) => {
-  const topic = post.labels.nodes.find((label) =>
-    label.name.startsWith("topic:")
-  );
+const postsWithColor = feed.map((post) => {
+  const { topic, title, publishDate } = post.data;
 
   let color: Color;
   if (topic) {
-    color = Color(`#${topic.color}`);
+    color = Color(topicColor.get(topic));
   } else {
     color = Color(`#232946`);
   }
 
   const pastel = color.mix(Color("white"), 0.2).hsl().saturate(-0.5);
 
-  const createdAt = formatDate(post.createdAt);
+  const createdAt = formatDate(publishDate);
   return {
-    title: post.title,
+    title,
     color: pastel,
     createdAt,
-    // TODO: slugify
-    slug: post.number,
+    slug: post.slug,
   };
 });
 ---

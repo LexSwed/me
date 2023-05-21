@@ -1,49 +1,31 @@
 ---
-import { GetStaticPaths } from "astro";
-import { getPost, getPosts, Post } from "../../api/post";
 import Header from "../../components/Header.astro";
 import LinkIcon from "../../icons/link.astro";
 import TopicIcon from "../../icons/topic.astro";
 import MainLayout from "../../layouts/Main.astro";
 import PostLayout from "../../layouts/Post.astro";
 import { formatDate } from "../../utils";
+import { type InferGetStaticPropsType } from "astro";
+import { getFeed } from "../../content/_utils";
 
-const { postId } = Astro.params;
-let post: Post = Astro.props.post;
-
-if (!post) {
-  post = await getPost(Number(postId));
-}
-
-const topic = post.tags
-  ?.find((tag) => tag.name.includes("topic:"))
-  ?.name.slice(6);
-
-const publishedAt = formatDate(post.publishedAt);
+export type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 export const prerender = true;
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await getPosts(100);
-
-  return posts.map((post) => {
-    return {
-      params: {
-        postId: post.slug,
-      },
-      props: {
-        post,
-      },
-    };
-  });
-};
+export async function getStaticPaths() {
+  const feed = await getFeed();
+  return feed.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+const { post } = Astro.props;
+const { title, summary, poster, posterAlt, publishDate } = post.data;
+const publishedAt = formatDate(publishDate);
+const { Content } = await post.render();
 ---
 
-<MainLayout
-  title={post.title}
-  description={post.summary}
-  image={post.poster?.img}
->
+<MainLayout title={title} description={summary} image={poster.src}>
   <header class="bg-primary text-on-primary">
     <PostLayout>
       <div class="flex h-full flex-col gap-6 sm:gap-10">
@@ -55,35 +37,36 @@ export const getStaticPaths: GetStaticPaths = async () => {
         </Header>
         <div class="my-auto flex flex-col gap-6 sm:gap-8">
           {
-            post.poster && (
-              // TODO: apply image optimizations
+            poster && (
               <img
-                src={post.poster.img}
-                alt={post.poster.alt}
+                src={poster.src}
+                width={poster.width}
+                height={poster.height}
+                alt={posterAlt}
                 class="animate-poster box-shadow-[theme(boxShadow.sm)_theme(boxShadow.lg)] mx-auto aspect-video min-h-0 w-full rounded-2xl object-cover"
               />
             )
           }
           <div class="animate-heading flex flex-col gap-8">
-            <h1 class="text-3xl font-bold sm:text-4xl">{post.title}</h1>
+            <h1 class="text-3xl font-bold sm:text-4xl">{title}</h1>
             <div class="text-on-primary/80 flex justify-between text-base">
               {
-                topic && (
+                post.data.topic && (
                   <div class="flex items-center gap-2">
                     <TopicIcon class="h-4 w-4" stroke-width="2" />
                     <span>
                       Published in{" "}
                       <a
-                        href={`/feed?topic=${topic}`}
+                        href={`/feed?topic=${post.data.topic}`}
                         class="font-semibold underline-offset-2 hover:underline focus:underline"
                       >
-                        {topic}
+                        {post.data.topic}
                       </a>
                     </span>
                   </div>
                 )
               }
-              <time datetime={post.publishedAt}>{publishedAt}</time>
+              <time datetime={publishDate.toISOString()}>{publishedAt}</time>
             </div>
           </div>
         </div>
@@ -91,9 +74,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
     </PostLayout>
   </header>
   <div class="animate-content">
-    <PostLayout>
-      <main set:html={post.body.content} class="main text-on-background/90" />
-    </PostLayout>
+    <main class="main text-on-background/90">
+      <Content />
+    </main>
     <PostLayout>
       <footer class="mt-12 flex justify-center p-8">
         <div class="flex items-center gap-12">
@@ -110,16 +93,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
     </PostLayout>
   </div>
 </MainLayout>
-
-<style is:global>
-  .main kbd {
-    box-shadow: inset 0 -1px 0 theme("colors[slate][500]");
-    @apply rounded-md text-[0.7rem] align-middle inline-block px-1 py-0.5 font-mono leading-none text-slate-300 border-[1px] border-slate-500 bg-slate-800;
-  }
-  .main pre {
-    overflow: overlay;
-  }
-</style>
 
 <style>
   #copy-url:after {
@@ -172,7 +145,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 </style>
 
-<script data-title={post.title}>
+<script data-title={title}>
   const button = document.getElementById("copy-url");
 
   const shareData = {

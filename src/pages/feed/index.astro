@@ -1,10 +1,11 @@
 ---
-import { getFeed } from "../../api/posts";
 import Header from "../../components/Header.astro";
 import PinnedPost from "../../components/PinnedPost.astro";
+import { getFeed } from "../../content/_utils";
 import MainLayout from "../../layouts/Main.astro";
 import PostLayout from "../../layouts/Post.astro";
 import { formatDate } from "../../utils";
+import { Image } from "astro:assets";
 
 const topic = Astro.url.searchParams.get("topic");
 
@@ -15,7 +16,19 @@ if (!topic && Astro.url.searchParams.has("topic")) {
   return Astro.redirect("/feed");
 }
 
-let { pinnedPost, feed, topics } = await getFeed(100, { topic });
+let feed = await getFeed();
+
+if (topic) {
+  feed.filter((post) => post.data.tags.includes(topic));
+}
+
+const topics = [
+  ...new Set(
+    feed.flatMap((post) => [post.data.topic, ...post.data.tags]).flat()
+  ),
+];
+
+const pinnedPost = feed.find((post) => post.data.pinned);
 ---
 
 <MainLayout
@@ -53,19 +66,18 @@ let { pinnedPost, feed, topics } = await getFeed(100, { topic });
             <a class="outline-none" href="?topic=">All</a>
           </li>
           {
-            topics.map((label) => {
-              const name = label.name.slice(label.name.indexOf(":") + 1);
+            topics.map((tag) => {
               return (
                 <li
                   class:list={[
-                    topic === label.name
+                    topic === tag
                       ? "bg-primary text-on-primary"
                       : "bg-transparent text-on-background hover:bg-on-background/10 focus:bg-on-background/10",
                     "min-w-[3rem] transition-colors duration-150 text-sm rounded-full px-2 py-1 text-center font-light focus-within:ring-2 ring-on-background",
                   ]}
                 >
-                  <a class="outline-none" href={`?topic=${label.name}`}>
-                    #{name}
+                  <a class="outline-none" href={`?topic=${tag}`}>
+                    #{tag}
                   </a>
                 </li>
               );
@@ -82,13 +94,14 @@ let { pinnedPost, feed, topics } = await getFeed(100, { topic });
                     class="text-on-background bg-on-background/10 group/post hover:bg-on-background/10 focus:bg-on-background/10 grid gap-4 rounded-lg p-8 outline-none transition-colors duration-150 sm:grid-cols-[4fr_5fr] sm:items-center sm:gap-8 sm:bg-transparent"
                   >
                     <h3 class="text-2xl group-hover/post:underline group-focus/post:underline sm:hidden">
-                      {post.title}
+                      {post.data.title}
                     </h3>
                     <div class="w-full shrink-0">
-                      {post.poster ? (
-                        <img
-                          src={post.poster.img}
-                          alt={post.poster.alt}
+                      {post.data.poster ? (
+                        <Image
+                          src={post.data.poster}
+                          alt={post.data.posterAlt}
+                          width={300}
                           class="ring-on-background/80 shadow-background w-full rounded-md object-contain shadow-md transition-shadow duration-300 group-hover/post:ring-2 group-focus/post:ring-2"
                         />
                       ) : (
@@ -97,21 +110,21 @@ let { pinnedPost, feed, topics } = await getFeed(100, { topic });
                     </div>
                     <div class="hidden h-full flex-col justify-center gap-4 sm:flex">
                       <h3 class="text-3xl group-hover/post:underline group-focus/post:underline">
-                        {post.title}
+                        {post.data.title}
                       </h3>
                       <p class="text-md text-on-background/90 ">
-                        {post.summary}
+                        {post.data.summary}
                       </p>
                     </div>
                     <div class="hidden sm:block" />
                     <div class="text-on-background/80 flex flex-row flex-wrap items-center justify-between gap-4 text-sm">
                       <ul class="flex flex-row flex-wrap gap-2">
-                        {post.tags?.map((tag) => (
-                          <li>#{tag.name}</li>
+                        {post.data.tags?.map((tag) => (
+                          <li>#{tag}</li>
                         ))}
                       </ul>
-                      <time datetime={post.createdAt}>
-                        {formatDate(post.createdAt)}
+                      <time datetime={post.data.publishDate.toISOString()}>
+                        {formatDate(post.data.publishDate)}
                       </time>
                     </div>
                   </a>
