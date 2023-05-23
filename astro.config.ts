@@ -6,6 +6,7 @@ import prefetch from "@astrojs/prefetch";
 import vercel from "@astrojs/vercel/serverless";
 import remarkMdxCodeMeta from "remark-mdx-code-meta";
 import preact from "@astrojs/preact";
+import { remarkShiki } from "./plugins/shiki";
 
 const shikiResourcePaths = Object.keys(
   import.meta.glob([
@@ -18,12 +19,9 @@ const shikiResourcePaths = Object.keys(
 export default defineConfig({
   site: "https://alex-vechi.vercel.app",
   markdown: {
-    syntaxHighlight: "shiki",
-    shikiConfig: {
-      theme: "material-palenight",
-    },
+    syntaxHighlight: false,
     gfm: true,
-    remarkPlugins: [remarkMdxCodeMeta],
+    remarkPlugins: [[remarkShiki, { theme: "material-theme-palenight" }]],
   },
   integrations: [mdx(), sitemap(), tailwind(), prefetch(), preact()],
   output: "server",

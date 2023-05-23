@@ -1,0 +1,11 @@
+---
+import type { ComponentProps } from "preact";
+import { Pre } from "./Code";
+
+export type Props = ComponentProps<typeof Pre>;
+
+const { props } = Astro;
+console.log(props);
+---
+
+<Pre {...props} client:idle><slot /></Pre>

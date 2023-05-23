@@ -1,5 +1,7 @@
-import { cloneElement, type ComponentProps, type JSX } from "preact";
+import { type ComponentProps, type JSX } from "preact";
 import Image from "./Image.astro";
+import { Code } from "./Code";
+import MultilineCode from "./MultilineCode.astro";
 
 const headingLevelStyle = {
   1: "text-4xl font-medium",
@@ -51,7 +53,7 @@ const Link = ({ href, children }: ComponentProps<"a">) => {
   return (
     <a
       href={href}
-      class="text-primary outline-primary decoration-2 outline-offset-4 transition-all duration-200 hover:underline focus:outline-2"
+      class="text-primary decoration-2 outline-offset-4 outline-primary transition-all duration-200 hover:underline focus:outline-2"
       rel={external ? "noopener noreferrer" : "prefetch"}
     >
       {children}
@@ -63,26 +65,13 @@ export const components = {
   blockquote: (props) => (
     <blockquote
       {...props}
-      class="border-l-on-background/70 text-on-background/70 mb-4 mt-2 border-l-4 border-solid pl-4"
+      class="mb-4 mt-2 border-l-4 border-solid border-l-on-background/70 pl-4 text-on-background/70"
     >
       <slot />
     </blockquote>
   ),
-  code: (props) => (
-    <code
-      {...props}
-      class={[
-        props.class,
-        "bg-on-background/10 rounded-md px-[0.2em] py-[0.1em] font-mono text-[0.8em]",
-      ].join(" ")}
-    />
-  ),
-  pre: (props) => (
-    <pre
-      {...props}
-      class={["p-4 mb-4 text-sm rounded-lg", props.class].join(" ")}
-    />
-  ),
+  code: Code,
+  pre: MultilineCode,
   h1: (props) => <Heading level={1} {...props} />,
   h2: (props) => <Heading level={2} {...props} />,
   h3: (props) => <Heading level={3} {...props} />,
