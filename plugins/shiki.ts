@@ -26,7 +26,6 @@ export const remarkShiki: Plugin<HighlighterOptions[], Root> = (options) => {
     function visitor(node) {
       const lang = !loadedLanguages.includes(node.lang) ? null : node.lang;
       const source = node.value;
-      console.log(source);
       const tokens = highlighter.codeToThemedTokens(node.value, lang);
 
       node.type = "html";

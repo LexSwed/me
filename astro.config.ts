@@ -4,7 +4,6 @@ import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import prefetch from "@astrojs/prefetch";
 import vercel from "@astrojs/vercel/serverless";
-import remarkMdxCodeMeta from "remark-mdx-code-meta";
 import preact from "@astrojs/preact";
 import { remarkShiki } from "./plugins/shiki";
 
