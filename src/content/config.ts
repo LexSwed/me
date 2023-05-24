@@ -1,5 +1,5 @@
 import { z, defineCollection } from "astro:content";
-// 2. Define your collection(s)
+
 const collection = defineCollection({
   type: "content",
   schema: ({ image }) =>

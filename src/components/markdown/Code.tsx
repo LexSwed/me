@@ -1,6 +1,5 @@
-import { useSignal } from "@preact/signals";
 import { type ComponentProps } from "preact";
-import { useEffect, useRef } from "preact/hooks";
+import { useEffect, useRef, useState } from "preact/hooks";
 
 /**
  * Used by @astro/mdx for inline code and by shiki as a child of `pre`.
@@ -25,7 +24,7 @@ export const Pre = ({ children, filename, lang, source, ...props }) => {
     <pre
       {...props}
       class={[
-        "relative group/code-wrapper p-4 mb-4 text-sm rounded-lg",
+        "relative overflow-x-auto group/code-wrapper p-4 mb-4 text-sm rounded-lg",
         props.class,
       ].join(" ")}
     >
@@ -88,7 +87,7 @@ export const CopyButton = ({ text }: { text: string }) => {
       class="rounded-md bg-inherit p-2 text-inherit shadow-sm hover:bg-background/40 focus:bg-background/40 focus:outline-none focus:ring-2 focus:ring-primary"
       onClick={() => copy(text)}
     >
-      {copied.value ? (
+      {copied ? (
         <CheckIcon class="h-5 w-5" />
       ) : (
         <ClipboardIcon class="h-5 w-5" />
@@ -97,8 +96,8 @@ export const CopyButton = ({ text }: { text: string }) => {
   );
 };
 
-function useCopyToClipboard() {
-  const isCopied = useSignal(false);
+export function useCopyToClipboard() {
+  const [isCopied, setCopied] = useState(false);
   const timeoutId = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -114,18 +113,18 @@ function useCopyToClipboard() {
       clearTimeout(timeoutId.current);
       timeoutId.current = null;
     }
-    if (!navigator?.clipboard) {
+    if (!("clipboard" in navigator)) {
       console.error("Clipboard not supported");
       return false;
     }
     try {
       await navigator.clipboard.writeText(text);
-      isCopied.value = true;
+      setCopied(true);
       timeoutId.current = setTimeout(() => {
-        isCopied.value = false;
+        setCopied(false);
       }, 1500);
     } catch (err) {
-      isCopied.value = false;
+      setCopied(false);
     }
   };
 

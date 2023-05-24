@@ -1,13 +1,13 @@
 ---
 title: Maximizing the benefits of Tailwind
-layout: ../../layouts/Post.astro
-poster: ./maximizing-the-benefits-of-tailwindcss/poster.jpeg
+poster: ./0/poster.jpeg
 posterAlt: Tailwind CSS framework logo on aqua-color background.
 summary: There are many tools that win over the industry due to the right balance of the value they provide and the drawbacks same design choice bring. JavaScript is a good example of nailing the balance (proved by its popularity). And I believe TailwindCSS is another one.
 publishDate: 2023-03-25
+slug: maximizing-the-benefits-of-tailwindcss
 tags: [react, tailwindcss]
 topic: web
-draft: true
+draft: false
 ---
 
 export { components } from "../../components/markdown/index.tsx";
@@ -16,7 +16,7 @@ Around a year ago I was building a component library for my personal projects â€
 
 At the time, I already had [the stack I believed in](https://dev.to/lexswed/choosing-the-right-tools-for-react-component-library-in-2021-1b6g), using CSS-in-JS library [`stitches`](https://stitches.dev/). It provides a great DX with theming, variants for class names mappings and all that is type-safe.
 
-```tsx filename="index.js"
+```tsx
 const Button = styled('button', {
   variants: {
     tone: {
@@ -189,7 +189,7 @@ As I was already interested in TailwindCSS, and the community was visible and st
 
 This is expressive! With good setup and a component library, developers are enabled to leverage all the [benefits promised by TailwindCSS](https://twitter.com/rauchg/status/1632171325081939968?s=20):
 
-![a screenshot of a Guillermo Rauch tweet saying: "Tailwind thoroughly fixes CSS, by removing: Naming paralysis, Cascade side effects, Module import indirection, Declaration order side effects, Ergonomics](./maximizing-the-benefits-of-tailwindcss/rauch-tweet.png)
+![a screenshot of a Guillermo Rauch tweet saying: "Tailwind thoroughly fixes CSS, by removing: Naming paralysis, Cascade side effects, Module import indirection, Declaration order side effects, Ergonomics](./0/rauch-tweet.png)
 
 The ultimate aim of the Design System has become to empower developers with a suite of **accessible** building blocks, allowing them to **efficiently** craft interfaces that are both **scalable** and **consistent**.
 
@@ -212,7 +212,7 @@ const button = css({
 });
 ```
 
-This is a simple example, but there's no way it's more maintainable than just CSS:
+It's is a simple example, but there's no way it's more maintainable than just CSS. With the power of unrestricted selectors usage we can just:
 
 ```css
 .button {
@@ -234,7 +234,7 @@ This is a simple example, but there's no way it's more maintainable than just CS
 }
 ```
 
-It's more code, but that's the point. I believe that a general rule for Front End development should be: **be more explicit in your source if it does not affect the resulting build**. And unless you work with monorepo or ship your component library pre-transpiled, you won't gain much from using plain Tailwind classes.
+It's about the same amount of characters, but much easier to read and maintain. I believe that a general rule for Front End development should be: **be more explicit in your source, especially if it does not affect the resulting build**. And unless you work with monorepo or ship your component library pre-transpiled, you won't gain much from using plain Tailwind classes.
 Explicit approach also benefits heavily from being able to use native CSS features, like [`@container` queries](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Container_Queries) or [`@layer`s](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer) support without waiting for TailwindCSS to implement them.
 
 Another thing you could notice is that I chose not to use Tailwind's `@apply`:
@@ -255,7 +255,7 @@ Another thing you could notice is that I chose not to use Tailwind's `@apply`:
 
 **Second**, one of the creators of TailwindCSS [regrets himself](https://twitter.com/adamwathan/status/1559250403547652097?lang=en) about the introduction of `@apply`:
 
-![A tweet from Adam Wathan that `@apply` brings many problems to the team, while `theme` syntax seem so much better](./maximizing-the-benefits-of-tailwindcss/adam-tweet.png)
+![A tweet from Adam Wathan that `@apply` brings many problems to the team, while `theme` syntax seem so much better](./0/adam-tweet.png)
 
 ## The result
 

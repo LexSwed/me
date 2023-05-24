@@ -1,5 +1,3 @@
-import { type Root } from "mdast";
-import { type Plugin } from "unified";
 import shiki from "shiki";
 
 import { visit } from "unist-util-visit";
@@ -8,14 +6,15 @@ import {
   type Highlighter,
   type HighlighterOptions,
 } from "shiki";
+import { type RemarkPlugin } from "@astrojs/markdown-remark";
 
 const highlighters = new Map<"default", Promise<Highlighter>>();
 
-export const remarkShiki: Plugin<HighlighterOptions[], Root> = (options) => {
+export const remarkShiki: RemarkPlugin<HighlighterOptions[]> = (options) => {
   // plugin cannot be async
   highlighters.set("default", getHighlighter(options));
 
-  const transformer: ReturnType<Plugin<HighlighterOptions[], Root>> = async (
+  const transformer: ReturnType<RemarkPlugin<HighlighterOptions[]>> = async (
     markdownAST
   ) => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

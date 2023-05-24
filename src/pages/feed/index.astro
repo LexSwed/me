@@ -45,7 +45,7 @@ const pinnedPost = feed.find((post) => post.data.pinned);
   </header>
   <main>
     <div
-      class="bg-primary text-on-primary flex flex-col items-start justify-between"
+      class="flex flex-col items-start justify-between bg-primary text-on-primary"
     >
       <PostLayout>
         <h1 class="mb-12 text-7xl font-bold md:mb-24">Notes</h1>
@@ -91,7 +91,7 @@ const pinnedPost = feed.find((post) => post.data.pinned);
                 <li>
                   <a
                     href={`/feed/${post.slug}`}
-                    class="text-on-background bg-on-background/10 group/post hover:bg-on-background/10 focus:bg-on-background/10 grid gap-4 rounded-lg p-8 outline-none transition-colors duration-150 sm:grid-cols-[4fr_5fr] sm:items-center sm:gap-8 sm:bg-transparent"
+                    class="group/post grid gap-4 rounded-lg bg-on-background/10 p-8 text-on-background outline-none transition-colors duration-150 hover:bg-on-background/10 focus:bg-on-background/10 sm:grid-cols-[4fr_5fr] sm:items-center sm:gap-8 sm:bg-transparent"
                   >
                     <h3 class="text-2xl group-hover/post:underline group-focus/post:underline sm:hidden">
                       {post.data.title}
@@ -102,7 +102,7 @@ const pinnedPost = feed.find((post) => post.data.pinned);
                           src={post.data.poster}
                           alt={post.data.posterAlt}
                           width={300}
-                          class="ring-on-background/80 shadow-background w-full rounded-md object-contain shadow-md transition-shadow duration-300 group-hover/post:ring-2 group-focus/post:ring-2"
+                          class="w-full rounded-md object-contain shadow-md shadow-background ring-on-background/80 transition-shadow duration-300 group-hover/post:ring-2 group-focus/post:ring-2"
                         />
                       ) : (
                         <div class="w-full" />
@@ -117,7 +117,7 @@ const pinnedPost = feed.find((post) => post.data.pinned);
                       </p>
                     </div>
                     <div class="hidden sm:block" />
-                    <div class="text-on-background/80 flex flex-row flex-wrap items-center justify-between gap-4 text-sm">
+                    <div class="flex flex-row flex-wrap items-center justify-between gap-4 text-sm text-on-background/80">
                       <ul class="flex flex-row flex-wrap gap-2">
                         {post.data.tags?.map((tag) => (
                           <li>#{tag}</li>
