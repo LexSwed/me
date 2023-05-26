@@ -47,39 +47,3 @@ export const Share = ({
     </button>
   );
 };
-
-/* 
-<script data-title={title}>
-  const button = document.getElementById("copy-url");
-
-  const shareData = {
-    title: document.currentScript.dataset.title,
-    text: `I just read "${document.currentScript.dataset.title}" by @lexswed`,
-    url: document.location.href,
-  };
-
-  const supportsShare = "share" in navigator;
-  function resetLabel() {
-    if (supportsShare) {
-      button.setAttribute("aria-label", "Share");
-    } else {
-      button.setAttribute("aria-label", "Copy link");
-    }
-  }
-  resetLabel();
-  let timeout = null;
-  button.addEventListener("click", async () => {
-    if ("share" in navigator) {
-      await navigator.share(shareData);
-    } else {
-      button.setAttribute("aria-label", "Copied");
-      navigator.clipboard.writeText(document.location.href);
-    }
-    if (timeout) {
-      clearTimeout(timeout);
-      timeout = null;
-    }
-    timeout = setTimeout(resetLabel, 1500);
-  });
-</script>
- */

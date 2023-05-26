@@ -20,19 +20,19 @@ const Heading = ({
   const Tag = `h${level}` as JSX.ElementType<ComponentProps<"h1">>;
 
   const link =
-    level < 3 ? (
+    level < 4 ? (
       <a
         href={`#${id}`}
-        class="scroll-mt-[100px] align-text-top text-[0.6em] opacity-0 transition-opacity duration-200 focus:opacity-100 group-hover/heading:opacity-100"
+        class="-ms-2 inline-block scroll-mt-[100px] px-2 text-[0.8em] opacity-0 transition-all duration-200 focus:translate-x-2 focus:opacity-100 group-hover/heading:translate-x-2 group-hover/heading:opacity-100"
         aria-label="section link"
         title="Section link"
       >
         #
       </a>
     ) : null;
+
   return (
     <Tag class={`mb-4 mt-6 ${headingLevelStyle[level]} group/heading`} id={id}>
-      <h2></h2>
       {children}
       {link}
     </Tag>
