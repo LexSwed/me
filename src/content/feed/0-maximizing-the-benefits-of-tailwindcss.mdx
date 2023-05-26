@@ -1,6 +1,6 @@
 ---
 title: Maximizing the benefits of Tailwind
-poster: ./_0/poster.jpeg
+poster: ./0/poster.jpeg
 posterAlt: Tailwind CSS framework logo on aqua-color background.
 summary: There are many tools that win over the industry due to the right balance of the value they provide and the drawbacks same design choice bring. JavaScript is a good example of nailing the balance (proved by its popularity). And I believe TailwindCSS is another one.
 publishDate: 2023-03-25
@@ -9,7 +9,8 @@ tags: [react, tailwindcss]
 topic: web
 draft: false
 ---
-import {components} from "../../components/markdown/index.tsx";
+
+import { components } from "../../components/markdown/index.tsx";
 export { components };
 
 Around a year ago I was building a component library for my personal projects – [Fxtrot UI](https://fxtrot-ui.vercel.app/). Learn once – use everywhere. Regardless the idea I have, I don't need to think again what I should use for building the UI.
@@ -39,10 +40,10 @@ const Button = styled('button', {
 
 While I still believe it was a good choice, things tend to change:
 
-* the plan to generate atomic CSS classes was [abandoned](https://github.com/stitchesjs/stitches/pull/338) (not lightly);
-* React 18 brought some [concerns for CSS-in-JS libraries](https://github.com/reactwg/react-18/discussions/110);
-* the team behind `stitches`, [Modulz was aquired by WorkOS](https://modulz.app/blog/modulz-acquired-by-workos), putting its OS projects at question;
-* adding important functionality, like static extraction, to stitches was hence paused;
+- the plan to generate atomic CSS classes was [abandoned](https://github.com/stitchesjs/stitches/pull/338) (not lightly);
+- React 18 brought some [concerns for CSS-in-JS libraries](https://github.com/reactwg/react-18/discussions/110);
+- the team behind `stitches`, [Modulz was aquired by WorkOS](https://modulz.app/blog/modulz-acquired-by-workos), putting its OS projects at question;
+- adding important functionality, like static extraction, to stitches was hence paused;
 
 I won't repeat after others, but producing CSS at runtime is both, client overhead and just not needed. There is no purpose for your CSS to be that dynamic. `stitches` showed how a good DX can look like, and tools like [Vanilla Extract](https://vanilla-extract.style/) also provided the convenience of a similar API for components variants through [Recipes package](https://vanilla-extract.style/documentation/packages/recipes/):
 
@@ -189,7 +190,7 @@ As I was already interested in TailwindCSS, and the community was visible and st
 
 This is expressive! With good setup and a component library, developers are enabled to leverage all the [benefits promised by TailwindCSS](https://twitter.com/rauchg/status/1632171325081939968?s=20):
 
-![a screenshot of a Guillermo Rauch tweet saying: "Tailwind thoroughly fixes CSS, by removing: Naming paralysis, Cascade side effects, Module import indirection, Declaration order side effects, Ergonomics](./_0/rauch-tweet.png)
+![a screenshot of a Guillermo Rauch tweet saying: "Tailwind thoroughly fixes CSS, by removing: Naming paralysis, Cascade side effects, Module import indirection, Declaration order side effects, Ergonomics](./0/rauch-tweet.png)
 
 The ultimate aim of the Design System has become to empower developers with a suite of **accessible** building blocks, allowing them to **efficiently** craft interfaces that are both **scalable** and **consistent**.
 
@@ -255,14 +256,14 @@ Another thing you could notice is that I chose not to use Tailwind's `@apply`:
 
 **Second**, one of the creators of TailwindCSS [regrets himself](https://twitter.com/adamwathan/status/1559250403547652097?lang=en) about the introduction of `@apply`:
 
-![A tweet from Adam Wathan that `@apply` brings many problems to the team, while `theme` syntax seem so much better](./_0/adam-tweet.png)
+![A tweet from Adam Wathan that `@apply` brings many problems to the team, while `theme` syntax seem so much better](./0/adam-tweet.png)
 
 ## The result
 
 I truly believe that a good design system is essential for the velocity of application development. Wrong tools or abstractions will eventually lead to slow delivery or a huge burden on the users of the app. TailwindCSS is the right choice, with great ecosystem for building web applications while not imposing non-platform features:
 
-* Tailwind Configuration file allows you to impose the rules. For example, adding [CSS Logical Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties) or theming through CSS variables;
-* You can (and sometimes should) just use plan `.css` files with `theme` syntax, to leverage Tailwind's styles consistency, but be closer to the platform;
-* TailwindCSS VS Code extension provides autocomplete for `theme(spacing.2)` syntax in CSS, or when writing `className`s;
+- Tailwind Configuration file allows you to impose the rules. For example, adding [CSS Logical Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties) or theming through CSS variables;
+- You can (and sometimes should) just use plan `.css` files with `theme` syntax, to leverage Tailwind's styles consistency, but be closer to the platform;
+- TailwindCSS VS Code extension provides autocomplete for `theme(spacing.2)` syntax in CSS, or when writing `className`s;
 
 Fxtrot UI is an accessible\* React component library that supports [theming](https://fxtrot-ui.vercel.app/theming) and provides a [TailwindCSS plugin](https://fxtrot-ui.vercel.app/installation#usage-with-tailwind-css) for the consumers of the lib to write consistent UIs.
