@@ -1,6 +1,6 @@
 ---
 title: Maximizing the benefits of Tailwind
-poster: ./0/poster.jpeg
+poster: ./_0/poster.jpeg
 posterAlt: Tailwind CSS framework logo on aqua-color background.
 summary: There are many tools that win over the industry due to the right balance of the value they provide and the drawbacks same design choice bring. JavaScript is a good example of nailing the balance (proved by its popularity). And I believe TailwindCSS is another one.
 publishDate: 2023-03-25
@@ -9,8 +9,8 @@ tags: [react, tailwindcss]
 topic: web
 draft: false
 ---
-
-export { components } from "../../components/markdown/index.tsx";
+import {components} from "../../components/markdown/index.tsx";
+export { components };
 
 Around a year ago I was building a component library for my personal projects – [Fxtrot UI](https://fxtrot-ui.vercel.app/). Learn once – use everywhere. Regardless the idea I have, I don't need to think again what I should use for building the UI.
 
@@ -189,7 +189,7 @@ As I was already interested in TailwindCSS, and the community was visible and st
 
 This is expressive! With good setup and a component library, developers are enabled to leverage all the [benefits promised by TailwindCSS](https://twitter.com/rauchg/status/1632171325081939968?s=20):
 
-![a screenshot of a Guillermo Rauch tweet saying: "Tailwind thoroughly fixes CSS, by removing: Naming paralysis, Cascade side effects, Module import indirection, Declaration order side effects, Ergonomics](./0/rauch-tweet.png)
+![a screenshot of a Guillermo Rauch tweet saying: "Tailwind thoroughly fixes CSS, by removing: Naming paralysis, Cascade side effects, Module import indirection, Declaration order side effects, Ergonomics](./_0/rauch-tweet.png)
 
 The ultimate aim of the Design System has become to empower developers with a suite of **accessible** building blocks, allowing them to **efficiently** craft interfaces that are both **scalable** and **consistent**.
 
@@ -255,7 +255,7 @@ Another thing you could notice is that I chose not to use Tailwind's `@apply`:
 
 **Second**, one of the creators of TailwindCSS [regrets himself](https://twitter.com/adamwathan/status/1559250403547652097?lang=en) about the introduction of `@apply`:
 
-![A tweet from Adam Wathan that `@apply` brings many problems to the team, while `theme` syntax seem so much better](./0/adam-tweet.png)
+![A tweet from Adam Wathan that `@apply` brings many problems to the team, while `theme` syntax seem so much better](./_0/adam-tweet.png)
 
 ## The result
 

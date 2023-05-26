@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import Header from "../../components/Header.astro";
 import LinkIcon from "../../icons/link.astro";
 import TopicIcon from "../../icons/topic.astro";
@@ -50,12 +51,12 @@ const shareData = {
         <div class="my-auto flex flex-col gap-6 sm:gap-8">
           {
             poster && (
-              <img
+              <Image
                 src={poster.src}
                 width={poster.width}
                 height={poster.height}
                 alt={posterAlt}
-                class="animate-poster box-shadow-[theme(boxShadow.sm)_theme(boxShadow.lg)] mx-auto aspect-video min-h-0 w-full rounded-2xl object-cover"
+                class="animate-poster mx-auto aspect-video min-h-0 w-full rounded-2xl object-cover shadow-xl"
               />
             )
           }

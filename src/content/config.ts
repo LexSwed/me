@@ -9,9 +9,7 @@ const collection = defineCollection({
       summary: z.string(),
       tags: z.array(z.string()),
       topic: topic,
-      poster: image().refine((img) => img.width >= 500, {
-        message: "Cover image must be at least 1080 pixels wide!",
-      }),
+      poster: image(),
       posterAlt: z.string(),
       publishDate: z.date(),
       pinned: z.string().optional(),
