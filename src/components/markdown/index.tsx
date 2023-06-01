@@ -1,7 +1,7 @@
 import { type ComponentProps, type JSX } from "preact";
-import Image from "./Image.astro";
 import { Code } from "./Code";
 import MultilineCode from "./MultilineCode.astro";
+import ParagraphWithMaybeImage from "./ParagraphWithMaybeImage.astro";
 
 const headingLevelStyle = {
   1: "text-4xl font-medium",
@@ -78,12 +78,11 @@ export const components = {
   h4: (props) => <Heading level={4} {...props} />,
   h5: (props) => <Heading level={5} {...props} />,
   h6: (props) => <Heading level={6} {...props} />,
-  img: Image,
   a: Link,
   ul: (props) => <ul {...props} class="mb-4 list-disc pl-6" />,
   ol: (props) => <ul {...props} class="mb-4 list-decimal pl-6" />,
   li: (props) => <li {...props} class="list-item" />,
-  p: (props) => <p {...props} class="mb-4" />,
+  p: ParagraphWithMaybeImage,
   kbd: (props) => (
     <kbd
       {...props}

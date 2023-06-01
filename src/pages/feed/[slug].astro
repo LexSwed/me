@@ -30,7 +30,6 @@ if (!post) {
 const { title, summary, poster, posterAlt, publishDate } = post.data;
 const publishedAt = formatDate(publishDate);
 const { Content } = await post.render();
-
 const shareData = {
   url: Astro.url.toString(),
   text: `I just read "${title}" by @lexswed`,
@@ -50,15 +49,13 @@ const shareData = {
         </Header>
         <div class="my-auto flex flex-col gap-6 sm:gap-8">
           {
-            poster && (
+            poster ? (
               <Image
-                src={poster.src}
-                width={poster.width}
-                height={poster.height}
+                src={poster}
                 alt={posterAlt}
                 class="animate-poster mx-auto aspect-video min-h-0 w-full rounded-2xl object-cover shadow-xl"
               />
-            )
+            ) : null
           }
           <div class="animate-heading flex flex-col gap-8">
             <h1 class="text-3xl font-bold sm:text-4xl">{title}</h1>
