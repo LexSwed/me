@@ -1,10 +1,14 @@
 {
   "extends": "astro/tsconfigs/base",
   "compilerOptions": {
+    "strictNullChecks": true,
+    "verbatimModuleSyntax": true,
     "plugins": [
       {
         "name": "@astrojs/ts-plugin"
       }
-    ]
+    ],
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
   }
 }

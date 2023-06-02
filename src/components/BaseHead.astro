@@ -1,6 +1,6 @@
 ---
 import tailwindConfig from "../../tailwind.config";
-import "@fontsource/inter/variable.css";
+import "@fontsource-variable/inter/slnt.css";
 
 export interface Props {
   title: string;
@@ -69,5 +69,9 @@ const themeColor = tailwindConfig.theme.extend.colors.primary;
   }
   html {
     scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: "Inter Variable", sans-serif;
   }
 </style>

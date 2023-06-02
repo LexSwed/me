@@ -1,9 +1,10 @@
 ---
-import { FeedItem } from "../api/posts";
+import { type CollectionEntry } from "astro:content";
 import ArrowUpRight from "../icons/arrow-up-right.astro";
+import { Image } from "astro:assets";
 
 export type Props = {
-  post: FeedItem;
+  post: CollectionEntry<"feed">;
 };
 const { post } = Astro.props;
 ---
@@ -16,11 +17,11 @@ const { post } = Astro.props;
     class="aspect-video min-h-0 w-full min-w-0 flex-1 overflow-hidden rounded-2xl sm:aspect-square sm:max-w-sm"
   >
     {
-      post.poster ? (
-        <img
-          src={post.poster.img}
-          title={post.poster.alt}
-          alt={post.poster.alt}
+      post.data.poster ? (
+        <Image
+          src={post.data.poster}
+          title={post.data.posterAlt}
+          alt={post.data.posterAlt}
           class="animate-image h-full rounded-2xl object-cover transition-shadow duration-300 group-hover/post:ring-4 group-focus/post:ring-4"
         />
       ) : null
@@ -34,9 +35,9 @@ const { post } = Astro.props;
         aria-hidden="true"
         class="float-right m-2 h-10 w-10 self-end justify-self-end stroke-2 sm:hidden"
       />
-      {post.title}
+      {post.data.title}
     </h3>
-    <p class="bg-primary hidden sm:block">{post.summary}</p>
+    <p class="bg-primary hidden sm:block">{post.data.summary}</p>
     <ArrowUpRight
       aria-hidden="true"
       class="animate-arrow float-right m-4 mt-10 hidden h-16 w-16 self-end justify-self-end sm:inline-block"

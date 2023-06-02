@@ -3,31 +3,31 @@ import ChevronRight from "../icons/chevron-right.astro";
 import Color from "color";
 
 import { formatDate } from "../utils";
-import { getPosts } from "../api/homepage";
+import { topicColor, type Topic } from "../content/config";
+import { getFeed } from "../content";
 
-const posts = await getPosts(10);
+const feed = await getFeed();
 
-const postsWithColor = posts.map((post) => {
-  const topic = post.labels.nodes.find((label) =>
-    label.name.startsWith("topic:")
-  );
+const postsWithColor = feed.map((post) => {
+  const { tags, title, publishDate } = post.data;
+
+  const topic = tags[0] as Topic;
 
   let color: Color;
-  if (topic) {
-    color = Color(`#${topic.color}`);
+  if (topicColor.has(topic)) {
+    color = Color(topicColor.get(topic));
   } else {
     color = Color(`#232946`);
   }
 
   const pastel = color.mix(Color("white"), 0.2).hsl().saturate(-0.5);
 
-  const createdAt = formatDate(post.createdAt);
+  const createdAt = formatDate(publishDate);
   return {
-    title: post.title,
+    title,
     color: pastel,
     createdAt,
-    // TODO: slugify
-    slug: post.number,
+    slug: post.slug,
   };
 });
 ---
@@ -69,7 +69,7 @@ const postsWithColor = posts.map((post) => {
                 <div class="self-start rounded-md bg-white/20 px-3 py-1 text-xs backdrop-blur-md">
                   {createdAt}
                 </div>
-                <p class="xs:text-2xl text-xl">{title}</p>
+                <p class="text-xl xs:text-2xl">{title}</p>
               </div>
             </a>
           </li>
@@ -80,7 +80,7 @@ const postsWithColor = posts.map((post) => {
   <footer class="h-full shrink-0 snap-end self-center">
     <a
       href="/feed"
-      class="text-background bg-on-background/10 outline-on-primary hover:bg-on-background/20 focus:bg-on-background/20 flex h-full items-center gap-2 rounded-2xl p-8 text-xl outline-2 transition-all duration-300"
+      class="flex h-full items-center gap-2 rounded-2xl bg-on-background/10 p-8 text-xl text-background outline-2 outline-on-primary transition-all duration-300 hover:bg-on-background/20 focus:bg-on-background/20"
       >All <ChevronRight aria-hidden="true" class="h-5" /></a
     >
   </footer>

@@ -1,0 +1,132 @@
+---
+import { Image } from "astro:assets";
+import Header from "../../components/Header.astro";
+import LinkIcon from "../../icons/link.astro";
+import TopicIcon from "../../icons/topic.astro";
+import MainLayout from "../../layouts/Main.astro";
+import PostLayout from "../../layouts/Post.astro";
+import { formatDate } from "../../utils";
+import { type InferGetStaticPropsType } from "astro";
+import { getFeed } from "../../content";
+import { Share } from "../../components/Share";
+
+export type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const feed = await getFeed();
+  return feed.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+const { post } = Astro.props;
+
+if (!post) {
+  return Astro.redirect("/404");
+}
+
+const { title, summary, poster, posterAlt, publishDate, tags } = post.data;
+const publishedAt = formatDate(publishDate);
+const topic = tags.at(0);
+const { Content } = await post.render();
+const shareData = {
+  url: Astro.url.toString(),
+  text: `I just read "${title}" by @lexswed`,
+  title,
+};
+---
+
+<MainLayout title={title} description={summary} image={poster.src}>
+  <header class="bg-primary text-on-primary">
+    <PostLayout>
+      <div class="flex h-full flex-col gap-6 sm:gap-10">
+        <Header backLink="/feed">
+          <span slot="back-link"
+            ><b>All posts</b>
+            <span class="hidden xs:inline">by Oleksandr</span></span
+          >
+        </Header>
+        <div class="my-auto flex flex-col gap-6 sm:gap-8">
+          {
+            poster ? (
+              <Image
+                src={poster}
+                alt={posterAlt}
+                class="animate-poster mx-auto aspect-video min-h-0 w-full rounded-2xl object-cover shadow-xl"
+              />
+            ) : null
+          }
+          <div class="animate-heading flex flex-col gap-8">
+            <h1 class="text-3xl font-bold sm:text-4xl">{title}</h1>
+            <div class="flex justify-between text-base text-on-primary/80">
+              {
+                topic && (
+                  <div class="flex items-center gap-2">
+                    <TopicIcon class="h-4 w-4" stroke-width="2" />
+                    <span>
+                      Published in{" "}
+                      <a
+                        href={`/feed?topic=${topic}`}
+                        class="font-semibold underline-offset-2 hover:underline focus:underline"
+                      >
+                        {topic}
+                      </a>
+                    </span>
+                  </div>
+                )
+              }
+              <time datetime={publishDate.toISOString()}>{publishedAt}</time>
+            </div>
+          </div>
+        </div>
+      </div>
+    </PostLayout>
+  </header>
+  <div class="animate-content">
+    <main class="main text-on-background/90">
+      <PostLayout>
+        <Content />
+      </PostLayout>
+    </main>
+    <PostLayout>
+      <footer class="mt-12 flex justify-center p-8">
+        <div class="flex items-center gap-12">
+          <Share shareData={shareData} client:idle>
+            <LinkIcon class="h-5 w-5" />
+          </Share>
+        </div>
+      </footer>
+    </PostLayout>
+  </div>
+</MainLayout>
+
+<style>
+  .animate-poster {
+    --y: 0.3rem;
+    animation: slideY 0.6s ease-out both;
+  }
+  .animate-heading {
+    --y: 0.3rem;
+    animation: slideY 0.6s ease-out both;
+  }
+  .animate-content {
+    --y: 0.5rem;
+    animation: slideY 0.6s 0.2s ease-out both;
+  }
+
+  @keyframes slideY {
+    0% {
+      transform: translateY(var(--y));
+      opacity: 0;
+    }
+    75% {
+      opacity: 1;
+    }
+    100% {
+      transform: none;
+      opacity: 1;
+    }
+  }
+</style>
