@@ -27,8 +27,9 @@ if (!post) {
   return Astro.redirect("/404");
 }
 
-const { title, summary, poster, posterAlt, publishDate } = post.data;
+const { title, summary, poster, posterAlt, publishDate, tags } = post.data;
 const publishedAt = formatDate(publishDate);
+const topic = tags.at(0);
 const { Content } = await post.render();
 const shareData = {
   url: Astro.url.toString(),
@@ -61,16 +62,16 @@ const shareData = {
             <h1 class="text-3xl font-bold sm:text-4xl">{title}</h1>
             <div class="flex justify-between text-base text-on-primary/80">
               {
-                post.data.topic && (
+                topic && (
                   <div class="flex items-center gap-2">
                     <TopicIcon class="h-4 w-4" stroke-width="2" />
                     <span>
                       Published in{" "}
                       <a
-                        href={`/feed?topic=${post.data.topic}`}
+                        href={`/feed?topic=${topic}`}
                         class="font-semibold underline-offset-2 hover:underline focus:underline"
                       >
-                        {post.data.topic}
+                        {topic}
                       </a>
                     </span>
                   </div>

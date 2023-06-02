@@ -1,0 +1,365 @@
+---
+title: It is time to update the Dialog
+poster: ./1/poster.png
+posterAlt: An abstract image of a computer with browser's interface and open modal in it, in soft pastel colors.
+summary: Dialog element has been around for quite a while, but only recently got a decent browser support, thanks to IE11 death and Safari updates. It is time to leverage the platform one more time.
+publishDate: 2023-04-07
+tags: [web, react]
+draft: false
+---
+
+export { components } from "../../components/markdown/index.tsx";
+
+The HTML [dialog](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) element has been around for quite a while, but only recently got a [decent browser support](https://caniuse.com/dialog), thanks to IE11 death and Safari updates. For those who need wider support range, [Chrome team has a tiny polyfill available](https://github.com/GoogleChrome/dialog-polyfill).
+
+Let’s look at the examples of an accessible `Dialog` component first to see what parts we need to “get inspired by”.
+
+[Radix example](https://www.radix-ui.com/docs/primitives/components/dialog#examples):
+
+```tsx
+import * as Dialog from "@radix-ui/react-dialog";
+
+export default () => {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <Dialog.Root open={open} onOpenChange={setOpen}>
+      <Dialog.Trigger>Open</Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Overlay />
+        <Dialog.Content>
+          <form
+            onSubmit={(event) => {
+              performOperation().then(() => setOpen(false));
+              event.preventDefault();
+            }}
+          >
+            {/** some inputs */}
+            <button type="submit">Submit</button>
+          </form>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+};
+```
+
+You noticed I pulled in “Controlled” example with `open` state provided by the consumer. I believe that in most cases the consumers of the dialog will be controlling when and how the dialog is closed.
+
+Similarly, [React Spectrum by Adobe](https://react-spectrum.adobe.com/react-spectrum/Dialog.html) example:
+
+```tsx
+import {
+  ActionButton,
+  Button,
+  ButtonGroup,
+  Content,
+  Dialog,
+  DialogTrigger,
+  Divider,
+  Header,
+  Heading,
+  Text,
+} from "@adobe/react-spectrum";
+
+<DialogTrigger>
+  <ActionButton>Check connectivity</ActionButton>
+  {(close) => (
+    <Dialog>
+      <Heading>Internet Speed Test</Heading>
+      <Header>Connection status: Connected</Header>
+      <Divider />
+      <Content>
+        <Text>Start speed test?</Text>
+      </Content>
+      <ButtonGroup>
+        <Button variant="secondary" onPress={close}>
+          Cancel
+        </Button>
+        <Button variant="accent" onPress={close}>
+          Confirm
+        </Button>
+      </ButtonGroup>
+    </Dialog>
+  )}
+</DialogTrigger>;
+```
+
+> Here, the API is a little different. React Spectrum always pass `close` callback for the consumer of the component to control the internal `open` state of the `Dialog`.
+
+## Enter native `dialog`
+
+Approaching the API naïvely, we could do something like this:
+
+```tsx
+const Dialog = ({ open, children, ...props }) => {
+  return (
+    <dialog open={open} {...props}>
+      {children}
+    </dialog>
+  );
+};
+
+const App = () => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <button type="button" onClick={() => setOpen(true)}>
+        Open dialog
+      </button>
+      <Dialog open={open}>
+        <form
+          onSubmit={(e) => {
+            perform().then(() => setOpen(false));
+            e.preventDefault();
+          }}
+        >
+          ...
+          <button>OK</button>
+        </form>
+      </Dialog>
+    </>
+  );
+};
+```
+
+By providing `open` attribute to the `<dialog>`, however, you are opting out from all the accessibility benefits `<dialog>` can provide. No surprise, as MDN’s description of the property is:
+
+> The **`open`** property of the `[HTMLDialogElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement)` interface is a boolean value reflecting the `[open](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#open)` HTML attribute, indicating whether the `[<dialog>](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)` is **available for interaction**.
+
+> The property is now read only — it is possible to set the value to programmatically show or hide the dialog.
+
+React sets `open` attribute as the value changes, making the `dialog` **available for interaction**. But that's not really want we want. Let’s take another approach instead:
+
+```tsx
+const Dialog = ({ open, hide, children, ...props }) => {
+  const dialogRef = useRef(null);
+
+  useEffect(() => {
+    if (open) {
+      dialogRef.current.showModal();
+    } else {
+      dialogRef.current.close();
+    }
+  }, [open]);
+
+  return (
+    <dialog
+      ref={dialogRef}
+      // hide is a `() => void` function that sets `open` state to `false`
+      onClose={hide}
+      onCancel={hide}
+      {...props}
+    >
+      {children}
+    </dialog>
+  );
+};
+```
+
+This is more verbose, but with this simple change, your `<dialog>` already handles all the accessibility requirements of the dialog window:
+
+- captures focus within the dialog, making other page content “invisible”;
+- applies backdrop, clicking on which will close the dialog;
+- <kbd>Esc</kbd> press will close the dialog;
+- focus returns to the trigger element after the dialog is closed;
+
+## Give better controls
+
+In the simple implementation above, you could see that the `Dialog` now requires passing `hide` method. This can also be used to provide a consistent close button across all of your application:
+
+```tsx
+<dialog {...props}>
+  <button type="button" aria-label="Close the dialog">
+    X
+  </button>
+  ...
+</dialog>
+```
+
+The way you can leverage the fact that your consumers need to control the state of the dialog, is by providing a re-usable function of the controls state, to pass down to your `Dialog` component:
+
+```tsx
+// Creates controls
+export function useDialogControls({ defaultOpen }) {
+  const [open, setOpen] = useState(defaultOpen);
+
+  return {
+    open,
+    show: () => setOpen(true),
+    hide: () => setOpen(false),
+    toggle: () => setOpen((open) => !open),
+  };
+}
+
+// Uses controls
+export const Dialog = ({ controls, children, ...props }) => {
+  const dialogRef = useRef(null);
+
+  useEffect(() => {
+    if (controls.open) {
+      dialogRef.current?.showModal();
+    } else {
+      dialogRef.current?.close();
+    }
+  }, [controls.open]);
+
+  return (
+    <dialog
+      ref={dialogRef}
+      onClose={controls.hide}
+      onCancel={controls.hide}
+      {...props}
+    >
+      {children}
+    </dialog>
+  );
+};
+```
+
+Now the consumers of the `Dialog` can simply use `useDialogControls` and pass the `controls` down to the `Dialog`:
+
+```tsx
+const App = () => {
+  const controls = useDialogControls({ defaultOpen: false });
+
+  return (
+    <>
+      <button type="button" onClick={controls.show}>
+        Open dialog
+      </button>
+      <Dialog controls={controls}>
+        ...
+        <button type="button" onClick={controls.hide}>
+          OK
+        </button>
+      </Dialog>
+    </>
+  );
+};
+```
+
+This approach is used by the upcoming [Ariakit - Dialog](https://ariakit.org/components/dialog) and I love it: it’s DRY, concise and extensible (Ariakit version is also more optimised for passing controls around without causing rerenders).
+
+```tsx
+const App = () => {
+  const dialog = useDialogState();
+  return (
+    <>
+      <Button onClick={dialog.toggle}>Show modal</Button>
+      <Dialog state={dialog} className="dialog">
+        <DialogDismiss>OK</DialogDismiss>
+      </Dialog>
+    </>
+  );
+};
+```
+
+## `useEffect` is ugly there
+
+can’t we just call `hide: () => dialogRef.current.close(), show: () => dialogRef.current.showModal()`?
+
+You could, for example reversing the control:
+
+```tsx
+export function useDialogControls({ defaultOpen }) {
+  const dialogRef = useRef(null);
+  const [open, setOpen] = useState(defaultOpen);
+
+  return {
+    dialogRef,
+    open,
+    show: () => {
+      setOpen(true);
+      dialogRef.current?.showModal();
+    },
+    hide: () => {
+      setOpen(false);
+      dialogRef.current?.close();
+    },
+    toggle: () => {
+      if (dialogRef.current?.open) {
+        dialogRef.current?.close();
+        setOpen(false);
+      } else {
+        dialogRef.current?.showModal();
+        setOpen(true);
+      }
+    },
+  };
+}
+```
+
+And then use it as before:
+
+```tsx
+const Dialog = ({ controls, children, ...props }) => {
+  return (
+    <dialog
+      ref={controls.dialogRef}
+      onClose={controls.hide}
+      onCancel={controls.hide}
+      {...props}
+    >
+      {children}
+    </dialog>
+  );
+};
+
+const App = () => {
+  const controls = useDialogControls({ defaultOpen: false });
+
+  return (
+    <>
+      <button type="button" onClick={controls.show}>
+        Open dialog
+      </button>
+      <Dialog controls={controls}>
+        {controls.Open ? <FormWithFetchForLatestData /> : null}
+      </Dialog>
+    </>
+  );
+};
+```
+
+This might seem a bit more of an "inside out" approach, exposing `dialogRef` onto the consumer of the dialog, but in the end, does it really matter?
+
+## Is that it?
+
+Technically yes, but also not. There’s a reason why [[RadixUI](https://www.radix-ui.com/docs/primitives/components/dialog)](https://www.radix-ui.com/docs/primitives/components/dialog) and [[React Spectrum](https://react-spectrum.adobe.com/react-spectrum/Dialog.html)](https://react-spectrum.adobe.com/react-spectrum/Dialog.html) wrap the `Dialog` into `ContextProvider` and provide trigger `Button` primitive. This allows connecting a trigger button to its dialog for screen readers. All of them also provide a way for to specify the description of the dialog for screen readers, like so:
+
+```tsx
+<Dialog controls={controls}>
+  <Heading>Create new avatar</Heading>
+</Dialog>
+```
+
+As both elements can read from parent’s context, `<dialog>` can be connected to the `Heading` text via `aria-labelledby` and `id`:
+
+```tsx
+<dialog aria-labelledby="generated-unique-id">
+  <h2 id="generated-unique-id">Create new avatar</h2>
+</dialog>
+```
+
+Which you can also achieve with simpler code:
+
+```tsx
+const App = () => {
+  const controls = useDialogControls({ defaultOpen: false });
+  const heading = 'Create new avatar';
+  return (
+    <>
+      <button type="button" onClick={controls.show}>
+        Open dialog
+      </button>
+      <Dialog controls={controls} aria-label={heading}>
+        <h1>{heading}</h2>
+      </Dialog>
+    </>
+  );
+};
+```
+
+I always suggest to go to the libraries I mentioned and run their examples with screen readers, like Voice Over on Mac, to see how richer the experience becomes with proper accessibility hints. Luckily, all the libraries I mentioned are open-sourced and can be served as a great inspiration for your own component API.
