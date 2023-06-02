@@ -126,9 +126,8 @@ const App = () => {
 
 By providing `open` attribute to the `<dialog>`, however, you are opting out from all the accessibility benefits `<dialog>` can provide. No surprise, as MDN’s description of the property is:
 
-> The **`open`** property of the `[HTMLDialogElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement)` interface is a boolean value reflecting the `[open](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#open)` HTML attribute, indicating whether the `[<dialog>](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)` is **available for interaction**.
-
-> The property is now read only — it is possible to set the value to programmatically show or hide the dialog.
+> The `open` property of the [`HTMLDialogElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement) interface is a boolean value reflecting the [open](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#open) HTML attribute, indicating whether the [`<dialog>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) is **available for interaction**.
+> The property is now **read only** — it is possible to set the value to programmatically show or hide the dialog.
 
 React sets `open` attribute as the value changes, making the `dialog` **available for interaction**. But that's not really want we want. Let’s take another approach instead:
 
@@ -258,9 +257,18 @@ const App = () => {
 
 ## `useEffect` is ugly there
 
-can’t we just call `hide: () => dialogRef.current.close(), show: () => dialogRef.current.showModal()`?
+...can’t we just call
 
-You could, for example reversing the control:
+```tsx
+{
+  hide: () => dialogRef.current.close(),
+  show: () => dialogRef.current.showModal()
+}
+```
+
+?
+
+Well, you could, by reversing the control:
 
 ```tsx
 export function useDialogControls({ defaultOpen }) {
@@ -327,7 +335,10 @@ This might seem a bit more of an "inside out" approach, exposing `dialogRef` ont
 
 ## Is that it?
 
-Technically yes, but also not. There’s a reason why [[RadixUI](https://www.radix-ui.com/docs/primitives/components/dialog)](https://www.radix-ui.com/docs/primitives/components/dialog) and [[React Spectrum](https://react-spectrum.adobe.com/react-spectrum/Dialog.html)](https://react-spectrum.adobe.com/react-spectrum/Dialog.html) wrap the `Dialog` into `ContextProvider` and provide trigger `Button` primitive. This allows connecting a trigger button to its dialog for screen readers. All of them also provide a way for to specify the description of the dialog for screen readers, like so:
+Technically yes, but also not. There’s a reason why [RadixUI](https://www.radix-ui.com/docs/primitives/components/dialog)
+and [React Spectrum](https://react-spectrum.adobe.com/react-spectrum/Dialog.html) wrap the `Dialog` into `ContextProvider`
+and provide trigger `Button` primitive. This allows connecting a trigger button to its dialog for screen readers at any depth.
+All of them also provide a way to specify the description of the dialog for screen readers, like so:
 
 ```tsx
 <Dialog controls={controls}>
@@ -335,15 +346,16 @@ Technically yes, but also not. There’s a reason why [[RadixUI](https://www.rad
 </Dialog>
 ```
 
-As both elements can read from parent’s context, `<dialog>` can be connected to the `Heading` text via `aria-labelledby` and `id`:
+As both elements can read from parent’s context, `<dialog>` can be connected to the `Heading` text via `aria-labelledby` and `id` to improve the accessibility:
 
 ```tsx
+// output:
 <dialog aria-labelledby="generated-unique-id">
   <h2 id="generated-unique-id">Create new avatar</h2>
 </dialog>
 ```
 
-Which you can also achieve with simpler code:
+Which you can also expect consumer to care about instead:
 
 ```tsx
 const App = () => {

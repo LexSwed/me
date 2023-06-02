@@ -2,6 +2,7 @@ import { type ComponentProps, type JSX } from "preact";
 import { Code } from "./Code";
 import MultilineCode from "./MultilineCode.astro";
 import ParagraphWithMaybeImage from "./ParagraphWithMaybeImage.astro";
+import Quote from "./Quote.astro";
 
 const headingLevelStyle = {
   1: "text-4xl font-medium",
@@ -62,14 +63,7 @@ const Link = ({ href, children }: ComponentProps<"a">) => {
 };
 
 export const components = {
-  blockquote: (props) => (
-    <blockquote
-      {...props}
-      class="mb-4 mt-2 border-l-4 border-solid border-l-on-background/70 pl-4 text-on-background/70"
-    >
-      <slot />
-    </blockquote>
-  ),
+  blockquote: Quote,
   code: Code,
   pre: MultilineCode,
   h1: (props) => <Heading level={1} {...props} />,
