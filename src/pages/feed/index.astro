@@ -16,17 +16,12 @@ if (!topic && Astro.url.searchParams.has("topic")) {
   return Astro.redirect("/feed");
 }
 
-let feed = await getFeed();
+const feed = await getFeed();
+const filteredFeed = topic
+  ? feed.filter((post) => post.data.tags.includes(topic))
+  : feed;
 
-if (topic) {
-  feed.filter((post) => post.data.tags.includes(topic));
-}
-
-const topics = [
-  ...new Set(
-    feed.flatMap((post) => [post.data.topic, ...post.data.tags]).flat()
-  ),
-];
+const topics = [...new Set(feed.flatMap((post) => post.data.tags))];
 
 const pinnedPost = feed.find((post) => post.data.pinned);
 ---
@@ -86,7 +81,7 @@ const pinnedPost = feed.find((post) => post.data.pinned);
         </ul>
         <ul class="flex flex-col gap-8 sm:gap-16">
           {
-            feed.map((post) => {
+            filteredFeed.map((post) => {
               return (
                 <li>
                   <a

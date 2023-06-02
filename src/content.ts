@@ -5,5 +5,9 @@ export async function getFeed() {
     "feed",
     import.meta.env.DEV ? undefined : (post) => !post.data.draft
   );
-  return feed;
+  return [...feed].sort(
+    (a, b) =>
+      new Date(b.data.publishDate).getTime() -
+      new Date(a.data.publishDate).getTime()
+  );
 }

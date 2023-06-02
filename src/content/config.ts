@@ -7,8 +7,8 @@ const collection = defineCollection({
       draft: z.boolean(),
       title: z.string(),
       summary: z.string(),
+      /** first tag is treated as topic */
       tags: z.array(z.string()),
-      topic: topic,
       poster: image(),
       posterAlt: z.string(),
       publishDate: z.date(),
@@ -26,5 +26,5 @@ export type Topic = z.infer<typeof topic>;
 
 export const topicColor = new Map<Topic, `#${string}`>([
   ["fxtrot", "#0ea5e9"],
-  ["web", "#0891b2"],
+  ["web", "#155e75"],
 ]);
