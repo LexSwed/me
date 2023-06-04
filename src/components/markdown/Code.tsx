@@ -24,7 +24,7 @@ export const Pre = ({ children, filename, lang, source, ...props }) => {
     <pre
       {...props}
       class={[
-        "relative overflow-x-auto group/code-wrapper p-4 mb-4 text-sm rounded-lg",
+        "relative overflow-x-auto group/code-wrapper p-4 my-6 text-sm rounded-lg",
         props.class,
       ].join(" ")}
     >

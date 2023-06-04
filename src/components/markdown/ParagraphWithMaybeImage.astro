@@ -1,10 +1,9 @@
 ---
 const props = Astro.props;
+const imgClass =
+  "[&:has(>img:only-child)]:mb-10 [&:has(>img:only-child)]:mt-6 [&>img]:mx-auto [&>img]:rounded-lg [&>img]:shadow-md";
 ---
 
-<p
-  {...props}
-  class="mb-4 [&:has(>img:only-child)]:mb-10 [&:has(>img:only-child)]:mt-6 [&>img]:mx-auto [&>img]:rounded-lg [&>img]:shadow-md"
->
+<p {...props} class={`my-6 [&:has(+ul,+ol)]:mb-2 ${imgClass}`}>
   <slot />
 </p>

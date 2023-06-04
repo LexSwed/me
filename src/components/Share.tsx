@@ -38,9 +38,9 @@ export const Share = ({
       onClick={share}
       class={[
         styles.share,
-        "relative rounded-full border-2 border-on-background/20 p-4 text-on-background/70 transition-colors duration-150 hover:border-primary hover:bg-primary/90 hover:text-on-primary focus:border-primary focus:bg-primary/90 focus:text-on-primary",
+        "relative rounded-full border-2 border-on-background/50 p-4 text-on-background/80 transition-colors duration-150 hover:border-primary hover:bg-primary/90 hover:text-on-primary focus:border-primary focus:bg-primary/90 focus:text-on-primary",
         className,
-      ].join("")}
+      ].join(" ")}
       {...props}
     >
       {children}

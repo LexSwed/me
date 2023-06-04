@@ -1,0 +1,23 @@
+---
+import { type HTMLAttributes } from "astro/types";
+export type Props = HTMLAttributes<"a">;
+const { props } = Astro;
+let external = false;
+try {
+  if (props.href) {
+    // absolute URL - external
+    new URL(`${props.href}`);
+    external = true;
+  }
+} catch {
+  external = false;
+}
+---
+
+<a
+  class="text-primary decoration-2 outline-offset-4 outline-primary transition-all duration-200 hover:underline focus:outline-2"
+  rel={external ? "noopener noreferrer" : "prefetch"}
+  {...props}
+>
+  <slot />
+</a>
