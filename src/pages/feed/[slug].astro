@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import { getImage } from "astro:assets";
 import Header from "../../components/Header.astro";
 import LinkIcon from "../../icons/link.astro";
 import TopicIcon from "../../icons/topic.astro";
@@ -36,6 +36,13 @@ const shareData = {
   text: `I just read "${title}" by @lexswed`,
   title,
 };
+
+const posterImages = poster
+  ? {
+      desktop: await getImage({ src: poster, width: 800, alt: posterAlt }),
+      mobile: await getImage({ src: poster, width: 400, alt: posterAlt }),
+    }
+  : null;
 ---
 
 <MainLayout title={title} description={summary} image={poster.src}>
@@ -50,10 +57,12 @@ const shareData = {
         </Header>
         <div class="my-auto flex flex-col gap-6 sm:gap-8">
           {
-            poster ? (
-              <Image
-                src={poster}
-                alt={posterAlt}
+            posterImages ? (
+              <img
+                src={poster.src}
+                srcset={`${posterImages.mobile.src} 400w, ${posterImages.desktop.src} 800w`}
+                sizes="100w"
+                {...posterImages.desktop.attributes}
                 class="animate-poster mx-auto aspect-video min-h-0 w-full rounded-2xl object-cover shadow-xl"
               />
             ) : null
