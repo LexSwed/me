@@ -43,7 +43,11 @@ const posterImages = poster
   : null;
 ---
 
-<MainLayout title={title} description={summary} image={poster.src}>
+<MainLayout
+  title={title}
+  description={summary}
+  image={posterImages?.mobile.src}
+>
   <header class="bg-primary text-on-primary">
     <PostLayout>
       <div class="flex h-full flex-col gap-6 sm:gap-10">
