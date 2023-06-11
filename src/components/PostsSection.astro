@@ -27,6 +27,7 @@ const postsWithColor = feed.map((post) => {
     title,
     color: pastel,
     createdAt,
+    topic,
     slug: post.slug,
   };
 });
@@ -48,7 +49,7 @@ const postsWithColor = feed.map((post) => {
   </header>
   <ul class="contents">
     {
-      postsWithColor.map(({ color, title, createdAt, slug }, index) => {
+      postsWithColor.map(({ color, title, createdAt, topic, slug }, index) => {
         return (
           <li class="contents">
             <a
@@ -61,13 +62,13 @@ const postsWithColor = feed.map((post) => {
                 "--index": index,
               }}
               class:list={[
-                "card animate-feed-item isolate shrink-0 snap-start outline-on-primary block rounded-2xl outline-4 transition-all duration-300 ease-in",
+                "card animate-feed-item isolate shrink-0 snap-start outline-on-primary block rounded-2xl outline-4",
                 color.isDark() ? "text-on-background" : "text-on-primary",
               ]}
             >
               <div class="flex h-full flex-col justify-between p-8">
                 <div class="self-start rounded-md bg-white/20 px-3 py-1 text-xs backdrop-blur-md">
-                  {createdAt}
+                  {createdAt} in <b class="font-medium">{topic}</b>
                 </div>
                 <p class="text-xl xs:text-2xl">{title}</p>
               </div>
@@ -87,47 +88,61 @@ const postsWithColor = feed.map((post) => {
 </section>
 
 <style>
-  @property --bg-gradient-lightness {
+  @property --bg-x {
     syntax: "<percentage>";
-    inherits: false;
+    inherits: true;
+    initial-value: 0%;
+  }
+  @property --bg-y {
+    syntax: "<percentage>";
+    inherits: true;
+    initial-value: 0%;
+  }
+  @property --bg-gradient-saturation {
+    syntax: "<percentage>";
+    inherits: true;
     initial-value: 0%;
   }
   .card {
+    --bg-x: 90%;
+    --bg-y: 20%;
     --bg-hsl: var(--bg-h) var(--bg-s) var(--bg-l);
     --bg: hsl(var(--bg-hsl) / 1);
     --bg-gradient-saturation: min(calc(var(--bg-s) + 20%), 100%);
-    --bg-gradient-lightness: var(--bg-l);
     --bg-gradient: radial-gradient(
-        circle at top right,
+        circle at var(--bg-x) var(--bg-y),
         hsl(
-          max(calc(var(--bg-h) - 20deg), 10deg) var(--bg-gradient-saturation)
-            var(--bg-gradient-lightness)
-        ),
+            max(calc(var(--bg-h) - 20deg), 10deg) var(--bg-gradient-saturation)
+              var(--bg-l)
+          )
+          30%,
         hsl(
           max(calc(var(--bg-h) - 10deg), 10deg) var(--bg-gradient-saturation)
-            var(--bg-gradient-lightness) / 0%
+            var(--bg-l) / 0%
         )
       ),
       radial-gradient(
         circle at 40% 90%,
         hsl(
-          min(calc(var(--bg-h) + 20deg), 350deg) var(--bg-gradient-saturation)
-            max(calc(var(--bg-gradient-lightness) - 5%), 10%)
+          min(calc(var(--bg-h) + 20deg), 200deg) var(--bg-gradient-saturation)
+            max(calc(var(--bg-l) - 5%), 10%)
         ),
         hsl(
-          min(calc(var(--bg-h) + 10deg), 350deg) var(--bg-gradient-saturation)
-            max(calc(var(--bg-gradient-lightness) - 10%), 10%) / 0%
+          min(calc(var(--bg-h) + 10deg), 200deg) var(--bg-gradient-saturation)
+            max(calc(var(--bg-l) - 10%), 10%) / 0%
         )
       );
     position: relative;
     inline-size: clamp(16rem, 20rem, 80vw);
     block-size: clamp(12rem, 40vh, 25rem);
-    background-color: var(--bg);
+    transition: --bg-x 0.5s, --bg-y 0.5s, --bg-gradient-saturation 1s;
     transform-style: preserve-3d;
-    background-image: var(--bg-gradient);
+    background: var(--bg-gradient), var(--bg);
 
     &:where(:focus, :hover) {
-      --bg-gradient-lightness: max(calc(var(--bg-l) - 4%), 10%);
+      --bg-x: 60%;
+      --bg-y: 50%;
+      --bg-gradient-saturation: var(--bg-s);
     }
     &:where(:focus) {
       @apply ring-4 outline-none ring-current;

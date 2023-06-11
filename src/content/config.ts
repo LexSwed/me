@@ -25,6 +25,6 @@ const topic = z.enum(["web", "fxtrot"]);
 export type Topic = z.infer<typeof topic>;
 
 export const topicColor = new Map<Topic, `#${string}`>([
-  ["fxtrot", "#0ea5e9"],
+  ["fxtrot", "#1e3a8a"],
   ["web", "#155e75"],
 ]);
