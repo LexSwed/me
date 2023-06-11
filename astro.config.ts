@@ -23,7 +23,7 @@ export default defineConfig({
     remarkPlugins: [[remarkShiki, { theme: "material-theme-palenight" }]],
   },
   integrations: [mdx(), sitemap(), tailwind(), prefetch(), preact()],
-  output: "server",
+  output: "hybrid",
   adapter: vercel({
     analytics: true,
     includeFiles: shikiResourcePaths,

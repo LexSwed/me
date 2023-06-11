@@ -9,8 +9,6 @@ import { Image } from "astro:assets";
 
 const topic = Astro.url.searchParams.get("topic");
 
-export const prerender = true;
-
 // clean up empty URL param
 if (!topic && Astro.url.searchParams.has("topic")) {
   return Astro.redirect("/feed");

@@ -12,8 +12,6 @@ import { Share } from "../../components/Share";
 
 export type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-export const prerender = true;
-
 export async function getStaticPaths() {
   const feed = await getFeed();
   return feed.map((post) => ({
