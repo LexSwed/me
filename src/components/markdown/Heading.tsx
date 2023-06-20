@@ -31,7 +31,7 @@ export const Heading = ({
 
   return (
     <Tag
-      class={`mb-8 mt-6 [text-wrap:balance] ${headingLevelStyle[level]} group/heading`}
+      class={`mb-[0.8em] mt-[1.4em] [text-wrap:balance] ${headingLevelStyle[level]} group/heading`}
       id={id}
     >
       {children}
