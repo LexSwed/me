@@ -16,7 +16,7 @@ const shikiResourcePaths = Object.keys(
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://alex-vechi.vercel.app",
+  site: "https://alvechy.vercel.app",
   markdown: {
     syntaxHighlight: false,
     gfm: true,
