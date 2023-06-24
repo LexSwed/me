@@ -9,7 +9,7 @@ interface Job {
     backgroundHsl: `${number} ${number}% ${number}%`;
     textHsl: `${number} ${number}% ${number}%`;
   };
-  current?: true;
+  years: [number, number | string];
 }
 const jobs: Job[] = [
   {
@@ -20,7 +20,7 @@ const jobs: Job[] = [
       backgroundHsl: "214 100% 45%",
       textHsl: "0 0% 100%",
     },
-    current: true,
+    years: [2021, "now"],
   },
   {
     company: "Typeform",
@@ -30,6 +30,7 @@ const jobs: Job[] = [
       backgroundHsl: "240 1% 15%",
       textHsl: "0 0% 100%",
     },
+    years: [2020, 2021],
   },
   {
     company: "Pipedrive",
@@ -39,15 +40,18 @@ const jobs: Job[] = [
       backgroundHsl: "114 76% 90%",
       textHsl: "210 7% 16%",
     },
+    years: [2018, 2020],
   },
 ];
 ---
 
 <section class="flex flex-col" aria-labelledby="contributions">
   <header class="text-3xl font-medium" id="contributions">Contributions</header>
-  <ul class="list flex flex-row flex-nowrap gap-4 overflow-auto">
+  <ul
+    class="-mx-8 flex snap-x snap-mandatory scroll-p-8 flex-row flex-nowrap gap-4 overflow-auto p-8"
+  >
     {
-      jobs.map(({ href, company, title, current, style }) => (
+      jobs.map(({ href, company, title, years, style }) => (
         <li>
           <a
             href={href}
@@ -55,16 +59,16 @@ const jobs: Job[] = [
             rel="noopener noreferrer"
             class:list={[
               "card",
-              current && "current",
-              "flex snap-start shrink-0 relative rounded-2xl gap-2 flex-col items-start p-4 transition-all duration-300",
+              "flex snap-start p-8 shrink-0 relative rounded-2xl gap-3 flex-col items-start transition-all duration-300",
             ]}
             style={{
               "--bg-hsl": style.backgroundHsl,
               "--color-hsl": style.textHsl,
             }}
           >
+            <span class="text-sm">{years.join(" - ")}</span>
             <header class="text-4xl">{company}</header>
-            <span class="title -ml-1 block rounded-full px-2 py-1 text-sm">
+            <span class="title -ml-1 block rounded-full px-3 py-1 text-sm">
               {title}
             </span>
             <ArrowUpRightIcon
@@ -79,18 +83,9 @@ const jobs: Job[] = [
 </section>
 
 <style>
-  .list {
-    --p: theme("spacing.8");
-    margin-inline: calc(-1 * var(--p));
-    scroll-padding-inline: var(--p);
-    scroll-padding-block: var(--p);
-    padding: var(--p);
-    scroll-snap-type: x mandatory;
-  }
   .card {
     inline-size: clamp(15rem, 35rem, 80vw);
     block-size: 25rem;
-    padding: var(--p);
     color: hsl(var(--color-hsl) / 1);
     background-color: hsl(var(--bg-hsl) / 1);
     &:where(:focus, :hover) {
@@ -102,37 +97,7 @@ const jobs: Job[] = [
     @apply outline-4 outline-on-background;
   }
 
-  @property --wave-size {
-    syntax: "<number>";
-    inherits: false;
-    initial-value: 0;
-  }
-  .card.current {
-    --wave-size: 2;
-    --bg-hsl: 0 0 0;
-    --center: calc(var(--p) * 2.2);
-    animation: current-bg 3s infinite alternate;
-    background-color: hsl(var(--bg-hsl) / 1);
-    background-image: repeating-radial-gradient(
-        circle at bottom var(--center) right var(--center),
-        transparent 0,
-        hsl(var(--bg-hsl) / 1) calc(var(--wave-size) * 1rem)
-      ),
-      repeating-linear-gradient(
-        hsl(var(--bg-hsl) / 1),
-        hsl(var(--color-hsl) / 5%)
-      );
-  }
-  @keyframes current-bg {
-    0% {
-      --wave-size: 5;
-    }
-    100% {
-      --wave-size: 7;
-    }
-  }
-
   .title {
-    background-color: hsl(var(--color-hsl) / 0.1);
+    background-color: hsl(var(--color-hsl) / 0.15);
   }
 </style>
