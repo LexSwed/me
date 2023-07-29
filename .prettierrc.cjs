@@ -1,4 +1,5 @@
-module.exports = {
+/** @type {import("prettier").Options} */
+const config = {
   plugins: [require.resolve("prettier-plugin-astro")],
   overrides: [
     {
@@ -8,7 +9,6 @@ module.exports = {
       },
     },
   ],
-  rules: {
-    quoteProps: "consistent",
-  },
+  quoteProps: "consistent",
 };
+module.exports = config;

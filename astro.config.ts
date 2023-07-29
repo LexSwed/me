@@ -11,7 +11,7 @@ const shikiResourcePaths = Object.keys(
   import.meta.glob([
     "./node_modules/shiki/languages/*.json",
     "./node_modules/shiki/themes/material-palenight.json",
-  ])
+  ]),
 );
 
 // https://astro.build/config
@@ -30,5 +30,6 @@ export default defineConfig({
   }),
   experimental: {
     assets: true,
+    viewTransitions: true,
   },
 });

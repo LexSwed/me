@@ -1,8 +1,10 @@
 {
-  "extends": "astro/tsconfigs/base",
+  "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "strictNullChecks": true,
+    "importsNotUsedAsValues": "remove",
     "verbatimModuleSyntax": true,
+    "noEmit": true,
     "plugins": [
       {
         "name": "@astrojs/ts-plugin"
