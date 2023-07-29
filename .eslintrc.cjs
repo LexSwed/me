@@ -1,10 +1,9 @@
 module.exports = {
   root: true,
-  ignorePatterns: ["*.cjs", "api/generated/*.ts"],
-  plugins: ["tailwindcss", "prettier", "@typescript-eslint"],
+  ignorePatterns: ["*.cjs"],
+  plugins: ["tailwindcss", "@typescript-eslint"],
   extends: [
     "eslint:recommended",
-    "plugin:prettier/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:tailwindcss/recommended",
     "plugin:astro/recommended",
@@ -23,6 +22,7 @@ module.exports = {
     {
       // Define the configuration for `.astro` file.
       files: ["*.astro"],
+      plugins: ["prettier-plugin-astro"],
       // Allows Astro components to be parsed.
       parser: "astro-eslint-parser",
       // Parse the script in `.astro` as TypeScript by adding the following configuration.
