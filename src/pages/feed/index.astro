@@ -37,14 +37,14 @@ const pinnedPost = feed.find((post) => post.data.pinned);
     </PostLayout>
   </header>
   <main>
-    <div
+    <header
       class="flex flex-col items-start justify-between bg-primary text-on-primary"
     >
       <PostLayout>
         <h1 class="mb-12 text-7xl font-bold md:mb-24">Notes</h1>
         {pinnedPost && <PinnedPost post={pinnedPost} />}
       </PostLayout>
-    </div>
+    </header>
     <PostLayout>
       <div class="flex flex-col gap-12 sm:gap-16">
         <ul class="flex max-w-full flex-row gap-4 overflow-auto p-2">
@@ -96,13 +96,17 @@ const pinnedPost = feed.find((post) => post.data.pinned);
                           alt={post.data.posterAlt}
                           width={300}
                           class="w-full rounded-md object-contain shadow-md shadow-background ring-on-background/80 transition-shadow duration-300 group-hover/post:ring-2 group-focus/post:ring-2"
+                          transition:name={`${post.data.title}-hero-image`}
                         />
                       ) : (
                         <div class="w-full" />
                       )}
                     </div>
                     <div class="hidden h-full flex-col justify-center gap-4 sm:flex">
-                      <h3 class="text-3xl group-hover/post:underline group-focus/post:underline">
+                      <h3
+                        class="text-3xl group-hover/post:underline group-focus/post:underline"
+                        transition:name={`${post.data.title}-hero-title`}
+                      >
                         {post.data.title}
                       </h3>
                       <p class="text-md text-on-background/90 ">

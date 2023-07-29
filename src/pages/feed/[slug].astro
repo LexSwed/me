@@ -6,7 +6,7 @@ import TopicIcon from "../../icons/topic.astro";
 import MainLayout from "../../layouts/Main.astro";
 import PostLayout from "../../layouts/Post.astro";
 import { formatDate } from "../../utils";
-import { type InferGetStaticPropsType } from "astro";
+import type { InferGetStaticPropsType } from "astro";
 import { getFeed } from "../../content";
 import { Share } from "../../components/Share";
 
@@ -65,12 +65,16 @@ const posterImages = poster
                 srcset={`${posterImages.mobile.src} 400w, ${posterImages.desktop.src} 800w`}
                 sizes="100w"
                 {...posterImages.desktop.attributes}
-                class="animate-poster mx-auto aspect-video min-h-0 w-full rounded-2xl object-cover shadow-xl"
+                class="mx-auto aspect-video min-h-0 w-full rounded-2xl object-cover shadow-xl"
+                transition:name={`${title}-hero-image`}
               />
             ) : null
           }
-          <div class="animate-heading flex flex-col gap-8">
-            <h1 class="text-3xl font-bold [text-wrap:balance] sm:text-4xl">
+          <div class="flex flex-col gap-8">
+            <h1
+              class="text-3xl font-bold [text-wrap:balance] sm:text-4xl"
+              transition:name={`${title}-hero-title`}
+            >
               {title}
             </h1>
             <div class="flex justify-between text-base text-on-primary/80">
@@ -97,7 +101,7 @@ const posterImages = poster
       </div>
     </PostLayout>
   </header>
-  <div class="animate-content">
+  <div>
     <main class="main text-on-background/90">
       <PostLayout>
         <Content />
@@ -112,32 +116,3 @@ const posterImages = poster
     </PostLayout>
   </div>
 </MainLayout>
-
-<style>
-  .animate-poster {
-    --y: 0.3rem;
-    animation: slideY 0.6s ease-out both;
-  }
-  .animate-heading {
-    --y: 0.3rem;
-    animation: slideY 0.6s ease-out both;
-  }
-  .animate-content {
-    --y: 0.5rem;
-    animation: slideY 0.6s 0.2s ease-out both;
-  }
-
-  @keyframes slideY {
-    0% {
-      transform: translateY(var(--y));
-      opacity: 0;
-    }
-    75% {
-      opacity: 1;
-    }
-    100% {
-      transform: none;
-      opacity: 1;
-    }
-  }
-</style>

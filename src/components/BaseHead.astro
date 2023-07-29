@@ -3,6 +3,7 @@ import tailwindConfig from "../../tailwind.config";
 import "@fontsource-variable/inter/slnt.css";
 import placeholderImage from "../../public/Alex-V.jpeg";
 import { getImage } from "astro:assets";
+import { ViewTransitions } from "astro:transitions";
 
 export interface Props {
   title: string;
@@ -17,7 +18,7 @@ const themeColor = tailwindConfig.theme.extend.colors.primary;
 const imageUrl = new URL(
   image ||
     (await getImage({ src: placeholderImage, width: 300, height: 300 })).src,
-  Astro.url.origin
+  Astro.url.origin,
 ).toString();
 ---
 
@@ -83,3 +84,5 @@ const imageUrl = new URL(
     font-family: "Inter Variable", sans-serif;
   }
 </style>
+
+<ViewTransitions />
