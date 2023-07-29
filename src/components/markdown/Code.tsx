@@ -1,11 +1,16 @@
-import { type ComponentProps } from "preact";
+import { type ComponentChildren, type ComponentProps } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 
+type CodeProps = {
+  children: ComponentChildren;
+  shiki?: unknown;
+};
 /**
  * Used by @astro/mdx for inline code and by shiki as a child of `pre`.
+ * If used by shiki, avoid adding any styles.
  * See @link /plugins/shiki.ts.
  */
-export const Code = ({ children, ...props }) => {
+export const Code = ({ children, ...props }: CodeProps) => {
   return (
     <code
       class={
@@ -19,7 +24,15 @@ export const Code = ({ children, ...props }) => {
   );
 };
 
-export const Pre = ({ children, filename, lang, source, ...props }) => {
+type PreProps = {
+  children: ComponentChildren;
+  source: string;
+  filename?: string;
+  lang?: string;
+  class?: string;
+};
+
+export const Pre = ({ children, source, ...props }: PreProps) => {
   return (
     <pre
       {...props}

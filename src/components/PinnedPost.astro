@@ -1,5 +1,5 @@
 ---
-import { type CollectionEntry } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import ArrowUpRight from "../icons/arrow-up-right.astro";
 import { Image } from "astro:assets";
 
@@ -29,7 +29,7 @@ const { post } = Astro.props;
   </div>
   <div class="relative flex h-full flex-1 flex-col gap-4">
     <h3
-      class="bg-primary inline-block text-2xl font-semibold group-hover/post:underline group-focus/post:underline sm:text-3xl"
+      class="inline-block bg-primary text-2xl font-semibold group-hover/post:underline group-focus/post:underline sm:text-3xl"
     >
       <ArrowUpRight
         aria-hidden="true"
@@ -37,7 +37,7 @@ const { post } = Astro.props;
       />
       {post.data.title}
     </h3>
-    <p class="bg-primary hidden sm:block">{post.data.summary}</p>
+    <p class="hidden bg-primary sm:block">{post.data.summary}</p>
     <ArrowUpRight
       aria-hidden="true"
       class="animate-arrow float-right m-4 mt-10 hidden h-16 w-16 self-end justify-self-end sm:inline-block"

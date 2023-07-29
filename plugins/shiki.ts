@@ -15,19 +15,24 @@ export const remarkShiki: RemarkPlugin<HighlighterOptions[]> = (options) => {
   highlighters.set("default", getHighlighter(options));
 
   const transformer: ReturnType<RemarkPlugin<HighlighterOptions[]>> = async (
-    markdownAST
+    markdownAST,
   ) => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const highlighter = await highlighters.get("default")!;
     const loadedLanguages = highlighter.getLoadedLanguages();
     const loadedTheme = highlighter.getTheme();
 
-    function visitor(node) {
-      const lang = !loadedLanguages.includes(node.lang) ? null : node.lang;
+    visit(markdownAST, "code", (node) => {
+      const lang = !loadedLanguages.includes(node.lang as shiki.Lang)
+        ? null
+        : node.lang;
       const source = node.value;
-      const tokens = highlighter.codeToThemedTokens(node.value, lang);
+      const tokens = highlighter.codeToThemedTokens(
+        node.value,
+        lang as shiki.Lang,
+      );
 
-      node.type = "html";
+      (node as { type: string }).type = "html";
       node.value = shiki.renderToHtml(tokens, {
         themeName: loadedTheme.name,
         fg: loadedTheme.fg,
@@ -35,9 +40,9 @@ export const remarkShiki: RemarkPlugin<HighlighterOptions[]> = (options) => {
         elements: {
           pre({ children, className, style }) {
             return `<pre ${parseMeta(
-              node.meta
+              node.meta,
             )} lang="${lang}" source="${escapeHtml(
-              source
+              source,
             )}" class="${className}" style="${style}">${children}</pre>`;
           },
           code({ children }) {
@@ -45,15 +50,13 @@ export const remarkShiki: RemarkPlugin<HighlighterOptions[]> = (options) => {
           },
         },
       });
-    }
-
-    visit(markdownAST, "code", visitor);
+    });
   };
 
   return transformer;
 };
 
-function parseMeta(str: string) {
+function parseMeta(str: string | null | undefined) {
   if (!str || str.length === 0) return "";
   try {
     const kvs = str.split(" ");
@@ -76,6 +79,9 @@ const htmlEscapes = {
   '"': "&quot;",
   "'": "&#39;",
 };
-function escapeHtml(html) {
-  return html.replace(/[&<>"']/g, (chr) => htmlEscapes[chr]);
+function escapeHtml(html: string) {
+  return html.replace(
+    /[&<>"']/g,
+    (chr) => htmlEscapes[chr as keyof typeof htmlEscapes],
+  );
 }
