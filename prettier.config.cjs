@@ -1,5 +1,6 @@
-/** @type {import("prettier").Options} */
+/** @type {import("prettier").Config} */
 const config = {
+  // see https://github.com/withastro/prettier-plugin-astro
   plugins: [require.resolve("prettier-plugin-astro")],
   overrides: [
     {
@@ -9,6 +10,9 @@ const config = {
       },
     },
   ],
+  // custom rules
   quoteProps: "consistent",
+  trailingComma: "all",
 };
+
 module.exports = config;
