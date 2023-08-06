@@ -66,15 +66,12 @@ const posterImages = poster
                 sizes="100w"
                 {...posterImages.desktop.attributes}
                 class="mx-auto aspect-video min-h-0 w-full rounded-2xl object-cover shadow-xl"
-                transition:name={`${title}-hero-image`}
+                transition:name={`hero-image-${post.slug}`}
               />
             ) : null
           }
           <div class="flex flex-col gap-8">
-            <h1
-              class="text-3xl font-bold [text-wrap:balance] sm:text-4xl"
-              transition:name={`${title}-hero-title`}
-            >
+            <h1 class="text-3xl font-bold [text-wrap:balance] sm:text-4xl">
               {title}
             </h1>
             <div class="flex justify-between text-base text-on-primary/80">
