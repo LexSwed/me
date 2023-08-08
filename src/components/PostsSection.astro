@@ -43,7 +43,11 @@ const postsWithColor = feed.map((post) => {
     <div class="animate-appearSlideIn flex flex-col gap-6">
       <h2 id="notes" class="text-4xl">Feed</h2>
       <p class="text-lg sm:text-xl">Mostly web, but other things too.</p>
-      <a href="/feed" class="leading-10 underline decoration-2">See all</a>
+      <a
+        href="/feed"
+        class="leading-10 underline decoration-2 outline-none ring-on-primary focus:ring-2"
+        >See all</a
+      >
     </div>
     <ChevronRight class="animate-arrow h-16" />
   </header>
@@ -62,7 +66,7 @@ const postsWithColor = feed.map((post) => {
                 "--index": index,
               }}
               class:list={[
-                "card animate-feed-item isolate shrink-0 snap-start outline-on-primary block rounded-2xl outline-4",
+                "card animate-feed-item isolate shrink-0 snap-start block rounded-2xl outline-none focus:ring-4 ring-on-primary",
                 color.isDark() ? "text-on-background" : "text-on-primary",
               ]}
             >
@@ -81,7 +85,7 @@ const postsWithColor = feed.map((post) => {
   <footer class="h-full shrink-0 snap-end self-center">
     <a
       href="/feed"
-      class="flex h-full items-center gap-2 rounded-2xl bg-on-background/10 p-8 text-xl text-background outline-2 outline-on-primary transition-all duration-300 hover:bg-on-background/20 focus:bg-on-background/20"
+      class="flex h-full items-center gap-2 rounded-2xl bg-on-background/10 p-8 text-xl text-background outline-none ring-on-primary transition-all duration-300 hover:bg-on-background/20 focus:bg-on-background/20 focus:ring-2"
       >All <ChevronRight aria-hidden="true" class="h-5" /></a
     >
   </footer>
@@ -135,7 +139,10 @@ const postsWithColor = feed.map((post) => {
     position: relative;
     inline-size: clamp(16rem, 20rem, 80vw);
     block-size: clamp(12rem, 40vh, 25rem);
-    transition: --bg-x 0.5s, --bg-y 0.5s, --bg-gradient-saturation 1s;
+    transition:
+      --bg-x 0.5s,
+      --bg-y 0.5s,
+      --bg-gradient-saturation 1s;
     transform-style: preserve-3d;
     background: var(--bg-gradient), var(--bg);
 
@@ -143,9 +150,6 @@ const postsWithColor = feed.map((post) => {
       --bg-x: 60%;
       --bg-y: 50%;
       --bg-gradient-saturation: var(--bg-s);
-    }
-    &:where(:focus) {
-      @apply ring-4 outline-none ring-current;
     }
   }
 
