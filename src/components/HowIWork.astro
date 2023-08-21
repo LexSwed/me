@@ -51,13 +51,13 @@ const items: Array<Item> = [
 <section class="flex flex-col gap-8" aria-labelledby="how-i-work">
   <header class="text-3xl font-medium" id="how-i-work">How I work</header>
   <ul
-    class="grid auto-rows-fr gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[repeat(auto-fill,minmax(18rem,1fr))]"
+    class="-mx-8 flex snap-x snap-mandatory scroll-p-8 auto-rows-fr gap-4 overflow-x-auto p-8 lg:grid lg:grid-cols-[repeat(auto-fill,minmax(18rem,1fr))]"
   >
     {
       items.map((item) => (
         <li
           class:list={[
-            "flex min-h-[10rem] flex-col gap-2 rounded-3xl relative border-2 border-on-background/5 p-6 text-on-background lg:aspect-square z-30",
+            "flex snap-start shrink-0 w-[clamp(15rem,20rem,80vw)] lg:w-auto flex-col gap-2 rounded-3xl relative border-2 border-on-background/5 p-6 text-on-background lg:aspect-square z-30",
             "before:block before:rounded-3xl before:content-[''] before:inset-0 before:absolute bg-gradient-to-b from-primary/5 to-on-background/5 z-0",
           ]}
         >
