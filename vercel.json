@@ -8,6 +8,15 @@
           "value": "public, max-age=86400, must-revalidate, stale-while-revalidate=14400"
         }
       ]
+    },
+    {
+      "source": "/feed",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, s-maxage=1"
+        }
+      ]
     }
   ]
 }
