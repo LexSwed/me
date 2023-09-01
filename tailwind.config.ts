@@ -25,6 +25,15 @@ const config = {
       fontFamily: {
         sans: ["InterVariable", "Inter", ...defaultTheme.fontFamily.sans],
       },
+      keyframes: {
+        slideUp: {
+          "0%": { transform: "translateY(0.5rem)" },
+          "100%": { transform: "none" },
+        },
+      },
+      animation: {
+        slideUp: "slideUp 0.3s 0.1s ease-in-out both",
+      },
     },
   },
   plugins: [],

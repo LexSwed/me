@@ -9,6 +9,7 @@ import { formatDate } from "../../utils";
 import type { InferGetStaticPropsType } from "astro";
 import { getFeed } from "../../content";
 import { Share } from "../../components/Share";
+import { components } from "../../components/markdown";
 
 export type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
@@ -52,7 +53,7 @@ const posterImages = poster
     <PostLayout>
       <div class="flex h-full flex-col gap-6 sm:gap-10">
         <Header backLink="/feed">
-          <span slot="back-link"
+          <span slot="back-link" class="flex flex-row gap-1"
             ><b>All posts</b>
             <span class="hidden xs:inline">by Oleksandr</span></span
           >
@@ -65,8 +66,7 @@ const posterImages = poster
                 srcset={`${posterImages.mobile.src} 400w, ${posterImages.desktop.src} 800w`}
                 sizes="100w"
                 {...posterImages.desktop.attributes}
-                class="mx-auto aspect-video min-h-0 w-full rounded-2xl object-cover shadow-xl"
-                transition:name={`hero-image-${post.slug}`}
+                class="mx-auto aspect-video min-h-0 w-full animate-slideUp rounded-2xl object-cover shadow-xl"
               />
             ) : null
           }
@@ -101,7 +101,7 @@ const posterImages = poster
   <div>
     <main class="main text-on-background/90">
       <PostLayout>
-        <Content />
+        <Content components={components} />
       </PostLayout>
     </main>
     <PostLayout>

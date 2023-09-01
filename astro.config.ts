@@ -31,10 +31,6 @@ export default defineConfig({
   },
   integrations: [mdx(), sitemap(), tailwind(), prefetch(), preact()],
   output: "hybrid",
-  experimental: {
-    assets: true,
-    viewTransitions: true,
-  },
   adapter: vercel({
     analytics: true,
     includeFiles: shikiResourcePaths,

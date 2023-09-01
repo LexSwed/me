@@ -1,10 +1,6 @@
-// @ts-expect-error tsc fails on importing .astro files
 import MultilineCode from "./MultilineCode.astro";
-// @ts-expect-error tsc fails on importing .astro files
 import ParagraphWithMaybeImage from "./ParagraphWithMaybeImage.astro";
-// @ts-expect-error tsc fails on importing .astro files
 import Quote from "./Quote.astro";
-// @ts-expect-error tsc fails on importing .astro files
 import Link from "./Link.astro";
 
 import { Heading } from "./Heading";

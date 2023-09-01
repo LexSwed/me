@@ -96,7 +96,6 @@ const pinnedPost = feed.find((post) => post.data.pinned);
                           alt={post.data.posterAlt}
                           width={300}
                           class="w-full rounded-md object-contain shadow-md shadow-background ring-on-background/80 transition-shadow duration-300 group-hover/post:ring-2 group-focus/post:ring-2"
-                          transition:name={`hero-image-${post.slug}`}
                         />
                       ) : (
                         <div class="w-full" />
