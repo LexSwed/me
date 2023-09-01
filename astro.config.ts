@@ -5,14 +5,8 @@ import tailwind from "@astrojs/tailwind";
 import prefetch from "@astrojs/prefetch";
 import preact from "@astrojs/preact";
 import { remarkShiki } from "./plugins/shiki";
-const shikiResourcePaths = Object.keys(
-  import.meta.glob([
-    "./node_modules/shiki/languages/*.json",
-    "./node_modules/shiki/themes/material-palenight.json",
-  ]),
-);
 
-import vercel from "@astrojs/vercel/serverless";
+import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
@@ -31,9 +25,8 @@ export default defineConfig({
   },
   integrations: [mdx(), sitemap(), tailwind(), prefetch(), preact()],
   output: "hybrid",
-  adapter: vercel({
-    analytics: true,
-    includeFiles: shikiResourcePaths,
-    edgeMiddleware: true,
+  adapter: cloudflare({
+    mode: "advanced",
+    functionPerRoute: true,
   }),
 });
