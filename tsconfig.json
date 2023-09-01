@@ -1,16 +1,16 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "strictNullChecks": true,
-    "importsNotUsedAsValues": "remove",
-    "verbatimModuleSyntax": true,
-    "noEmit": true,
     "plugins": [
       {
         "name": "@astrojs/ts-plugin"
       }
     ],
-    "jsx": "preserve",
+    "strictNullChecks": true,
+    "importsNotUsedAsValues": "remove",
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
     "jsxImportSource": "preact",
     "incremental": true
   }
