@@ -5,11 +5,10 @@ import { getFeed } from "../../content";
 import MainLayout from "../../layouts/Main.astro";
 import PostLayout from "../../layouts/Post.astro";
 import { formatDate } from "../../utils";
-import { Image } from "astro:assets";
-
-const topic = Astro.url.searchParams.get("topic");
 
 export const prerender = false;
+
+const topic = Astro.url.searchParams.get("topic");
 
 // clean up empty URL param
 if (!topic && Astro.url.searchParams.has("topic")) {
@@ -93,8 +92,8 @@ const pinnedPost = feed.find((post) => post.data.pinned);
                     </h3>
                     <div class="w-full shrink-0">
                       {post.data.poster ? (
-                        <Image
-                          src={post.data.poster}
+                        <img
+                          src={post.data.poster.src}
                           alt={post.data.posterAlt}
                           width={300}
                           class="w-full rounded-md object-contain shadow-md shadow-background ring-on-background/80 transition-shadow duration-300 group-hover/post:ring-2 group-focus/post:ring-2"
