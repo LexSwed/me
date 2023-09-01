@@ -34,5 +34,6 @@ export default defineConfig({
   adapter: vercel({
     analytics: true,
     includeFiles: shikiResourcePaths,
+    edgeMiddleware: true,
   }),
 });
