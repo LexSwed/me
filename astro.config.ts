@@ -10,7 +10,7 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://alvechy.vercel.app",
+  site: "https://alvechy.pages.dev",
   markdown: {
     syntaxHighlight: false,
     gfm: true,
