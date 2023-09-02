@@ -1,6 +1,6 @@
 import { z, defineCollection } from "astro:content";
 
-const collection = defineCollection({
+const feed = defineCollection({
   type: "content",
   schema: ({ image }) =>
     z.object({
@@ -17,7 +17,7 @@ const collection = defineCollection({
 });
 
 export const collections = {
-  feed: collection,
+  feed,
 };
 
 const topic = z.enum(["web", "fxtrot"]);
