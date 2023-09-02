@@ -23,15 +23,15 @@ export default defineConfig({
       ],
     ],
   },
-  image: {
-    service: {
-      entrypoint: "astro/assets/services/noop",
-    },
-  },
   integrations: [mdx(), sitemap(), tailwind(), prefetch(), preact()],
   output: "hybrid",
   adapter: cloudflare({
     mode: "advanced",
     functionPerRoute: true,
   }),
+  image: {
+    service: {
+      entrypoint: "astro/assets/services/noop",
+    },
+  },
 });

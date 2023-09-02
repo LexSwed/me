@@ -1,0 +1,19 @@
+---
+export type Props = {
+  active: boolean;
+  href: string;
+};
+
+const { active, href } = Astro.props;
+---
+
+<li
+  class:list={[
+    active
+      ? "bg-primary text-on-primary hover:bg-primary"
+      : "bg-transparent text-on-background",
+    "shrink-0 min-w-[3rem] text-sm rounded-full px-3 py-2 -m-1 text-center font-light focus-within:ring-2 ring-on-background hover:bg-on-background/20",
+  ]}
+>
+  <a class="outline-none" href={href}><slot /></a>
+</li>
