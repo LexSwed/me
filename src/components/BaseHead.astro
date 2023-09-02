@@ -4,6 +4,7 @@ import "@fontsource-variable/inter/slnt.css";
 import placeholderImage from "../../public/Alex-V.jpeg";
 import { getImage } from "astro:assets";
 import { ViewTransitions } from "astro:transitions";
+import config from "../../astro.config";
 
 export interface Props {
   title: string;
@@ -20,6 +21,7 @@ const imageUrl = new URL(
     (await getImage({ src: placeholderImage, width: 300, height: 300 })).src,
   Astro.url.origin,
 ).toString();
+const domain = config.site ? new URL(config.site).hostname : "";
 ---
 
 <!-- Global Metadata -->
@@ -66,7 +68,7 @@ const imageUrl = new URL(
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:domain" content="alvechy.vercel.app" />
+<meta property="twitter:domain" content={domain} />
 <meta property="twitter:url" content={Astro.url} />
 <meta property="twitter:title" content={title} />
 {description && <meta property="twitter:description" content={description} />}

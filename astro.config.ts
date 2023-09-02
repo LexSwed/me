@@ -29,9 +29,4 @@ export default defineConfig({
     mode: "advanced",
     functionPerRoute: true,
   }),
-  image: {
-    service: {
-      entrypoint: "astro/assets/services/noop",
-    },
-  },
 });
