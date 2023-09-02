@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import Header from "../../components/Header.astro";
 import PinnedPost from "../../components/PinnedPost.astro";
 import { getFeed } from "../../content";
@@ -92,8 +93,8 @@ const pinnedPost = feed.find((post) => post.data.pinned);
                     </h3>
                     <div class="w-full shrink-0">
                       {post.data.poster ? (
-                        <img
-                          src={post.data.poster.src}
+                        <Image
+                          src={post.data.poster}
                           alt={post.data.posterAlt}
                           width={300}
                           class="w-full rounded-md object-contain shadow-md shadow-background ring-on-background/80 transition-shadow duration-300 group-hover/post:ring-2 group-focus/post:ring-2"
