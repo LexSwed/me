@@ -20,7 +20,8 @@
   },
   "lint-staged": {
     "src/**/*": [
-      "eslint"
+      "eslint",
+      "typecheck"
     ]
   },
   "dependencies": {
