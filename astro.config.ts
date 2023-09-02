@@ -6,8 +6,6 @@ import prefetch from "@astrojs/prefetch";
 import preact from "@astrojs/preact";
 import { remarkShiki } from "./plugins/shiki";
 
-import cloudflare from "@astrojs/cloudflare";
-
 // https://astro.build/config
 export default defineConfig({
   site: "https://alvechy.pages.dev",
@@ -24,6 +22,5 @@ export default defineConfig({
     ],
   },
   integrations: [mdx(), sitemap(), tailwind(), prefetch(), preact()],
-  output: "hybrid",
-  adapter: cloudflare(),
+  output: "static",
 });
