@@ -7,3 +7,9 @@ declare module "*.astro" {
   const component: AstroComponentFactory;
   export default component;
 }
+
+declare module "lightningcss" {
+  export function transform({ code: Buffer, minify: boolean }): {
+    code: string;
+  };
+}
