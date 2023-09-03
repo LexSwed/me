@@ -13,7 +13,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint src --fix",
-    "format": "prettier . \"src/**/*.astro\" --write",
+    "format": "prettier . \"src/**/*.astro\" --write --ignore-unknown",
     "typecheck": "tsc",
     "check": "astro check && lint-staged && npm run typecheck",
     "prepare": "husky install"
