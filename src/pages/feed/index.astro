@@ -40,10 +40,7 @@ const pinnedPost = feed.find((post) => post.data.pinned);
     </header>
     <PostLayout>
       <div class="feed flex flex-col gap-6 sm:gap-16">
-        <form
-          onchange="document.startViewTransition()"
-          onreset="document.startViewTransition()"
-        >
+        <form>
           <ul class="flex scroll-px-2 flex-row gap-3 overflow-auto p-2 pb-4">
             <Tag tag="all" reset>All</Tag>
             {
@@ -122,9 +119,6 @@ const pinnedPost = feed.find((post) => post.data.pinned);
 </MainLayout>
 
 <style>
-  .feed ul {
-    view-transition-name: feed-entry;
-  }
   .feed:has(> form input:checked) .feed-entry {
     display: none;
   }
