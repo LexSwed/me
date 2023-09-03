@@ -15,13 +15,7 @@
     "lint": "eslint src --fix",
     "format": "prettier . \"src/**/*.astro\" --write --ignore-unknown",
     "typecheck": "tsc",
-    "check": "astro check && lint-staged && npm run typecheck",
-    "prepare": "husky install"
-  },
-  "lint-staged": {
-    "src/**/*": [
-      "eslint"
-    ]
+    "check": "astro check && npm run lint && npm run typecheck"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^7.0.1",
@@ -49,8 +43,6 @@
     "eslint-plugin-astro": "^0.29.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-tailwindcss": "^3.13.0",
-    "husky": "^8.0.3",
-    "lint-staged": "^14.0.1",
     "postcss": "^8.4.29",
     "prettier": "^3.0.3",
     "prettier-plugin-astro": "^0.12.0",
