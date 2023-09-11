@@ -1,7 +1,4 @@
 ---
-import { Image } from "astro:assets";
-import { transform } from "lightningcss";
-
 import Header from "../../components/Header.astro";
 import PinnedPost from "../../components/PinnedPost.astro";
 import { getFeed } from "../../content";
@@ -10,7 +7,13 @@ import PostLayout from "../../layouts/Post.astro";
 import { formatDate } from "../../utils";
 import Tag from "../../components/feed/Tag.astro";
 
+export const prerender = false;
+
+const topic = Astro.url.searchParams.get("topic");
 const feed = await getFeed();
+const filteredFeed = topic
+  ? feed.filter((post) => post.data.tags.includes(topic))
+  : feed;
 
 const topics = [...new Set(feed.flatMap((post) => post.data.tags))];
 
@@ -40,75 +43,63 @@ const pinnedPost = feed.find((post) => post.data.pinned);
     </header>
     <PostLayout>
       <div class="feed flex flex-col gap-6 sm:gap-16">
-        <form>
-          <ul class="flex scroll-px-2 flex-row gap-3 overflow-auto p-2 pb-4">
-            <Tag tag="all" reset>All</Tag>
-            {
-              topics.map((tag) => {
-                return <Tag tag={tag}>#{tag}</Tag>;
-              })
-            }
-          </ul>
-        </form>
+        <ul class="flex scroll-px-2 flex-row gap-3 overflow-auto p-2 pb-4">
+          <Tag href="/feed" active={!topic}>All</Tag>
+          {
+            topics.map((tag) => {
+              return (
+                <Tag href={`/feed?topic=${tag}`} active={tag === topic}>
+                  #{tag}
+                </Tag>
+              );
+            })
+          }
+        </ul>
         <ul class="flex flex-col gap-8 sm:gap-16">
           {
-            feed.map((post) => {
-              const id = `entry-${post.slug}`;
-              const { code } = transform({
-                code: Buffer.from(/* CSS */ `
-                  .feed:has( > form
-                  input:where(${post.data.tags
-                    .map((tag) => `[value="${tag}"]:checked`)
-                    .join(",")}
-                  )) #${id} { display: block; }
-                `),
-                minify: true,
-              });
+            filteredFeed.map((post) => {
               return (
-                <>
-                  <style set:html={code} />
-                  <li class="feed-entry" id={id}>
-                    <a
-                      href={`/feed/${post.slug}`}
-                      class="group/post grid gap-4 rounded-lg bg-on-background/10 p-8 text-on-background outline-none transition-colors duration-150 hover:bg-on-background/10 focus:bg-on-background/10 sm:grid-cols-[4fr_5fr] sm:items-center sm:gap-8 sm:bg-transparent"
-                    >
-                      <h3 class="text-2xl group-hover/post:underline group-focus/post:underline sm:hidden">
+                <li>
+                  <a
+                    href={`/feed/${post.slug}`}
+                    class="group/post grid gap-4 rounded-lg bg-on-background/10 p-8 text-on-background outline-none transition-colors duration-150 hover:bg-on-background/10 focus:bg-on-background/10 sm:grid-cols-[4fr_5fr] sm:items-center sm:gap-8 sm:bg-transparent"
+                  >
+                    <h3 class="text-2xl group-hover/post:underline group-focus/post:underline sm:hidden">
+                      {post.data.title}
+                    </h3>
+                    <div class="w-full shrink-0">
+                      {post.data.poster ? (
+                        <img
+                          src={post.data.poster.src}
+                          alt={post.data.posterAlt}
+                          width={300}
+                          class="w-full rounded-md object-contain shadow-md shadow-background ring-on-background/80 transition-shadow duration-300 group-hover/post:ring-2 group-focus/post:ring-2"
+                        />
+                      ) : (
+                        <div class="w-full" />
+                      )}
+                    </div>
+                    <div class="hidden h-full flex-col justify-center gap-4 sm:flex">
+                      <h3 class="text-3xl group-hover/post:underline group-focus/post:underline">
                         {post.data.title}
                       </h3>
-                      <div class="w-full shrink-0">
-                        {post.data.poster ? (
-                          <Image
-                            src={post.data.poster}
-                            alt={post.data.posterAlt}
-                            width={300}
-                            class="w-full rounded-md object-contain shadow-md shadow-background ring-on-background/80 transition-shadow duration-300 group-hover/post:ring-2 group-focus/post:ring-2"
-                          />
-                        ) : (
-                          <div class="w-full" />
-                        )}
-                      </div>
-                      <div class="hidden h-full flex-col justify-center gap-4 sm:flex">
-                        <h3 class="text-3xl group-hover/post:underline group-focus/post:underline">
-                          {post.data.title}
-                        </h3>
-                        <p class="text-md text-on-background/90 ">
-                          {post.data.summary}
-                        </p>
-                      </div>
-                      <div class="hidden sm:block" />
-                      <div class="flex flex-row flex-wrap items-center justify-between gap-4 text-sm text-on-background/80">
-                        <ul class="flex flex-row flex-wrap gap-2">
-                          {post.data.tags?.map((tag) => (
-                            <li>#{tag}</li>
-                          ))}
-                        </ul>
-                        <time datetime={post.data.publishDate.toISOString()}>
-                          {formatDate(post.data.publishDate)}
-                        </time>
-                      </div>
-                    </a>
-                  </li>
-                </>
+                      <p class="text-md text-on-background/90 ">
+                        {post.data.summary}
+                      </p>
+                    </div>
+                    <div class="hidden sm:block" />
+                    <div class="flex flex-row flex-wrap items-center justify-between gap-4 text-sm text-on-background/80">
+                      <ul class="flex flex-row flex-wrap gap-2">
+                        {post.data.tags?.map((tag) => (
+                          <li>#{tag}</li>
+                        ))}
+                      </ul>
+                      <time datetime={post.data.publishDate.toISOString()}>
+                        {formatDate(post.data.publishDate)}
+                      </time>
+                    </div>
+                  </a>
+                </li>
               );
             })
           }
@@ -117,9 +108,3 @@ const pinnedPost = feed.find((post) => post.data.pinned);
     </PostLayout>
   </main>
 </MainLayout>
-
-<style>
-  .feed:has(> form input:checked) .feed-entry {
-    display: none;
-  }
-</style>
