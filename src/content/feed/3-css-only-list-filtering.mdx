@@ -15,7 +15,7 @@ I did something bad and I’m excited to share it.
 I used to ship my personal website to [Vercel](https://vercel.com/), which has generous free plan. However, I always wanted to use [Cloudflare](https://www.cloudflare.com/), especially if I plan to buy the domain there. They also have quite a good free offering.
 As my website is just a bunch of static content, with only few interactive components, I chose [Astro](https://astro.build/). I knew if I need something fancy later on, I can always add it later with Astro. For example, "Share" button is a Preact component (even if it didn’t have to be).
 
-However, sometimes you really want the page to be rendered server side. In my case, /feed page is a list of all articles I published and the list can get quite lengthy (if I actually keep my promise to write more). For the readers to filter the topics they are interested in, I add a list of tags to each post, with all the topics listed on the /feed page:
+However, sometimes you really want the page to be rendered server side. In my case, /feed page is a list of all articles I published and the list can get quite lengthy (if I actually keep my promise to write more). For the readers to filter the topics they are interested in, I add a list of tags to each post, with all the topics listed on the `/feed` page:
 
 ![A list of clickable tags, with some selected as filters for the list of articles](./3/filter-chips.png)
 
