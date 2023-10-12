@@ -10,6 +10,7 @@ import { type RemarkPlugin } from "@astrojs/markdown-remark";
 
 const highlighters = new Map<"default", Promise<Highlighter>>();
 
+/** provides source code to the components */
 export const remarkShiki: RemarkPlugin<HighlighterOptions[]> = (options) => {
   // plugin cannot be async
   highlighters.set("default", getHighlighter(options));

@@ -2,9 +2,9 @@ import MultilineCode from "./MultilineCode.astro";
 import ParagraphWithMaybeImage from "./ParagraphWithMaybeImage.astro";
 import Quote from "./Quote.astro";
 import Link from "./Link.astro";
+import Code from "./Code.astro";
 
 import { Heading } from "./Heading";
-import { Code } from "./Code";
 
 export const components = {
   blockquote: Quote,

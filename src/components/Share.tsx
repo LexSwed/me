@@ -1,5 +1,5 @@
 import type { ComponentProps } from "preact";
-import { useCopyToClipboard } from "./markdown/Code";
+import { useCopyToClipboard } from "./markdown/ClipboardButton";
 
 import styles from "./Share.module.css";
 
