@@ -9,7 +9,7 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://alvechy.pages.dev",
+  site: "https://alvechy.dev",
   markdown: {
     gfm: true,
     shikiConfig: {
