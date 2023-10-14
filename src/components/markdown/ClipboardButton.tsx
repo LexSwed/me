@@ -1,16 +1,24 @@
 import { type ComponentProps } from "preact";
-import { useEffect, useRef, useState } from "preact/hooks";
+import { useRef, useState } from "preact/hooks";
 
-export const ClipboardButton = ({ text }: { text: string }) => {
+export const ClipboardButton = () => {
   const [copied, copy] = useCopyToClipboard();
-  console.log({ text });
+  const ref = useRef<HTMLButtonElement>(null);
+
   return (
     <button
       type="button"
       aria-label="Copy code"
       title="Copy code"
       class="rounded-md bg-inherit p-2 text-inherit shadow-sm hover:bg-background/40 focus:bg-background/40 focus:outline-none focus:ring-2 focus:ring-primary"
-      onClick={() => copy(text)}
+      onClick={() => {
+        const code = ref.current?.closest("*:has(>pre)")?.querySelector("pre")
+          ?.textContent;
+        if (code) {
+          copy(code.trim());
+        }
+      }}
+      ref={ref}
     >
       {copied ? (
         <CheckIcon class="h-5 w-5" />
@@ -24,14 +32,6 @@ export const ClipboardButton = ({ text }: { text: string }) => {
 export function useCopyToClipboard() {
   const [isCopied, setCopied] = useState(false);
   const timeoutId = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    return () => {
-      if (timeoutId.current) {
-        clearTimeout(timeoutId.current);
-      }
-    };
-  }, []);
 
   const copy = async (text: string) => {
     if (timeoutId.current) {

@@ -4,7 +4,6 @@ import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import prefetch from "@astrojs/prefetch";
 import preact from "@astrojs/preact";
-import { remarkShiki } from "./plugins/shiki";
 
 import cloudflare from "@astrojs/cloudflare";
 
@@ -12,16 +11,11 @@ import cloudflare from "@astrojs/cloudflare";
 export default defineConfig({
   site: "https://alvechy.pages.dev",
   markdown: {
-    syntaxHighlight: false,
     gfm: true,
-    remarkPlugins: [
-      [
-        remarkShiki,
-        {
-          theme: "material-theme-palenight",
-        },
-      ],
-    ],
+    shikiConfig: {
+      theme: "material-theme-palenight",
+      wrap: false,
+    },
   },
   integrations: [mdx(), sitemap(), tailwind(), prefetch(), preact()],
   output: "hybrid",
