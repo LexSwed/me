@@ -4,8 +4,9 @@ import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import prefetch from "@astrojs/prefetch";
 import preact from "@astrojs/preact";
-
 import cloudflare from "@astrojs/cloudflare";
+
+import robotsTxt from "astro-robots-txt";
 
 // https://astro.build/config
 export default defineConfig({
@@ -14,10 +15,10 @@ export default defineConfig({
     gfm: true,
     shikiConfig: {
       theme: "material-theme-palenight",
-      wrap: false,
-    },
+      wrap: false
+    }
   },
-  integrations: [mdx(), sitemap(), tailwind(), prefetch(), preact()],
+  integrations: [mdx(), sitemap(), tailwind(), prefetch(), preact(), robotsTxt()],
   output: "hybrid",
-  adapter: cloudflare(),
+  adapter: cloudflare()
 });
