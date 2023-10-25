@@ -13,6 +13,7 @@ const feed = defineCollection({
       posterAlt: z.string(),
       publishDate: z.date(),
       pinned: z.string().optional(),
+      devTo: z.string().optional(),
     }),
 });
 

@@ -1,15 +1,18 @@
 ---
 import { Image } from "astro:assets";
 import Header from "../../components/Header.astro";
+import HeartIcon from "../../icons/heart.astro";
 import LinkIcon from "../../icons/link.astro";
+import DevtoIcon from "../../icons/devto.astro";
 import TopicIcon from "../../icons/topic.astro";
 import MainLayout from "../../layouts/Main.astro";
 import PostLayout from "../../layouts/Post.astro";
 import { formatDate } from "../../utils";
 import type { InferGetStaticPropsType } from "astro";
 import { getFeed } from "../../content";
-import { Share } from "../../components/Share";
+import Share from "../../components/Share.astro";
 import { components } from "../../components/markdown";
+import ButtonWithLabel from "../../components/ButtonWithLabel.astro";
 
 export type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
@@ -26,7 +29,8 @@ if (!post) {
   return Astro.redirect("/404");
 }
 
-const { title, summary, poster, posterAlt, publishDate, tags } = post.data;
+const { title, summary, poster, posterAlt, publishDate, tags, devTo } =
+  post.data;
 const publishedAt = formatDate(publishDate);
 const topic = tags.at(0);
 const { Content } = await post.render();
@@ -55,7 +59,7 @@ const shareData = {
                 widths={[400, 800]}
                 alt={posterAlt}
                 loading="eager"
-                class="mx-auto max-h-[40vh] min-h-0 w-auto animate-slideUp self-center rounded-2xl object-cover shadow-xl"
+                class="mx-auto max-h-[40vh] min-h-0 w-auto self-center rounded-2xl object-cover shadow-xl"
               />
             ) : null
           }
@@ -63,7 +67,7 @@ const shareData = {
             <h1 class="text-3xl font-bold [text-wrap:balance] sm:text-4xl">
               {title}
             </h1>
-            <div class="flex justify-between text-base text-on-primary/80">
+            <div class="flex justify-between text-base text-on-primary/90">
               {
                 topic && (
                   <div class="flex items-center gap-2">
@@ -94,10 +98,30 @@ const shareData = {
       </PostLayout>
     </main>
     <PostLayout>
-      <footer class="flex justify-center p-8">
-        <Share shareData={shareData} client:idle>
-          <LinkIcon class="h-5 w-5" />
-        </Share>
+      <footer
+        class="flex flex-wrap items-center justify-between gap-8 rounded-lg bg-on-background/10 p-8 text-on-background"
+      >
+        <div class="text-md flex items-center gap-4">
+          <HeartIcon class="w-5 text-red-300" /> Sharing is caring
+        </div>
+        <div class="flex w-full justify-center gap-6 sm:w-auto">
+          {
+            devTo ? (
+              <ButtonWithLabel
+                as="a"
+                href={devTo}
+                target="_blank"
+                rel="noopener"
+                label="Discuss ⤴"
+              >
+                <DevtoIcon class="h-6 w-6" />
+              </ButtonWithLabel>
+            ) : null
+          }
+          <Share shareData={shareData}>
+            <LinkIcon class="h-5 w-5" />
+          </Share>
+        </div>
       </footer>
     </PostLayout>
   </div>

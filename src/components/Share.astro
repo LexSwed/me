@@ -1,0 +1,67 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import ButtonWithLabel from "./ButtonWithLabel.astro";
+
+export type Props = HTMLAttributes<"button"> & {
+  shareData: ShareData;
+};
+
+const {
+  props: { shareData, ...props },
+} = Astro;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const anyProps = props as any;
+---
+
+<ButtonWithLabel {...anyProps} label="Share" class="share" as="button">
+  <slot />
+</ButtonWithLabel>
+
+<script data-share={JSON.stringify(shareData)}>
+  try {
+    const shareData = JSON.parse(document.currentScript.dataset.share);
+
+    let timeoutId = null;
+    const supportsSharing =
+      typeof navigator !== "undefined" && "share" in navigator;
+
+    const copy = async (text, element) => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+      }
+      if (!("clipboard" in navigator)) {
+        console.error("Clipboard not supported");
+        return false;
+      }
+      const setCopied = (copied) => {
+        element.textContent = copied ? "Copied" : "Copy link";
+      };
+      try {
+        await navigator.clipboard.writeText(text);
+        setCopied(true);
+        timeoutId = setTimeout(() => {
+          setCopied(false);
+        }, 1500);
+      } catch (err) {
+        setCopied(false);
+      }
+    };
+
+    document.querySelectorAll(".share").forEach((el) => {
+      el.addEventListener("click", async () => {
+        if (supportsSharing) {
+          await navigator.share(shareData);
+        } else {
+          copy(
+            shareData.url,
+            document.getElementById(el.getAttribute("aria-labelledby")),
+          );
+        }
+      });
+    });
+  } catch (error) {
+    console.error(error);
+  }
+</script>
