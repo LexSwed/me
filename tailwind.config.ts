@@ -27,12 +27,16 @@ const config = {
       },
       keyframes: {
         slideUp: {
-          "0%": { transform: "translateY(0.5rem)" },
-          "100%": { transform: "none" },
+          "0%": {
+            transform: "translateY(var(--slide-up-start,1rem))",
+            opacity: "0",
+          },
+          "60%": { opacity: "1" },
+          "100%": { transform: "translateY(var(--slide-up-end, 0))" },
         },
       },
       animation: {
-        slideUp: "slideUp 0.3s 0.1s ease-in-out both",
+        slideUp: "slideUp 0.5s 0.3s ease-out both",
       },
     },
   },

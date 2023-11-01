@@ -1,15 +1,18 @@
 ---
-import { getImage } from "astro:assets";
+import { Image } from "astro:assets";
 import Header from "../../components/Header.astro";
+import HeartIcon from "../../icons/heart.astro";
 import LinkIcon from "../../icons/link.astro";
+import DevtoIcon from "../../icons/devto.astro";
 import TopicIcon from "../../icons/topic.astro";
 import MainLayout from "../../layouts/Main.astro";
 import PostLayout from "../../layouts/Post.astro";
 import { formatDate } from "../../utils";
 import type { InferGetStaticPropsType } from "astro";
 import { getFeed } from "../../content";
-import { Share } from "../../components/Share";
+import Share from "../../components/Share.astro";
 import { components } from "../../components/markdown";
+import ButtonWithLabel from "../../components/ButtonWithLabel.astro";
 
 export type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
@@ -26,7 +29,8 @@ if (!post) {
   return Astro.redirect("/404");
 }
 
-const { title, summary, poster, posterAlt, publishDate, tags } = post.data;
+const { title, summary, poster, posterAlt, publishDate, tags, devTo } =
+  post.data;
 const publishedAt = formatDate(publishDate);
 const topic = tags.at(0);
 const { Content } = await post.render();
@@ -35,20 +39,9 @@ const shareData = {
   text: `I just read "${title}" by @lexswed`,
   title,
 };
-
-const posterImages = poster
-  ? {
-      desktop: await getImage({ src: poster, width: 800, alt: posterAlt }),
-      mobile: await getImage({ src: poster, width: 400, alt: posterAlt }),
-    }
-  : null;
 ---
 
-<MainLayout
-  title={title}
-  description={summary}
-  image={posterImages?.mobile.src}
->
+<MainLayout title={title} description={summary} image={poster.src}>
   <header class="bg-primary text-on-primary">
     <PostLayout>
       <div class="flex h-full flex-col gap-6 sm:gap-10">
@@ -60,13 +53,13 @@ const posterImages = poster
         </Header>
         <div class="my-auto flex flex-col gap-6 sm:gap-8">
           {
-            posterImages ? (
-              <img
-                src={poster.src}
-                srcset={`${posterImages.mobile.src} 400w, ${posterImages.desktop.src} 800w`}
-                sizes="100w"
-                {...posterImages.desktop.attributes}
-                class="mx-auto aspect-video min-h-0 w-full animate-slideUp rounded-2xl object-cover shadow-xl"
+            poster ? (
+              <Image
+                src={poster}
+                widths={[400, 800]}
+                alt={posterAlt}
+                loading="eager"
+                class="mx-auto max-h-[40vh] min-h-0 w-auto self-center rounded-2xl object-cover shadow-xl"
               />
             ) : null
           }
@@ -74,11 +67,11 @@ const posterImages = poster
             <h1 class="text-3xl font-bold [text-wrap:balance] sm:text-4xl">
               {title}
             </h1>
-            <div class="flex justify-between text-base text-on-primary/80">
+            <div class="flex justify-between text-base text-on-primary/90">
               {
                 topic && (
                   <div class="flex items-center gap-2">
-                    <TopicIcon class="h-4 w-4" stroke-width="2" />
+                    <TopicIcon class="h-4 w-4" />
                     <span>
                       Published in{" "}
                       <a
@@ -105,10 +98,30 @@ const posterImages = poster
       </PostLayout>
     </main>
     <PostLayout>
-      <footer class="flex justify-center p-8">
-        <Share shareData={shareData} client:idle>
-          <LinkIcon class="h-5 w-5" />
-        </Share>
+      <footer
+        class="flex flex-wrap items-center justify-between gap-8 rounded-lg bg-on-background/10 p-8 text-on-background"
+      >
+        <div class="text-md flex items-center gap-4">
+          <HeartIcon class="w-5 text-red-300" /> Sharing is caring
+        </div>
+        <div class="flex w-full justify-center gap-6 sm:w-auto">
+          {
+            devTo ? (
+              <ButtonWithLabel
+                as="a"
+                href={devTo}
+                target="_blank"
+                rel="noopener"
+                label="Discuss ⤴"
+              >
+                <DevtoIcon class="h-6 w-6" />
+              </ButtonWithLabel>
+            ) : null
+          }
+          <Share shareData={shareData}>
+            <LinkIcon class="h-5 w-5" />
+          </Share>
+        </div>
       </footer>
     </PostLayout>
   </div>

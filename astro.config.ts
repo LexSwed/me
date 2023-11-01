@@ -4,36 +4,21 @@ import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import prefetch from "@astrojs/prefetch";
 import preact from "@astrojs/preact";
-import { remarkShiki } from "./plugins/shiki";
-const shikiResourcePaths = Object.keys(
-  import.meta.glob([
-    "./node_modules/shiki/languages/*.json",
-    "./node_modules/shiki/themes/material-palenight.json",
-  ]),
-);
+import cloudflare from "@astrojs/cloudflare";
 
-import vercel from "@astrojs/vercel/serverless";
+import robotsTxt from "astro-robots-txt";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://alvechy.vercel.app",
+  site: "https://alvechy.dev",
   markdown: {
-    syntaxHighlight: false,
     gfm: true,
-    remarkPlugins: [
-      [
-        remarkShiki,
-        {
-          theme: "material-theme-palenight",
-        },
-      ],
-    ],
+    shikiConfig: {
+      theme: "material-theme-palenight",
+      wrap: false
+    }
   },
-  integrations: [mdx(), sitemap(), tailwind(), prefetch(), preact()],
+  integrations: [mdx(), sitemap(), tailwind(), prefetch(), preact(), robotsTxt()],
   output: "hybrid",
-  adapter: vercel({
-    analytics: true,
-    includeFiles: shikiResourcePaths,
-    edgeMiddleware: true,
-  }),
+  adapter: cloudflare()
 });

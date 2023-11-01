@@ -1,10 +1,20 @@
 ---
-import type { ComponentProps } from "preact";
-import { Pre } from "./Code";
+import type { HTMLAttributes } from "astro/types";
 
-export type Props = ComponentProps<typeof Pre>;
+export type Props = HTMLAttributes<"pre">;
+
+import { ClipboardButton } from "./ClipboardButton";
 
 const { props } = Astro;
 ---
 
-<Pre {...props} client:idle><slot /></Pre>
+<div class="group/code-wrapper relative my-6 overflow-x-auto">
+  <pre
+    class:list={["p-4 text-sm rounded-lg", props.class]}
+    {...props}><slot /></pre>
+  <div
+    class="absolute end-2 top-2 opacity-0 transition-opacity delay-500 group-focus-within/code-wrapper:opacity-100 group-focus-within/code-wrapper:delay-[0s] group-hover/code-wrapper:opacity-100 group-hover/code-wrapper:delay-[0s]"
+  >
+    <ClipboardButton client:idle />
+  </div>
+</div>

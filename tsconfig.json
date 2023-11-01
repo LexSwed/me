@@ -6,6 +6,7 @@
         "name": "@astrojs/ts-plugin"
       }
     ],
+    "lib": ["ESNext", "DOM"],
     "strictNullChecks": true,
     "importsNotUsedAsValues": "remove",
     "verbatimModuleSyntax": true,

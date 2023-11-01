@@ -1,33 +1,22 @@
 ---
 export type Props = {
-  tag: string;
-  reset?: boolean;
+  href: string;
+  active?: boolean;
 };
 
-const { tag, reset } = Astro.props;
+const { href, active } = Astro.props;
 ---
 
-<li class:list={["inline-flex shrink-0", reset ? "reset" : ""]}>
-  <label
+<li class="inline-flex shrink-0">
+  <a
     class:list={[
-      "relative bg-transparent text-on-background duration-200 min-w-[3rem] text-sm rounded-full px-3 py-2 text-center font-light focus-within:ring-2 ring-on-background hover:bg-on-background/20",
-      "checkbox",
+      "duration-200 outline-none min-w-[3rem] text-sm rounded-full px-3 py-2 text-center font-light focus:ring-2 ring-on-background",
+      active
+        ? "bg-primary text-on-primary hover:bg-primary/90"
+        : "bg-transparent text-on-background hover:bg-on-background/20",
     ]}
+    href={href}
   >
-    <input type={reset ? "reset" : "checkbox"} class="sr-only" value={tag} />
     <slot />
-  </label>
+  </a>
 </li>
-
-<style>
-  .checkbox {
-    &:has(> input:checked) {
-      @apply bg-primary text-on-primary;
-    }
-  }
-  .reset {
-    &:not(:has(~ li > .checkbox > input:checked)) .checkbox {
-      @apply bg-primary text-on-primary;
-    }
-  }
-</style>
