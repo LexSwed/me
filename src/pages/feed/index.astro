@@ -73,10 +73,10 @@ const pinnedPost = feed.find((post) => post.data.pinned);
                           src={post.data.poster.src}
                           alt={post.data.posterAlt}
                           width={300}
-                          class="w-full rounded-md object-contain shadow-md shadow-background ring-on-background/80 transition-shadow duration-300 group-hover/post:ring-2 group-focus/post:ring-2"
+                          class="aspect-square w-full rounded-md object-cover shadow-md shadow-background ring-on-background/80 transition-shadow duration-300 group-hover/post:ring-2 group-focus/post:ring-2"
                         />
                       ) : (
-                        <div class="w-full" />
+                        <div class="aspect-square w-[300px]" />
                       )}
                     </div>
                     <div class="hidden h-full flex-col justify-center gap-4 sm:flex">
