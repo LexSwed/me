@@ -57,7 +57,7 @@ const { colors } = tailwindConfig.theme.extend;
 
 export const GET: APIRoute<Props> = async ({ props }) => {
   const { post } = props;
-  const { title, summary, image } = post;
+  const { title, image } = post;
 
   const markup = html`
     <div
