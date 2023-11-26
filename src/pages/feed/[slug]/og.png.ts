@@ -62,33 +62,32 @@ export const GET: APIRoute<Props> = async ({ props }) => {
   const markup = html`
     <div
       style="font-family: 'Inter'"
-      tw="relative bg-[${colors.primary}] p-12 w-full h-full flex rounded-3xl flex-col text-[${colors[
+      tw="relative bg-[${colors.primary}] p-12 w-full h-full flex items-center rounded-3xl text-[${colors[
         "on-primary"
       ]}]"
     >
-      <div tw="flex items-center absolute right-8 top-8 text-xl">
-        <div tw="flex items-end mr-4">alvechy.dev</div>
-        <div
-          class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[${colors[
-            "on-primary"
-          ]}] p-2"
-        >
-          <img
-            src="${`data:image/svg+xml;base64,${icon.toString("base64")}`}"
-            tw="max-h-full"
-          />
+      <div tw="relative h-[400px] flex flex-row items-center">
+        <div tw="flex items-center absolute right-0 top-0 text-2xl">
+          <div tw="flex items-end mr-4">alvechy.dev</div>
+          <div
+            class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[${colors[
+              "on-primary"
+            ]}] p-2"
+          >
+            <img
+              src="${`data:image/svg+xml;base64,${icon.toString("base64")}`}"
+              tw="max-h-full"
+            />
+          </div>
         </div>
-      </div>
-      <div tw="relative flex h-full flex-row items-center">
         <img
           src="${`data:image/png;base64,${image.toString("base64")}`}"
           width="400"
           height="400"
           tw="shadow-xl rounded-2xl"
         />
-        <div tw="flex flex-col gap-2 ml-12 w-[600px]">
+        <div tw="flex flex-col gap-2 ml-12 w-[640px]">
           <h1 tw="text-6xl">${title}</h1>
-          <p tw="text-xl">${summary}</p>
         </div>
       </div>
     </div>
