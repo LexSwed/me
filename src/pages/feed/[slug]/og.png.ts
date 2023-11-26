@@ -18,9 +18,21 @@ export async function getStaticPaths() {
   const feed = await getFeed();
   const posts = await Promise.all(
     feed.map(async (post) => {
-      const image = await sharp(
-        post.data.poster.src.replace("@fs/", "").split("?")[0],
-      )
+      /**
+       * We need the actual path to the image file, while Astro always compiles
+       * images to the path the images can be resolved by Vite.
+       */
+      const postCover = fs.readFileSync(
+        import.meta.env.PROD
+          ? path.resolve(
+              post.data.poster.src.replace("/", "dist/$server_build/"),
+            )
+          : path.resolve(
+              post.data.poster.src.split("?")[0].replace("/@fs", ""),
+            ),
+      );
+
+      const image = await sharp(postCover)
         .resize({ width: 400, height: 400 })
         .png()
         .toBuffer();
@@ -49,14 +61,15 @@ export const GET: APIRoute<Props> = async ({ props }) => {
 
   const markup = html`
     <div
-      tw="relative bg-[${colors.primary}] p-12 w-full h-full flex rounded-3xl flex-col font-['Inter'] text-[${colors[
+      style="font-family: 'Inter'"
+      tw="relative bg-[${colors.primary}] p-12 w-full h-full flex rounded-3xl flex-col text-[${colors[
         "on-primary"
       ]}]"
     >
       <div tw="flex items-center absolute right-8 top-8 text-xl">
         <div tw="flex items-end mr-4">alvechy.dev</div>
         <div
-          class="flex aspect-square h-12 w-12 items-center justify-center rounded-2xl bg-[${colors[
+          class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[${colors[
             "on-primary"
           ]}] p-2"
         >
@@ -66,20 +79,16 @@ export const GET: APIRoute<Props> = async ({ props }) => {
           />
         </div>
       </div>
-      <div
-        tw="relative flex h-full flex-row items-center justify-between gap-4"
-      >
+      <div tw="relative flex h-full flex-row items-center">
         <img
           src="${`data:image/png;base64,${image.toString("base64")}`}"
           width="400"
           height="400"
           tw="shadow-xl rounded-2xl"
         />
-        <div tw="flex flex-col justify-between w-[640px]">
-          <div tw="flex flex-col gap-2">
-            <h1 tw="text-6xl">${title}</h1>
-            <p tw="text-xl">${summary}</p>
-          </div>
+        <div tw="flex flex-col gap-2 ml-12 w-[600px]">
+          <h1 tw="text-6xl">${title}</h1>
+          <p tw="text-xl">${summary}</p>
         </div>
       </div>
     </div>
