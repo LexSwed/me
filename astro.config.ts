@@ -15,10 +15,17 @@ export default defineConfig({
     gfm: true,
     shikiConfig: {
       theme: "material-theme-palenight",
-      wrap: false
-    }
+      wrap: false,
+    },
   },
-  integrations: [mdx(), sitemap(), tailwind(), prefetch(), preact(), robotsTxt()],
+  integrations: [
+    mdx(),
+    sitemap(),
+    tailwind(),
+    prefetch(),
+    preact(),
+    robotsTxt(),
+  ],
   output: "hybrid",
-  adapter: cloudflare()
+  adapter: cloudflare(),
 });
