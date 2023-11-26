@@ -1,18 +1,18 @@
 ---
 import { Image } from "astro:assets";
-import Header from "../../components/Header.astro";
-import HeartIcon from "../../icons/heart.astro";
-import LinkIcon from "../../icons/link.astro";
-import DevtoIcon from "../../icons/devto.astro";
-import TopicIcon from "../../icons/topic.astro";
-import MainLayout from "../../layouts/Main.astro";
-import PostLayout from "../../layouts/Post.astro";
-import { formatDate } from "../../utils";
+import Header from "../../../components/Header.astro";
+import HeartIcon from "../../../icons/heart.astro";
+import LinkIcon from "../../../icons/link.astro";
+import DevtoIcon from "../../../icons/devto.astro";
+import TopicIcon from "../../../icons/topic.astro";
+import MainLayout from "../../../layouts/Main.astro";
+import PostLayout from "../../../layouts/Post.astro";
+import { formatDate } from "../../../utils";
 import type { InferGetStaticPropsType } from "astro";
-import { getFeed } from "../../content";
-import Share from "../../components/Share.astro";
-import { components } from "../../components/markdown";
-import ButtonWithLabel from "../../components/ButtonWithLabel.astro";
+import { getFeed } from "../../../content";
+import Share from "../../../components/Share.astro";
+import { components } from "../../../components/markdown";
+import ButtonWithLabel from "../../../components/ButtonWithLabel.astro";
 
 export type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
@@ -41,7 +41,11 @@ const shareData = {
 };
 ---
 
-<MainLayout title={title} description={summary} image={poster.src}>
+<MainLayout
+  title={title}
+  description={summary}
+  image={`${Astro.url.toString()}/og.png`}
+>
   <header class="bg-primary text-on-primary">
     <PostLayout>
       <div class="flex h-full flex-col gap-6 sm:gap-10">
@@ -59,7 +63,7 @@ const shareData = {
                 widths={[400, 800]}
                 alt={posterAlt}
                 loading="eager"
-                class="mx-auto max-h-[40vh] min-h-0 w-auto self-center rounded-2xl object-cover shadow-xl"
+                class="mx-auto h-[30vh] min-h-0 w-auto self-center rounded-2xl object-cover shadow-xl"
               />
             ) : null
           }

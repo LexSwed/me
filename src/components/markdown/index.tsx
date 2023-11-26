@@ -19,7 +19,7 @@ export const components = {
   a: Link,
   ul: (props: object) => <ul {...props} class="mb-8 list-disc pl-6" />,
   ol: (props: object) => <ul {...props} class="mb-8 list-decimal pl-6" />,
-  li: (props: object) => <li {...props} class="list-item" />,
+  li: (props: object) => <li {...props} class="list-item text-xl" />,
   p: ParagraphWithMaybeImage,
   kbd: (props: object) => (
     <kbd
