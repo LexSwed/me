@@ -12,18 +12,21 @@ const { backLink } = Astro.props;
 <div class="flex flex-row items-center justify-between gap-4">
   <a
     href={backLink}
-    class="group/link -ml-4 flex flex-row items-center gap-4 px-4"
+    class="group/link -ml-4 flex flex-row items-center gap-4 rounded-lg px-4 outline-offset-4 outline-on-primary"
   >
     <ChevronLeft
       aria-hidden="true"
-      class="size-8 translate-x-1 stroke-2 transition-transform duration-200 group-hover/link:translate-x-0"
+      class="size-8 translate-x-1 stroke-2 transition-transform duration-200 group-hover/link:translate-x-0 group-focus/link:translate-x-0"
     />
     <slot name="back-link" />
   </a>
   <a
     href="/"
     aria-label="Main page"
-    class="-focus:trnaslate-y-1 duration-300 hover:-translate-y-1"
-    title="Main page"><Logo /></a
+    title="Main page"
+    class="group/logo rounded-lg outline-offset-4 outline-on-primary"
+    ><Logo
+      class="isolate duration-300 group-hover/logo:-translate-y-0.5 group-focus/logo:-translate-y-0.5"
+    /></a
   >
 </div>

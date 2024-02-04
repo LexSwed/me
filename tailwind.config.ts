@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme";
+import plugin from "tailwindcss/plugin";
 
 const config = {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
@@ -40,7 +41,11 @@ const config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function hoverAndFocusVariant({ addVariant }) {
+      addVariant("intent", ["&:where(:hover,:focus)"]);
+    }),
+  ],
 } satisfies Config;
 
 export default config;
