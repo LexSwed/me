@@ -1,21 +1,23 @@
-import MultilineCode from "./MultilineCode.astro";
 import ParagraphWithMaybeImage from "./ParagraphWithMaybeImage.astro";
 import Quote from "./Quote.astro";
 import Link from "./Link.astro";
 import Code from "./Code.astro";
-
-import { Heading } from "./Heading";
+import H1 from "./H1.astro";
+import H2 from "./H2.astro";
+import H3 from "./H3.astro";
+import H4 from "./H4.astro";
+import H5 from "./H5.astro";
+import H6 from "./H6.astro";
 
 export const components = {
   blockquote: Quote,
   code: Code,
-  pre: MultilineCode,
-  h1: (props: object) => <Heading level={1} {...props} />,
-  h2: (props: object) => <Heading level={2} {...props} />,
-  h3: (props: object) => <Heading level={3} {...props} />,
-  h4: (props: object) => <Heading level={4} {...props} />,
-  h5: (props: object) => <Heading level={5} {...props} />,
-  h6: (props: object) => <Heading level={6} {...props} />,
+  h1: H1,
+  h2: H2,
+  h3: H3,
+  h4: H4,
+  h5: H5,
+  h6: H6,
   a: Link,
   ul: (props: object) => <ul {...props} class="mb-8 list-disc pl-6" />,
   ol: (props: object) => <ul {...props} class="mb-8 list-decimal pl-6" />,
