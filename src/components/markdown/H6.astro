@@ -1,0 +1,11 @@
+---
+import type { HTMLAttributes } from "astro/types";
+export type Props = HTMLAttributes<"h6">;
+---
+
+<h6
+  class={`group/heading mb-[0.8em] mt-[1.4em] text-lg font-bold [text-wrap:balance]`}
+  id={Astro.props.id}
+>
+  <slot />
+</h6>

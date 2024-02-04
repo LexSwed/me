@@ -25,7 +25,7 @@ const id = `btn-${crypto.randomUUID().slice(0, 4)}`;
     title={label}
     class:list={twMerge(
       "button",
-      "relative cursor-pointer outline-none flex rounded-full justify-center items-center border-2 border-on-background/50 aspect-square w-16 text-on-background/80 transition-colors duration-150 hover:border-primary hover:bg-primary/90 hover:text-on-primary focus:border-primary focus:bg-primary/90 focus:text-on-primary",
+      "relative flex aspect-square w-16 cursor-pointer items-center justify-center rounded-full border-2 border-on-background/50 text-on-background/80 outline-none transition-colors duration-150 hover:border-primary hover:bg-primary/90 hover:text-on-primary focus:border-primary focus:bg-primary/90 focus:text-on-primary",
       props.class,
     )}
   >
@@ -39,7 +39,7 @@ const id = `btn-${crypto.randomUUID().slice(0, 4)}`;
     inset-block-start: -90%;
 
     opacity: 0;
-    transform: translateX(-50%) translateY(0.5rem);
+    transform: translateX(-50%) translateY(0.2rem);
   }
 
   .label:where(:hover, :focus-within) .label-text {

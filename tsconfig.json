@@ -11,8 +11,7 @@
     "importsNotUsedAsValues": "remove",
     "verbatimModuleSyntax": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-    "jsxImportSource": "preact",
+    "jsx": "preserve",
     "incremental": true
   }
 }

@@ -9,6 +9,11 @@ import H4 from "./H4.astro";
 import H5 from "./H5.astro";
 import H6 from "./H6.astro";
 
+import UL from "./UL.astro";
+import OL from "./OL.astro";
+import LI from "./LI.astro";
+import KBD from "./KBD.astro";
+
 export const components = {
   blockquote: Quote,
   code: Code,
@@ -19,14 +24,9 @@ export const components = {
   h5: H5,
   h6: H6,
   a: Link,
-  ul: (props: object) => <ul {...props} class="mb-8 list-disc pl-6" />,
-  ol: (props: object) => <ul {...props} class="mb-8 list-decimal pl-6" />,
-  li: (props: object) => <li {...props} class="list-item text-xl" />,
+  ul: UL,
+  ol: OL,
+  li: LI,
   p: ParagraphWithMaybeImage,
-  kbd: (props: object) => (
-    <kbd
-      {...props}
-      class="inline-block rounded-md border-[1px] border-slate-500 bg-slate-800 px-1 py-0.5 align-middle font-mono text-[0.7rem] leading-none text-slate-300 shadow-[inset_0_-1px_0_theme(colors.slate.500)]"
-    />
-  ),
+  kbd: KBD,
 };

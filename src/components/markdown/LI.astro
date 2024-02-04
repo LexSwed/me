@@ -1,0 +1,6 @@
+---
+import type { HTMLAttributes } from "astro/types";
+export type Props = HTMLAttributes<"li">;
+---
+
+<li {...Astro.props} class="list-item text-xl"><slot /></li>

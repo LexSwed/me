@@ -1,0 +1,6 @@
+---
+import type { HTMLAttributes } from "astro/types";
+export type Props = HTMLAttributes<"ol">;
+---
+
+<ol {...Astro.props} class="mb-8 list-decimal pl-6"><slot /></ol>
