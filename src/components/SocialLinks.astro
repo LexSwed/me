@@ -29,19 +29,19 @@ const links: Link[] = [
     label: "LinkedIn Profile",
   },
   {
-    href: "https://twitter.com/lexswed",
+    href: "https://twitter.com/alvechy",
     Component: TwitterIcon,
     label: "Twitter Profile",
   },
   {
-    href: "https://dev.to/lexswed",
+    href: "https://dev.to/alvechy",
     Component: DevToIcon,
     label: "Dev.to Profile",
   },
 ];
 ---
 
-<ul {...props} class:list={["flex justify-start flex-row gap-4", className]}>
+<ul {...props} class:list={["flex flex-row justify-start gap-4", className]}>
   {
     links.map((link) => (
       <li>
@@ -50,6 +50,7 @@ const links: Link[] = [
           aria-label={link.label}
           title={link.label}
           class="block size-10 p-1 outline-none ring-on-primary transition-shadow duration-150 focus:ring-2 xs:size-12"
+          target="_blank"
         >
           <link.Component aria-hidden="true" />
         </a>
