@@ -17,8 +17,8 @@ export default defineConfig({
   },
   vite: {
     ssr: {
-      external: ['node:fs', 'node:path']
-    }
+      external: ["node:fs", "node:path", "@vercel/og"],
+    },
   },
   integrations: [
     expressiveCode({
@@ -38,6 +38,6 @@ export default defineConfig({
   ],
   output: "hybrid",
   adapter: cloudflare({
-    imageService: 'compile'
+    imageService: "compile",
   }),
 });

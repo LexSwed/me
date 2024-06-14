@@ -24,9 +24,7 @@ export async function getStaticPaths() {
        */
       const postCover = fs.readFileSync(
         import.meta.env.PROD
-          ? path.resolve(
-              post.data.poster.src.replace("/", "dist/$server_build/"),
-            )
+          ? path.resolve(post.data.poster.src.replace("/", "dist/_worker.js/"))
           : path.resolve(
               post.data.poster.src.split("?")[0].replace("/@fs", ""),
             ),
