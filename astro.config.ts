@@ -15,6 +15,11 @@ export default defineConfig({
     gfm: true,
     syntaxHighlight: false,
   },
+  vite: {
+    ssr: {
+      external: ['node:fs', 'node:path']
+    }
+  },
   integrations: [
     expressiveCode({
       themes: ["material-theme-palenight"],
@@ -32,5 +37,7 @@ export default defineConfig({
     robotsTxt(),
   ],
   output: "hybrid",
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    imageService: 'compile'
+  }),
 });
