@@ -18,13 +18,13 @@
     "check": "astro check && npm run lint && npm run typecheck"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^9.2.0",
-    "@astrojs/mdx": "^2.2.1",
-    "@astrojs/sitemap": "^3.1.1",
+    "@astrojs/cloudflare": "^10.4.0",
+    "@astrojs/mdx": "^3.1.0",
+    "@astrojs/sitemap": "^3.1.5",
     "@astrojs/tailwind": "^5.1.0",
     "@fontsource-variable/inter": "^5.0.17",
     "@vercel/og": "^0.6.2",
-    "astro": "^4.5.9",
+    "astro": "^4.10.2",
     "astro-expressive-code": "^0.33.5",
     "astro-robots-txt": "^1.0.0",
     "color": "^4.2.3",
@@ -34,8 +34,8 @@
     "tailwind-merge": "^2.2.2"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.5.10",
-    "@astrojs/ts-plugin": "^1.6.1",
+    "@astrojs/check": "^0.7.0",
+    "@astrojs/ts-plugin": "^1.8.0",
     "@types/color": "^3.0.6",
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",
