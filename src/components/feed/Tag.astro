@@ -10,12 +10,13 @@ const { href, active } = Astro.props;
 <li class="inline-flex shrink-0">
   <a
     class:list={[
-      "duration-200 outline-none min-w-[3rem] text-sm rounded-full px-3 py-2 text-center font-light focus:ring-2 ring-on-background",
+      "min-w-[3rem] rounded-full px-3 py-2 text-center text-sm font-light outline-none ring-on-background duration-200 focus:ring-2",
       active
         ? "bg-primary text-on-primary hover:bg-primary/90"
         : "bg-transparent text-on-background hover:bg-on-background/20",
     ]}
     href={href}
+    data-astro-reload
   >
     <slot />
   </a>
