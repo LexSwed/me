@@ -10,7 +10,7 @@
     "dev": "astro dev",
     "start": "npm run dev",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "wrangler pages dev ./dist",
     "astro": "astro",
     "lint": "eslint src --fix",
     "format": "prettier . \"src/**/*.astro\" --write --ignore-unknown",

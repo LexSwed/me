@@ -19,6 +19,9 @@ export default defineConfig({
     ssr: {
       external: ["node:fs", "node:path", "@vercel/og"],
     },
+    build: {
+      minify: false,
+    },
   },
   integrations: [
     expressiveCode({
@@ -39,5 +42,8 @@ export default defineConfig({
   output: "hybrid",
   adapter: cloudflare({
     imageService: "compile",
+    platformProxy: {
+      enabled: true,
+    },
   }),
 });
