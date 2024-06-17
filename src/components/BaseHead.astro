@@ -3,7 +3,6 @@ import tailwindConfig from "../../tailwind.config";
 import "@fontsource-variable/inter/slnt.css";
 import placeholderImage from "../../public/og/Alex-V.jpeg";
 import { getImage } from "astro:assets";
-import { ViewTransitions } from "astro:transitions";
 
 export interface Props {
   title: string;
@@ -85,5 +84,3 @@ const domain = Astro.url.hostname;
     @apply font-sans;
   }
 </style>
-
-<ViewTransitions fallback="swap" />
