@@ -4,7 +4,6 @@ import HowIWork from "../components/HowIWork.astro";
 import PostsSection from "../components/PostsSection.astro";
 import SocialLinks from "../components/SocialLinks.astro";
 import ChevronDoubleDown from "../icons/chevron-double-down.astro";
-import Logo from "../icons/logo.astro";
 import Layout from "../layouts/Main.astro";
 ---
 
@@ -12,11 +11,13 @@ import Layout from "../layouts/Main.astro";
   <div class="flex h-full flex-col justify-between bg-primary text-on-primary">
     <header class="flex flex-col items-stretch gap-2 p-6 sm:p-8">
       <div class="flex flex-row items-center justify-between gap-4">
-        <h1 class="text-3xl font-bold leading-[1.1em] xs:text-4xl md:text-6xl">
+        <h1
+          class="text-3xl font-bold leading-[1.1em] xs:text-4xl md:text-6xl"
+          transition:name="my-name"
+        >
           Oleksandr Sh.
         </h1>
         <h2 class="sr-only" aria-hidden="true">Alex Vechy</h2>
-        <Logo class="size-12" aria-hidden="true" />
       </div>
       <div class="text-xl font-bold leading-[1.1em] sm:text-2xl md:text-3xl">
         Web Engineer
