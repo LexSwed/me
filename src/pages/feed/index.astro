@@ -5,17 +5,15 @@ import { getFeed } from "../../content";
 import MainLayout from "../../layouts/Main.astro";
 import PostLayout from "../../layouts/Post.astro";
 import { formatDate } from "../../utils";
-import Tag from "../../components/feed/Tag.astro";
+// import Tag from "../../components/feed/Tag.astro";
 
-export const prerender = false;
-
-const topic = Astro.url.searchParams.get("topic");
 const feed = await getFeed();
-const filteredFeed = topic
-  ? feed.filter((post) => post.data.tags.includes(topic))
-  : feed;
+// const topic = Astro.url.searchParams.get("topic");
+// const filteredFeed = topic
+//   ? feed.filter((post) => post.data.tags.includes(topic))
+//   : feed;
 
-const topics = [...new Set(feed.flatMap((post) => post.data.tags))];
+// const topics = [...new Set(feed.flatMap((post) => post.data.tags))];
 
 const pinnedPost = feed.find((post) => post.data.pinned);
 ---
@@ -45,7 +43,7 @@ const pinnedPost = feed.find((post) => post.data.pinned);
     </header>
     <PostLayout>
       <div class="feed flex flex-col gap-6 sm:gap-16">
-        <ul class="flex scroll-px-2 flex-row gap-3 overflow-auto p-2 pb-4">
+        <!-- <ul class="flex scroll-px-2 flex-row gap-3 overflow-auto p-2 pb-4">
           <Tag href="/feed" active={!topic}>All</Tag>
           {
             topics.map((tag) => {
@@ -56,10 +54,10 @@ const pinnedPost = feed.find((post) => post.data.pinned);
               );
             })
           }
-        </ul>
+        </ul> -->
         <ul class="flex flex-col gap-8 sm:gap-16">
           {
-            filteredFeed.map((post) => {
+            feed.map((post) => {
               return (
                 <li>
                   <a
