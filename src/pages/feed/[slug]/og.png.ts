@@ -13,7 +13,6 @@ const icon = fs.readFileSync(path.resolve("public/logo-inner.svg"));
 
 // 1. get image, transform to png, get as a buffer
 // 2. insert as `data:
-
 export async function getStaticPaths() {
   const feed = await getFeed();
   const posts = await Promise.all(
@@ -24,9 +23,7 @@ export async function getStaticPaths() {
        */
       const postCover = fs.readFileSync(
         import.meta.env.PROD
-          ? path.resolve(
-              post.data.poster.src.replace("/", "dist/$server_build/"),
-            )
+          ? path.resolve(post.data.poster.src.replace("/", "dist/_worker.js/"))
           : path.resolve(
               post.data.poster.src.split("?")[0].replace("/@fs", ""),
             ),

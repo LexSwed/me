@@ -21,7 +21,7 @@ export const collections = {
   feed,
 };
 
-const topic = z.enum(["web", "fxtrot"]);
+export const topic = z.enum(["web", "fxtrot"]);
 
 export type Topic = z.infer<typeof topic>;
 
