@@ -23,3 +23,6 @@ pnpm-debug.log*
 # Astro content collection types
 .astro
 .wrangler
+
+# Obsidian
+src/content/feed/.obsidian
