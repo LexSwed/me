@@ -3,18 +3,30 @@ import { z, defineCollection } from "astro:content";
 const feed = defineCollection({
   type: "content",
   schema: ({ image }) =>
-    z.object({
-      draft: z.boolean(),
-      title: z.string(),
-      summary: z.string(),
-      /** first tag is treated as topic */
-      tags: z.array(z.string()),
-      poster: image(),
-      posterAlt: z.string(),
-      publishDate: z.date(),
-      pinned: z.string().optional(),
-      devTo: z.string().optional(),
-    }),
+    z.discriminatedUnion("draft", [
+      z.object({
+        title: z.string(),
+        summary: z.string(),
+        tags: z.array(z.string()),
+        publishDate: z.date(),
+        pinned: z.string().optional(),
+        devTo: z.string().optional(),
+        draft: z.literal(false),
+        poster: image(),
+        posterAlt: z.string(),
+      }),
+      z.object({
+        draft: z.literal(true),
+        poster: image().optional(),
+        posterAlt: z.string().optional(),
+        title: z.string(),
+        summary: z.string(),
+        tags: z.array(z.string()),
+        publishDate: z.date(),
+        pinned: z.string().optional(),
+        devTo: z.string().optional(),
+      }),
+    ]),
 });
 
 export const collections = {
