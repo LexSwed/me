@@ -8,7 +8,7 @@ import js from "@eslint/js";
 import { FlatCompat } from "@eslint/eslintrc";
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = path.dirname(__filename) + "/src";
 const compat = new FlatCompat({
   baseDirectory: __dirname,
   recommendedConfig: js.configs.recommended,
@@ -17,7 +17,7 @@ const compat = new FlatCompat({
 
 export default [
   {
-    ignores: ["**/*.cjs"],
+    ignores: ["**/*.cjs", "**/.obsidian/**"],
   },
   ...compat.extends(
     "eslint:recommended",
