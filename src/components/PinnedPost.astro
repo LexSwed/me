@@ -21,7 +21,7 @@ const { post } = Astro.props;
         <Image
           src={post.data.poster}
           title={post.data.posterAlt}
-          alt={post.data.posterAlt}
+          alt={post.data.posterAlt!}
           class="animate-image h-full rounded-2xl object-cover transition-shadow duration-300 group-hover/post:ring-4 group-focus/post:ring-4"
         />
       ) : null
