@@ -2,7 +2,6 @@ import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
-import cloudflare from "@astrojs/cloudflare";
 import robotsTxt from "astro-robots-txt";
 
 import expressiveCode from "astro-expressive-code";
@@ -39,8 +38,5 @@ export default defineConfig({
     tailwind(),
     robotsTxt(),
   ],
-  output: "hybrid",
-  adapter: cloudflare({
-    imageService: "compile",
-  }),
+  output: "static",
 });

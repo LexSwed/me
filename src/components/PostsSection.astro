@@ -66,7 +66,7 @@ const postsWithColor = feed.map((post) => {
                 "--index": index,
               }}
               class:list={[
-                "card animate-feed-item isolate block shrink-0 snap-start snap-always rounded-2xl outline-none ring-on-primary focus:ring-4",
+                "card isolate block shrink-0 snap-start snap-always rounded-2xl outline-none ring-on-primary focus:ring-4",
                 color.isDark() ? "text-on-background" : "text-on-primary",
               ]}
             >
@@ -156,38 +156,5 @@ const postsWithColor = feed.map((post) => {
   .animate-arrow {
     --x: -0.5rem;
     animation: slideC 0.3s 0.1s ease-in both;
-  }
-  .animate-feed-item {
-    --x: 1rem;
-    --index: 0;
-    --delay: calc(var(--index) * 0.2s);
-    --opacity-start: 1;
-    animation: slideX 1s var(--delay) both;
-    animation-timing-function: cubic-bezier(0.5, -0.53, 0.14, 1.23);
-  }
-
-  @keyframes slideY {
-    0% {
-      transform: translateY(var(--y));
-      opacity: 0;
-    }
-    100% {
-      transform: none;
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideX {
-    0% {
-      opacity: var(--opacity-start, 0);
-      transform: translateX(var(--x));
-    }
-    60% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 1;
-      transform: none;
-    }
   }
 </style>
