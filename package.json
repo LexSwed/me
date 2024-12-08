@@ -18,7 +18,6 @@
     "check": "astro check src && npm run lint && npm run typecheck"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.0.1",
     "@astrojs/mdx": "^4.0.1",
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/tailwind": "^5.1.3",
