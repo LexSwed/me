@@ -59,7 +59,7 @@ const jobs: Job[] = [
             rel="noopener noreferrer"
             class:list={[
               "card",
-              "flex snap-start p-8 shrink-0 relative rounded-2xl gap-3 flex-col items-start transition-all duration-300",
+              "relative flex shrink-0 snap-start flex-col items-start gap-3 rounded-2xl p-8 transition-all duration-300",
             ]}
             style={{
               "--bg-hsl": style.backgroundHsl,
@@ -72,7 +72,7 @@ const jobs: Job[] = [
               {title}
             </span>
             <ArrowUpRightIcon
-              class="absolute bottom-8 right-8 size-20 p-4"
+              class="absolute right-8 bottom-8 size-20 p-4"
               aria-hidden="true"
             />
           </a>
@@ -94,7 +94,8 @@ const jobs: Job[] = [
   }
   .card:where(:focus, :hover) {
     --inner-shadow-opacity: 0.4;
-    @apply outline-4 outline-on-background;
+    outline-color: var(--color-on-background);
+    outline-width: 4px;
   }
 
   .title {

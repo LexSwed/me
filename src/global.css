@@ -1,0 +1,29 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+
+@theme {
+  --breakpoint-xs: 375px;
+
+  --color-background: #16161a;
+  --color-on-background: #f8fbfe;
+  --color-primary: #fdba74;
+  --color-on-primary: #232946;
+  --color-stroke: #010101;
+
+  --font-sans: "InterVariable", "Inter", sans-serif;
+
+  --animate-slideUp: slideUp 0.5s 0.3s ease-out both;
+
+  @keyframes slideUp {
+    0% {
+      transform: translateY(var(--slide-up-start, 1rem));
+      opacity: 0;
+    }
+    60% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(var(--slide-up-end, 0));
+    }
+  }
+}

@@ -8,18 +8,18 @@ import Layout from "../layouts/Main.astro";
 ---
 
 <Layout title="Oleksandr Sh." description="UI engineer" image="/og/Alex-V.jpeg">
-  <div class="flex h-full flex-col justify-between bg-primary text-on-primary">
+  <div class="bg-primary text-on-primary flex h-full flex-col justify-between">
     <header class="flex flex-col items-stretch gap-2 p-6 sm:p-8">
       <div class="flex flex-row items-center justify-between gap-4">
         <h1
-          class="text-3xl font-bold leading-[1.1em] xs:text-4xl md:text-6xl"
+          class="xs:text-4xl text-3xl leading-[1.1em] font-bold md:text-6xl"
           transition:name="my-name"
         >
           Oleksandr Sh.
         </h1>
         <h2 class="sr-only" aria-hidden="true">Alex Vechy</h2>
       </div>
-      <div class="text-xl font-bold leading-[1.1em] sm:text-2xl md:text-3xl">
+      <div class="text-xl leading-[1.1em] font-bold sm:text-2xl md:text-3xl">
         Web Engineer
       </div>
     </header>
@@ -27,42 +27,19 @@ import Layout from "../layouts/Main.astro";
     <footer class="flex flex-row items-center justify-between p-6 sm:p-8">
       <a
         href="#contributions"
-        class="text-md flex aspect-square h-12 items-center justify-center gap-2 rounded-full bg-on-background text-on-primary shadow-md outline-2 outline-on-primary ring-on-primary focus:outline-none focus:ring-2 xs:h-14 sm:aspect-auto sm:px-4"
+        class="text-md bg-on-background text-on-primary xs:h-14 focus:outline-on-primary flex aspect-square h-12 items-center justify-center gap-2 rounded-full focus:outline-2 focus:outline-offset-0 sm:aspect-auto sm:px-4"
       >
         <span class="hidden sm:inline">More</span>
-        <ChevronDoubleDown class="h-4 xs:h-5" aria-hidden="true" />
+        <ChevronDoubleDown class="xs:h-5 h-4" aria-hidden="true" />
       </a>
       <SocialLinks class="animate-social md:gap-10" />
     </footer>
   </div>
-  <div class="h-px bg-stroke/10"></div>
+  <div class="bg-stroke/10 h-px"></div>
   <div
-    class="sticky top-0 flex flex-col gap-12 bg-background p-8 text-on-background"
+    class="bg-background text-on-background sticky top-0 flex flex-col gap-12 p-8"
   >
     <HowIWork />
     <Contributions />
   </div>
 </Layout>
-
-<style>
-  @screen sm {
-    .animate-social {
-      --y: 0.5rem;
-      animation: slideY 0.4s 1s ease-out both;
-    }
-  }
-
-  @keyframes slideY {
-    0% {
-      transform: translateY(var(--y));
-      opacity: 0;
-    }
-    75% {
-      opacity: 1;
-    }
-    100% {
-      transform: none;
-      opacity: 1;
-    }
-  }
-</style>

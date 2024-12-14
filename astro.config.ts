@@ -1,11 +1,10 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import tailwind from "@astrojs/tailwind";
 import robotsTxt from "astro-robots-txt";
 
 import expressiveCode from "astro-expressive-code";
-import tailwindConfig from "./tailwind.config";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
@@ -20,6 +19,11 @@ export default defineConfig({
     },
     build: {
       minify: false,
+      cssMinify: "lightningcss",
+    },
+    plugins: [tailwindcss()],
+    css: {
+      transformer: "lightningcss",
     },
   },
   integrations: [
@@ -27,15 +31,13 @@ export default defineConfig({
       themes: ["material-theme-palenight"],
       styleOverrides: {
         frames: {
-          tooltipSuccessBackground: tailwindConfig.theme.extend.colors.primary,
-          tooltipSuccessForeground:
-            tailwindConfig.theme.extend.colors["on-primary"],
+          tooltipSuccessBackground: "var(--color-primary)",
+          tooltipSuccessForeground: "var(--color-on-primary)",
         },
       },
     }),
     mdx(),
     sitemap(),
-    tailwind(),
     robotsTxt(),
   ],
   output: "static",

@@ -1,9 +1,9 @@
 ---
-import tailwindConfig from "../../tailwind.config";
-import "@fontsource-variable/inter";
-import placeholderImage from "../../public/og/Alex-V.jpeg";
+import { ClientRouter } from "astro:transitions";
 import { getImage } from "astro:assets";
-import { ViewTransitions } from "astro:transitions";
+
+import placeholderImage from "../../public/og/Alex-V.jpeg";
+import "../global.css";
 
 export interface Props {
   title: string;
@@ -14,7 +14,7 @@ export interface Props {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { title, description, image } = Astro.props;
-const themeColor = tailwindConfig.theme.extend.colors.primary;
+const themeColor = "var(--color-primary)";
 const imageUrl = new URL(
   image ||
     (await getImage({ src: placeholderImage, width: 300, height: 300 })).src,
@@ -82,8 +82,8 @@ const domain = Astro.url.hostname;
   }
 
   body {
-    @apply font-sans;
+    font-family: var(--font-sans);
   }
 </style>
 
-<ViewTransitions fallback="swap" />
+<ClientRouter />

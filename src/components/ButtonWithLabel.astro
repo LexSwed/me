@@ -8,7 +8,7 @@ const id = `btn-${crypto.randomUUID().slice(0, 4)}`;
 <div class="label relative">
   <label
     id={id}
-    class="label-text pointer-events-none absolute flex items-center justify-center whitespace-nowrap rounded-full border-2 border-primary/75 bg-primary/20 p-2 px-3 text-sm text-primary backdrop-blur-md transition-all duration-200 ease-out"
+    class="label-text border-primary/75 bg-primary/20 text-primary pointer-events-none absolute flex items-center justify-center rounded-full border-2 p-2 px-3 text-sm whitespace-nowrap backdrop-blur-md transition-all duration-200 ease-out"
     >{label}</label
   >
   <Tag
@@ -18,7 +18,7 @@ const id = `btn-${crypto.randomUUID().slice(0, 4)}`;
     title={label}
     class:list={[
       "button",
-      "relative flex aspect-square w-16 cursor-pointer items-center justify-center rounded-full border-2 border-on-background/50 text-on-background/80 outline-none transition-colors duration-150 hover:border-primary hover:bg-primary/90 hover:text-on-primary focus:border-primary focus:bg-primary/90 focus:text-on-primary",
+      "border-on-background/50 text-on-background/80 hover:border-primary hover:bg-primary/90 hover:text-on-primary focus:border-primary focus:bg-primary/90 focus:text-on-primary relative flex aspect-square w-16 cursor-pointer items-center justify-center rounded-full border-2 transition-colors duration-150 outline-none",
       props.class,
     ]}
   >
@@ -38,7 +38,6 @@ const id = `btn-${crypto.randomUUID().slice(0, 4)}`;
   .label:where(:hover, :focus-within) .label-text {
     opacity: 1;
     transform: translateX(-50%);
-
-    @apply ease-in;
+    transition-timing-function: var(--ease-in);
   }
 </style>

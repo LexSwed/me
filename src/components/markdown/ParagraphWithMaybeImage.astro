@@ -1,7 +1,7 @@
 ---
 const { props } = Astro;
 const imgClass =
-  "[&:has(>img:only-child)]:mb-10 [&:has(>img:only-child)]:mt-6 [&>img]:mx-auto [&>img]:rounded-lg [&>img]:shadow-md";
+  "[&:has(>img:only-child)]:mb-10 [&:has(>img:only-child)]:mt-6 [&>img]:mx-auto [&>img]:rounded-lg";
 ---
 
 <p {...props} class={`my-4 text-xl [&:has(+ul,+ol)]:mb-2 ${imgClass}`}>

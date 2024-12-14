@@ -45,7 +45,7 @@ const postsWithColor = feed.map((post) => {
       <p class="text-lg sm:text-xl">Mostly web, but other things too.</p>
       <a
         href="/feed"
-        class="leading-10 underline decoration-2 outline-none ring-on-primary focus:ring-2"
+        class="ring-on-primary focus:outline-on-primary flex-inline -ms-2 rounded-sm p-2 leading-10 underline decoration-2 focus:outline-2"
         >See all</a
       >
     </div>
@@ -66,7 +66,7 @@ const postsWithColor = feed.map((post) => {
                 "--index": index,
               }}
               class:list={[
-                "card isolate block shrink-0 snap-start snap-always rounded-2xl outline-none ring-on-primary focus:ring-4",
+                "card ring-on-primary isolate block shrink-0 snap-start snap-always rounded-2xl outline-none focus:ring-4",
                 color.isDark() ? "text-on-background" : "text-on-primary",
               ]}
             >
@@ -74,7 +74,7 @@ const postsWithColor = feed.map((post) => {
                 <div class="self-start rounded-md bg-white/20 px-3 py-1 text-xs backdrop-blur-md">
                   {createdAt} in <b class="font-medium">{topic}</b>
                 </div>
-                <p class="text-xl xs:text-2xl">{title}</p>
+                <p class="xs:text-2xl text-xl">{title}</p>
               </div>
             </a>
           </li>
@@ -85,7 +85,7 @@ const postsWithColor = feed.map((post) => {
   <footer class="h-full shrink-0 snap-end self-center">
     <a
       href="/feed"
-      class="flex h-full items-center gap-2 rounded-2xl bg-on-background/10 p-8 text-xl text-background outline-none ring-on-primary transition-all duration-300 hover:bg-on-background/20 focus:bg-on-background/20 focus:ring-2"
+      class="bg-on-background/10 text-background ring-on-primary hover:bg-on-background/20 focus:bg-on-background/20 flex h-full items-center gap-2 rounded-2xl p-8 text-xl transition-all duration-300 outline-none focus:ring-2"
       >All <ChevronRight aria-hidden="true" class="h-5" /></a
     >
   </footer>

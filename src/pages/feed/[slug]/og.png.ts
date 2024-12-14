@@ -5,7 +5,6 @@ import sharp from "sharp";
 import { html } from "satori-html";
 import type { APIRoute, InferGetStaticPropsType } from "astro";
 import { getFeed } from "../../../content";
-import tailwindConfig from "../../../../tailwind.config";
 
 const Inter = fs.readFileSync(path.resolve("public/og/Inter-Medium.ttf"));
 const InterBold = fs.readFileSync(path.resolve("public/og/Inter-SemiBold.ttf"));
@@ -50,7 +49,11 @@ export async function getStaticPaths() {
 
 export type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-const { colors } = tailwindConfig.theme.extend;
+/**
+ * - [theme colors]({@link "file://./../../../global.css"})
+ */
+const colorPrimary = "#fdba74";
+const colorOnPrimary = "#232946";
 
 export const GET: APIRoute<Props> = async ({ props }) => {
   const { post } = props;
@@ -59,17 +62,13 @@ export const GET: APIRoute<Props> = async ({ props }) => {
   const markup = html`
     <div
       style="font-family: 'Inter'"
-      tw="relative bg-[${colors.primary}] p-12 w-full h-full flex items-center rounded-3xl text-[${colors[
-        "on-primary"
-      ]}]"
+      tw="relative bg-[${colorPrimary}] p-12 w-full h-full flex items-center rounded-3xl text-[${colorOnPrimary}]"
     >
       <div tw="relative h-[400px] flex flex-row items-center">
         <div tw="flex items-center absolute right-0 top-0 text-2xl">
           <div tw="flex items-end mr-4">alvechy.dev</div>
           <div
-            class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[${colors[
-              "on-primary"
-            ]}] p-2"
+            class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[${colorOnPrimary}] p-2"
           >
             <img
               src="${`data:image/svg+xml;base64,${icon.toString("base64")}`}"
@@ -97,13 +96,13 @@ export const GET: APIRoute<Props> = async ({ props }) => {
     fonts: [
       {
         name: "Inter",
-        data: Inter.buffer,
+        data: Inter,
         weight: 400,
         style: "normal",
       },
       {
         name: "Inter",
-        data: InterBold.buffer,
+        data: InterBold,
         weight: 600,
         style: "normal",
       },
