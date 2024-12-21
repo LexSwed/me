@@ -1,4 +1,3 @@
-import tailwindcss from "eslint-plugin-tailwindcss";
 import typescriptEslint from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
 import parser from "astro-eslint-parser";
@@ -27,7 +26,6 @@ export default [
   ),
   {
     plugins: {
-      tailwindcss,
       "@typescript-eslint": typescriptEslint,
     },
 
