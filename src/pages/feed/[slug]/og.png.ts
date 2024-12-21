@@ -82,7 +82,7 @@ export const GET: APIRoute<Props> = async ({ props }) => {
           height="400"
           tw="shadow-xl rounded-2xl"
         />
-        <div tw="flex flex-col gap-2 ml-12 w-[640px]">
+        <div tw="flex flex-col ml-12 w-[640px]">
           <h1 tw="text-6xl">${title}</h1>
         </div>
       </div>
