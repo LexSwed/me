@@ -17,13 +17,18 @@ export default defineConfig({
     ssr: {
       external: ["node:fs", "node:path", "@vercel/og"],
     },
-    // build: {
-    //   minify: false,
-    //   cssMinify: "lightningcss",
-    // },
+    build: {
+      minify: false,
+      // cssMinify: "lightningcss",
+    },
     plugins: [tailwindcss()],
     // css: {
     //   transformer: "lightningcss",
+    //   lightningcss: {
+    //     drafts: {
+    //       customMedia: true,
+    //     },
+    //   },
     // },
   },
   integrations: [

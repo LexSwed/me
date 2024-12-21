@@ -34,7 +34,7 @@ const pinnedPost = feed.find((post) => post.data.pinned);
   </header>
   <main>
     <header
-      class="flex flex-col items-start justify-between bg-primary text-on-primary"
+      class="bg-primary text-on-primary flex flex-col items-start justify-between"
     >
       <PostLayout>
         <h1 class="mb-12 text-7xl font-bold md:mb-24">Notes</h1>
@@ -62,7 +62,7 @@ const pinnedPost = feed.find((post) => post.data.pinned);
                 <li>
                   <a
                     href={`/feed/${post.slug}`}
-                    class="group/post grid gap-4 rounded-lg bg-on-background/10 p-8 text-on-background outline-none transition-colors duration-150 hover:bg-on-background/10 focus:bg-on-background/10 sm:grid-cols-[4fr_5fr] sm:items-center sm:gap-8 sm:bg-transparent"
+                    class="group/post bg-on-background/10 text-on-background hover:bg-on-background/10 focus:bg-on-background/10 grid gap-4 rounded-lg p-8 transition-colors duration-150 outline-none sm:grid-cols-[4fr_5fr] sm:items-center sm:gap-8 sm:bg-transparent"
                   >
                     <h3 class="text-2xl group-hover/post:underline group-focus/post:underline sm:hidden">
                       {post.data.title}
@@ -73,7 +73,7 @@ const pinnedPost = feed.find((post) => post.data.pinned);
                           src={post.data.poster.src}
                           alt={post.data.posterAlt}
                           width={300}
-                          class="aspect-square w-full rounded-md object-cover shadow-md shadow-background ring-on-background/80 transition-shadow duration-300 group-hover/post:ring-2 group-focus/post:ring-2"
+                          class="shadow-background ring-on-background/80 aspect-square w-full rounded-md object-cover shadow-md transition-shadow duration-300 group-hover/post:ring-2 group-focus/post:ring-2"
                         />
                       ) : (
                         <div class="aspect-square w-[300px]" />
@@ -88,7 +88,7 @@ const pinnedPost = feed.find((post) => post.data.pinned);
                       </p>
                     </div>
                     <div class="hidden sm:block" />
-                    <div class="flex flex-row flex-wrap items-center justify-between gap-4 text-sm text-on-background/80">
+                    <div class="text-on-background/80 flex flex-row flex-wrap items-center justify-between gap-4 text-sm">
                       <ul class="flex flex-row flex-wrap gap-2">
                         {post.data.tags?.map((tag) => (
                           <li>#{tag}</li>

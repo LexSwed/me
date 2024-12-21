@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "@fontsource-variable/inter";
 
 @theme {
   --breakpoint-xs: 375px;
@@ -13,6 +12,7 @@
   --font-sans: "InterVariable", "Inter", sans-serif;
 
   --animate-slideUp: slideUp 0.5s 0.3s ease-out both;
+  --animate-scaleIn: scaleIn 0.6s 0.4s ease-out both;
 
   @keyframes slideUp {
     0% {
@@ -24,6 +24,15 @@
     }
     100% {
       transform: translateY(var(--slide-up-end, 0));
+    }
+  }
+
+  @keyframes scaleIn {
+    0% {
+      transform: scale(var(--scale, 1));
+    }
+    100% {
+      transform: none;
     }
   }
 }
