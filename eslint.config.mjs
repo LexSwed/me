@@ -21,7 +21,6 @@ export default [
   ...compat.extends(
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:tailwindcss/recommended",
     "plugin:astro/recommended",
   ),
   {
@@ -33,10 +32,6 @@ export default [
       globals: {
         astroHTML: "readonly",
       },
-    },
-
-    rules: {
-      "tailwindcss/no-custom-classname": "off",
     },
   },
   {
