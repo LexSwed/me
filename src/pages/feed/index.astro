@@ -62,7 +62,7 @@ const pinnedPost = feed.find((post) => post.data.pinned);
                 <li>
                   <a
                     href={`/feed/${post.slug}`}
-                    class="group/post bg-on-background/10 text-on-background hover:bg-on-background/10 focus:bg-on-background/10 grid gap-4 rounded-lg p-8 transition-colors duration-150 outline-none sm:grid-cols-[4fr_5fr] sm:items-center sm:gap-8 sm:bg-transparent"
+                    class="group/post bg-on-background/10 text-on-background hover:bg-on-background/10 focus:bg-on-background/10 grid gap-4 rounded-lg p-8 outline-hidden transition-colors duration-150 sm:grid-cols-[4fr_5fr] sm:items-center sm:gap-8 sm:bg-transparent"
                   >
                     <h3 class="text-2xl group-hover/post:underline group-focus/post:underline sm:hidden">
                       {post.data.title}

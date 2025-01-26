@@ -1,13 +1,18 @@
 ---
-export type Props = astroHTML.JSX.SVGAttributes;
+import type { ComponentProps } from "astro/types";
+import LogoImage from "../../public/logo-inner.svg";
+
+export type Props = ComponentProps<typeof LogoImage>;
 
 const { "class": className, "class:list": classList, ...props } = Astro.props;
 ---
 
-<img
-  src="/logo-inner.svg"
+<LogoImage
   aria-hidden="true"
-  class:list={[classList, "h-10 w-10 rounded-xl bg-on-primary p-2", className]}
-  alt=""
+  class:list={[
+    classList,
+    "text-on-background bg-on-primary h-10 w-10 rounded-xl p-2",
+    className,
+  ]}
   {...props}
 />

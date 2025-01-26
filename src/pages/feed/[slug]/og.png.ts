@@ -8,7 +8,10 @@ import { getFeed } from "../../../content";
 
 const Inter = fs.readFileSync(path.resolve("public/og/Inter-Medium.ttf"));
 const InterBold = fs.readFileSync(path.resolve("public/og/Inter-SemiBold.ttf"));
-const icon = fs.readFileSync(path.resolve("public/logo-inner.svg"));
+let icon = fs.readFileSync(path.resolve("public/logo-inner.svg"));
+icon = Buffer.from(
+  icon.toString("utf-8").replace(`fill="currentColor"`, `fill="#232946"`),
+);
 
 // 1. get image, transform to png, get as a buffer
 // 2. insert as `data:
@@ -49,33 +52,29 @@ export async function getStaticPaths() {
 
 export type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-/**
- * - [theme colors]({@link "file://./../../../global.css"})
- */
-const colorPrimary = "#fdba74";
-const colorOnPrimary = "#232946";
-
 export const GET: APIRoute<Props> = async ({ props }) => {
   const { post } = props;
   const { title, image } = post;
 
+  /**
+   * - [theme colors]({@link "file://./../../../theme.css"})
+   */
+  const bg = `bg-[#fdba74]`;
+  const text = `text-[#232946]`;
+
   const markup = html`
     <div
       style="font-family: 'Inter'"
-      tw="relative bg-[${colorPrimary}] p-12 w-full h-full flex items-center rounded-3xl text-[${colorOnPrimary}]"
+      tw="relative p-12 w-full h-full flex items-center rounded-3xl ${bg} ${text}"
     >
-      <div tw="relative h-[400px] flex flex-row items-center">
-        <div tw="flex items-center absolute right-0 top-0 text-2xl">
-          <div tw="flex items-end mr-4">alvechy.dev</div>
-          <div
-            class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[${colorOnPrimary}] p-2"
-          >
-            <img
-              src="${`data:image/svg+xml;base64,${icon.toString("base64")}`}"
-              tw="max-h-full"
-            />
-          </div>
-        </div>
+      <div tw="flex items-center absolute right-12 top-12 text-2xl">
+        <img
+          src="${`data:image/svg+xml;base64,${icon.toString("base64")}`}"
+          tw="h-8"
+        />
+        <div tw="flex font-mono items-end ml-2">alvechy.dev</div>
+      </div>
+      <div tw="h-[400px] flex flex-row items-center">
         <img
           src="${`data:image/png;base64,${image.toString("base64")}`}"
           width="400"

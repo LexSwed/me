@@ -1,4 +1,8 @@
-@import "tailwindcss";
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
 
 @theme {
   --breakpoint-xs: 375px;
@@ -11,8 +15,8 @@
 
   --font-sans: "InterVariable", "Inter", sans-serif;
 
-  --animate-slideUp: slideUp 0.5s 0.3s ease-out both;
-  --animate-scaleIn: scaleIn 0.6s 0.4s ease-out both;
+  --animate-slide-up: slideUp 0.5s 0.3s ease-out both;
+  --animate-scale-in: scaleIn 0.6s 0.4s ease-out both;
 
   @keyframes slideUp {
     0% {
