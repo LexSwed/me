@@ -22,17 +22,17 @@ export default defineConfig({
     },
     build: {
       minify: false,
-      // cssMinify: "lightningcss",
+      cssMinify: "lightningcss",
     },
     plugins: [tailwindcss()],
-    // css: {
-    //   transformer: "lightningcss",
-    //   lightningcss: {
-    //     drafts: {
-    //       customMedia: true,
-    //     },
-    //   },
-    // },
+    css: {
+      transformer: "lightningcss",
+      lightningcss: {
+        drafts: {
+          customMedia: true,
+        },
+      },
+    },
   },
   integrations: [
     expressiveCode({
