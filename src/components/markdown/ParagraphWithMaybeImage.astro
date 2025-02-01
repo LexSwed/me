@@ -1,9 +1,17 @@
 ---
+import type { HTMLAttributes } from "astro/types";
+export type Props = HTMLAttributes<"p">;
+
 const { props } = Astro;
-const imgClass =
-  "[&:has(>img:only-child)]:mb-10 [&:has(>img:only-child)]:mt-6 [&>img]:mx-auto [&>img]:rounded-lg";
 ---
 
-<p {...props} class={`my-4 text-xl [&:has(+ul,+ol)]:mb-2 ${imgClass}`}>
+<p
+  {...props}
+  class:list={[
+    `my-4 text-xl [&:has(+ul,+ol)]:mb-2`,
+    "[&:has(>img:only-child)]:mt-6 [&:has(>img:only-child)]:mb-10 [&>img]:mx-auto [&>img]:rounded-lg",
+    props.class,
+  ]}
+>
   <slot />
 </p>

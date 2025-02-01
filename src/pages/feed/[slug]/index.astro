@@ -1,10 +1,10 @@
 ---
 import { Image } from "astro:assets";
 import Header from "../../../components/Header.astro";
-import HeartIcon from "../../../icons/heart.astro";
-import LinkIcon from "../../../icons/link.astro";
-import DevtoIcon from "../../../icons/devto.astro";
-import TopicIcon from "../../../icons/topic.astro";
+import HeartIcon from "../../../icons/heart.svg";
+import LinkIcon from "../../../icons/link.svg";
+import DevtoIcon from "../../../icons/devto.svg";
+import TopicIcon from "../../../icons/topic.svg";
 import MainLayout from "../../../layouts/Main.astro";
 import PostLayout from "../../../layouts/Post.astro";
 import { formatDate } from "../../../utils";
@@ -52,7 +52,7 @@ const shareData = {
         <Header backLink="/feed">
           <span slot="back-link" class="flex flex-row gap-1"
             ><b>All posts</b>
-            <span class="hidden xs:inline" transition:name="my-name"
+            <span class="xs:inline hidden" transition:name="my-name"
               >by Oleksandr</span
             ></span
           >
@@ -73,7 +73,7 @@ const shareData = {
             <h1 class="text-3xl font-bold [text-wrap:balance] sm:text-4xl">
               {title}
             </h1>
-            <div class="flex justify-between text-base text-on-primary/90">
+            <div class="text-on-primary/90 flex justify-between text-base">
               {
                 topic && (
                   <div class="flex items-center gap-2">
@@ -105,7 +105,7 @@ const shareData = {
     </main>
     <PostLayout>
       <footer
-        class="flex flex-wrap items-center justify-between gap-8 rounded-lg bg-on-background/10 p-8 text-on-background"
+        class="bg-on-background/10 text-on-background flex flex-wrap items-center justify-between gap-8 rounded-lg p-8"
       >
         <div class="text-md flex items-center gap-4">
           <HeartIcon class="w-5 text-red-300" /> Sharing is caring

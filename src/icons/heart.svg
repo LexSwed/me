@@ -1,10 +1,4 @@
----
-export type Props = astroHTML.JSX.SVGAttributes;
-
-const { props } = Astro;
----
-
-<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" {...props}>
+<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
   <g fill="currentColor">
     <path
       d="M232 94c0 66-104 122-104 122S24 160 24 94a54 54 0 0 1 54-54c22.59 0 41.94 12.31 50 32c8.06-19.69 27.41-32 50-32a54 54 0 0 1 54 54Z"
