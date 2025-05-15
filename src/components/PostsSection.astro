@@ -1,6 +1,6 @@
 ---
 import ChevronRight from "../icons/chevron-right.svg";
-import Color from "color";
+import Color, { type ColorInstance } from "color";
 
 import { formatDate } from "../utils";
 import { topicColor, type Topic } from "../content/config";
@@ -13,7 +13,7 @@ const postsWithColor = feed.map((post) => {
 
   const topic = tags[0] as Topic;
 
-  let color: Color;
+  let color: ColorInstance;
   if (topicColor.has(topic)) {
     color = Color(topicColor.get(topic));
   } else {
@@ -113,7 +113,8 @@ const postsWithColor = feed.map((post) => {
     --bg-hsl: var(--bg-h) var(--bg-s) var(--bg-l);
     --bg: hsl(var(--bg-hsl) / 1);
     --bg-gradient-saturation: min(calc(var(--bg-s) + 20%), 100%);
-    --bg-gradient: radial-gradient(
+    --bg-gradient:
+      radial-gradient(
         circle at var(--bg-x) var(--bg-y),
         hsl(
             max(calc(var(--bg-h) - 20deg), 10deg) var(--bg-gradient-saturation)

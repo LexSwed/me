@@ -14,7 +14,7 @@ export default defineConfig({
     syntaxHighlight: false,
   },
   experimental: {
-    svg: true,
+    responsiveImages: true,
   },
   vite: {
     ssr: {
