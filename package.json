@@ -6,16 +6,17 @@
     "node": "^24"
   },
   "private": true,
+  "packageManager": "pnpm@10.32.1",
   "scripts": {
     "dev": "astro dev",
-    "start": "npm run dev",
+    "start": "pnpm dev",
     "build": "astro build",
     "preview": "wrangler pages dev ./dist",
     "astro": "astro",
     "lint": "eslint src --fix",
     "format": "prettier . \"src/**/*.astro\" --write --ignore-unknown",
     "typecheck": "tsc",
-    "check": "astro check src && npm run lint && npm run typecheck"
+    "check": "astro check src && pnpm lint && pnpm typecheck"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.2.6",
