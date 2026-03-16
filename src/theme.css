@@ -4,7 +4,7 @@
 @import "tailwindcss/preflight.css" layer(base);
 @import "tailwindcss/utilities.css" layer(utilities);
 
-@theme {
+@theme inline {
   --breakpoint-xs: 375px;
 
   --color-background: #16161a;
@@ -13,7 +13,7 @@
   --color-on-primary: #232946;
   --color-stroke: #010101;
 
-  --font-sans: "InterVariable", "Inter", sans-serif;
+  --font-sans: var(--font-inter), sans-serif;
 
   --animate-slide-up: slideUp 0.5s 0.3s ease-out both;
   --animate-scale-in: scaleIn 0.6s 0.4s ease-out both;
