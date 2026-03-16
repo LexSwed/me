@@ -1,7 +1,9 @@
-import { z, defineCollection } from "astro:content";
+import { glob } from "astro/loaders";
+import { defineCollection } from "astro:content";
+import { z } from "astro/zod";
 
 const feed = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.mdx", base: "./src/content/feed" }),
   schema: ({ image }) =>
     z.discriminatedUnion("draft", [
       z.object({

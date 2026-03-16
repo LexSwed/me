@@ -36,7 +36,7 @@ export async function getStaticPaths() {
         .png()
         .toBuffer();
       return {
-        params: { slug: post.slug },
+        params: { slug: post.id },
         props: {
           post: {
             title: post.data.title,

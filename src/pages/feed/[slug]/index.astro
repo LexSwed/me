@@ -9,6 +9,7 @@ import MainLayout from "../../../layouts/Main.astro";
 import PostLayout from "../../../layouts/Post.astro";
 import { formatDate } from "../../../utils";
 import type { InferGetStaticPropsType } from "astro";
+import { render } from "astro:content";
 import { getFeed } from "../../../content";
 import Share from "../../../components/Share.astro";
 import { components } from "../../../components/markdown";
@@ -19,7 +20,7 @@ export type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 export async function getStaticPaths() {
   const feed = await getFeed();
   return feed.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
     props: { post },
   }));
 }
@@ -33,7 +34,7 @@ const { title, summary, poster, posterAlt, publishDate, tags, devTo } =
   post.data;
 const publishedAt = formatDate(publishDate);
 const topic = tags.at(0);
-const { Content } = await post.render();
+const { Content } = await render(post);
 const shareData = {
   url: Astro.url.toString(),
   text: `I just read "${title}" by @lexswed`,

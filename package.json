@@ -19,12 +19,12 @@
     "check": "astro check src && pnpm lint && pnpm typecheck"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.2.6",
-    "@astrojs/sitemap": "^3.4.0",
+    "@astrojs/mdx": "^5.0.1",
+    "@astrojs/sitemap": "^3.7.1",
     "@fontsource-variable/inter": "^5.2.5",
     "@vercel/og": "^0.6.8",
-    "astro": "^5.7.13",
-    "astro-expressive-code": "^0.41.2",
+    "astro": "^6.0.5",
+    "astro-expressive-code": "^0.41.7",
     "astro-robots-txt": "^1.0.0",
     "color": "^5.0.0",
     "satori": "^0.13.1",
@@ -32,8 +32,8 @@
     "sharp": "^0.34.1"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/ts-plugin": "^1.10.4",
+    "@astrojs/check": "^0.9.8",
+    "@astrojs/ts-plugin": "^1.10.7",
     "@tailwindcss/vite": "^4.2.1",
     "@types/color": "^4.2.0",
     "autoprefixer": "^10.4.21",

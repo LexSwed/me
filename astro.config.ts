@@ -13,9 +13,6 @@ export default defineConfig({
     gfm: true,
     syntaxHighlight: false,
   },
-  experimental: {
-    responsiveImages: true,
-  },
   vite: {
     ssr: {
       external: ["node:fs", "node:path", "@vercel/og"],
