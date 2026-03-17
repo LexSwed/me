@@ -3,7 +3,7 @@ import ChevronRight from "../icons/chevron-right.svg";
 import Color, { type ColorInstance } from "color";
 
 import { formatDate } from "../utils";
-import { topicColor, type Topic } from "../content/config";
+import { topicColor, type Topic } from "../content.config";
 import { getFeed } from "../content";
 
 const feed = await getFeed();
@@ -28,7 +28,7 @@ const postsWithColor = feed.map((post) => {
     color: pastel,
     createdAt,
     topic,
-    slug: post.slug,
+    slug: post.id,
   };
 });
 ---

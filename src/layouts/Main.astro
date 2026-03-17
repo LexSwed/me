@@ -1,5 +1,4 @@
 ---
-import "@fontsource-variable/inter";
 import "../theme.css";
 
 export interface Props {
@@ -10,7 +9,7 @@ export interface Props {
 
 const { title, description, image } = Astro.props;
 import { ClientRouter } from "astro:transitions";
-import { getImage } from "astro:assets";
+import { Font, getImage } from "astro:assets";
 
 import placeholderImage from "../../public/og/Alex-V.jpeg";
 
@@ -86,6 +85,8 @@ const domain = Astro.url.hostname;
       )
     }
     {image && <meta property="twitter:image" content={imageUrl} />}
+
+    <Font cssVariable="--font-inter" preload />
 
     <style is:global>
       :root {
