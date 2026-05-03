@@ -12,19 +12,17 @@ import type { APIRoute, InferGetStaticPropsType } from "astro";
 import { getFeed } from "../../../content";
 import logo from "../../../../public/logo-inner.svg?raw";
 
-const icon = Buffer.from(
-  logo.replace(`fill="currentColor"`, `fill="#232946"`),
-);
+const icon = Buffer.from(logo.replace(`fill="currentColor"`, `fill="#232946"`));
 const dimensions = {
   width: 1200,
   height: 630,
 } as const;
 const posterSize = 320;
-const inter = fontData["--font-inter"];
+const lexend = fontData["--font-lexend"];
 
 const fonts = Promise.all([
-  loadFont(inter, { weight: 400, style: "normal" }),
-  loadFont(inter, { weight: 600, style: "normal" }),
+  loadFont(lexend, { weight: 400, style: "normal" }),
+  loadFont(lexend, { weight: 600, style: "normal" }),
 ]);
 
 async function loadFont(
@@ -111,7 +109,7 @@ export const GET: APIRoute<Props> = async ({ props }) => {
 
   const markup = html`
     <div
-      style="font-family: 'Inter'"
+      style="font-family: 'Lexend'"
       tw="relative p-12 w-full h-full flex rounded-3xl ${bg} ${text}"
     >
       <div tw="flex items-center absolute right-12 top-12 text-2xl">

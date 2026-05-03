@@ -21,6 +21,7 @@
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",
     "@astrojs/sitemap": "^3.7.2",
+    "@fontsource-variable/lexend": "^5.2.11",
     "astro": "^6.2.1",
     "astro-expressive-code": "^0.41.7",
     "astro-robots-txt": "^1.0.0",
