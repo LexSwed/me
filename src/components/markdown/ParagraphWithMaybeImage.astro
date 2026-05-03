@@ -8,7 +8,7 @@ const { props } = Astro;
 <p
   {...props}
   class:list={[
-    `my-4 text-xl [&:has(+ul,+ol)]:mb-2`,
+    `my-4 text-base [&:has(+ul,+ol)]:mb-2`,
     "[&:has(>img:only-child)]:mt-6 [&:has(>img:only-child)]:mb-10 [&>img]:mx-auto [&>img]:rounded-lg",
     props.class,
   ]}
