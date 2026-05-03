@@ -19,31 +19,30 @@
     "check": "astro check src && pnpm lint && pnpm typecheck"
   },
   "dependencies": {
-    "@astrojs/mdx": "^5.0.1",
-    "@astrojs/sitemap": "^3.7.1",
-    "@vercel/og": "^0.6.8",
-    "astro": "^6.0.5",
+    "@astrojs/mdx": "^5.0.4",
+    "@astrojs/sitemap": "^3.7.2",
+    "astro": "^6.2.1",
     "astro-expressive-code": "^0.41.7",
     "astro-robots-txt": "^1.0.0",
-    "color": "^5.0.0",
-    "satori": "^0.13.1",
+    "color": "^5.0.3",
+    "satori": "^0.13.2",
     "satori-html": "^0.3.2",
-    "sharp": "^0.34.1"
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.8",
+    "@astrojs/check": "^0.9.9",
     "@astrojs/ts-plugin": "^1.10.7",
-    "@tailwindcss/vite": "^4.2.1",
-    "@types/color": "^4.2.0",
-    "autoprefixer": "^10.4.21",
-    "lightningcss": "^1.30.1",
+    "@tailwindcss/vite": "^4.2.4",
+    "@types/color": "^4.2.1",
+    "autoprefixer": "^10.5.0",
+    "lightningcss": "^1.32.0",
     "oxfmt": "^0.41.0",
-    "oxlint": "^1.56.0",
-    "prettier": "^3.5.3",
+    "oxlint": "^1.62.0",
+    "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.7.2",
-    "tailwindcss": "^4.2.1",
+    "prettier-plugin-tailwindcss": "^0.7.4",
+    "tailwindcss": "^4.2.4",
     "typescript": "^5.9.3",
-    "wrangler": "^3.109.1"
+    "wrangler": "^3.114.17"
   }
 }

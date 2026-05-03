@@ -25,9 +25,6 @@ export default defineConfig({
     syntaxHighlight: false,
   },
   vite: {
-    ssr: {
-      external: ["node:fs", "node:path", "@vercel/og"],
-    },
     build: {
       minify: false,
       cssMinify: "lightningcss",

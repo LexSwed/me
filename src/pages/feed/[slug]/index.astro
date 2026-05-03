@@ -40,13 +40,10 @@ const shareData = {
   text: `I just read "${title}" by @lexswed`,
   title,
 };
+const ogImage = new URL("og.png", Astro.url).toString();
 ---
 
-<MainLayout
-  title={title}
-  description={summary}
-  image={`${Astro.url.toString()}/og.png`}
->
+<MainLayout title={title} description={summary} image={ogImage}>
   <header class="bg-primary text-on-primary">
     <PostLayout>
       <div class="flex h-full flex-col gap-6 sm:gap-10">
